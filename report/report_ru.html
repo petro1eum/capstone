@@ -200,6 +200,7 @@ strong { font-weight: 600; color: var(--ink); }
 .swatch { display: inline-block; flex: none; width: 12px; height: 12px; border-radius: 3px; margin-right: 8px; vertical-align: -1px; }
 .legend-list .swatch { margin-right: 0; }
 .legend-list.keys { padding-top: 10px; border-top: 1px solid var(--line); }
+.legend-note { margin: 0; font-size: 0.75rem; line-height: 1.4; color: var(--muted); }
 .key-line { flex: none; display: inline-block; width: 18px; height: 0; border-top: 3px solid var(--water); }
 .key-line.ring-key { border-top: 1.5px solid var(--ring); }
 .key-dot { flex: none; display: inline-block; width: 7px; height: 7px; margin-inline: 5px; border-radius: 50%; background: var(--station); }
@@ -219,6 +220,7 @@ strong { font-weight: 600; color: var(--ink); }
 .badges { display: flex; flex-wrap: wrap; gap: 6px; }
 .badge-strong { background: var(--ink); color: var(--surface); }
 .card-note { margin: 0; font-size: 0.75rem; color: var(--muted); }
+.cell-card .verdict { margin: 0; font-weight: 600; color: var(--ink); }
 
 /* ---------- tables ---------- */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -257,6 +259,20 @@ tr.best td { font-weight: 600; }
 }
 .chips { display: flex; flex-wrap: wrap; gap: 4px; }
 .chip.warn { background: transparent; box-shadow: inset 0 0 0 1.5px var(--accent); }
+.chip.new { background: transparent; box-shadow: inset 0 0 0 1.5px var(--more); }
+.chip-notes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.chip-notes .chip { margin-right: 6px; }
+td.key { font-weight: 600; color: var(--ink); }
+.table-note { margin: 6px 0 0; font-size: 0.8125rem; color: var(--muted); }
+.glossary { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 24px; }
+.glossary div { display: contents; }
+.glossary dt { font-weight: 600; }
+.glossary dd { margin: 0; color: var(--ink-2); }
+details.details { border-top: 1px solid var(--line); padding-top: 12px; }
+details.details summary { cursor: pointer; font-weight: 600; color: var(--ink-2); }
+details.details summary:hover { color: var(--ink); }
+details.details[open] { display: flex; flex-direction: column; gap: 12px; }
+details.details p { margin: 0; }
 
 /* ---------- steps and lists ---------- */
 .steps { display: flex; flex-direction: column; gap: 12px; padding-left: 1.4em; }
@@ -313,6 +329,8 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
   .page { gap: 56px; padding-block: 32px 48px; padding-inline: 16px; }
 }
 @media (max-width: 560px) {
+  .glossary { grid-template-columns: 1fr; gap: 2px; }
+  .glossary dd { margin-bottom: 10px; }
   .dot-row { grid-template-columns: minmax(0, 1fr) 3rem; grid-template-areas: "label value" "track track"; gap: 2px 8px; }
   .dot-label { grid-area: label; }
   .dot-value { grid-area: value; }
@@ -336,36 +354,49 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
   <header class="masthead">
     <p class="kicker">Капстоун-проект IBM Data Science · Москва, 2019&nbsp;→&nbsp;2026</p>
     <h1>Где открыть кафе в&nbsp;центре Москвы</h1>
-    <p class="lede">В 2019 году в радиусе 6&nbsp;км от Красной площади работали 3 956 кафе и ресторанов.
-    Модель оценила, сколько заведений обычно бывает в месте с таким окружением, и нашла места у метро,
-    где их заметно меньше. Через семь лет видно, что стало с этими местами: там, где в 2019 году кафе
-    не хватало, их стало в 1,7 раза больше, а в перенасыщенных местах меньше. Эти годы перетряхнули рынок
-    пандемией, войной, санкциями и уходом иностранных сетей, поэтому совпадение подкрепляет метод, но
-    не доказывает его. Тот же метод на данных 2026 года даёт свежий шорт-лист.</p>
+    <p class="lede">Мы разделили центр Москвы в радиусе 6&nbsp;км от Красной площади на 364 участка и для
+    каждого посчитали, сколько рядом кафе и ресторанов и сколько того, что приводит туда людей: выходов
+    метро, магазинов, парикмахерских и мастерских, остановок. Сравнивая участки между собой, модель
+    узнаёт, сколько кафе обычно бывает там, где столько же метро, магазинов и услуг. Где кафе заметно
+    меньше обычного, новое кафе получит тот же поток людей при меньшем числе конкурентов.</p>
     <dl class="facts">
-      <div><dt>67%</dt><dd>разброса числа кафе объясняет модель на пространственной кросс-валидации
-      (данные 2019 года)</dd></div>
-      <div><dt>×1,69</dt><dd>во столько раз выросло к 2026 году число заведений там, где в 2019-м их
-      было меньше всего относительно ожидания; в самых насыщенных местах ×0,89</dd></div>
-      <div><dt>36&nbsp;→&nbsp;69</dt><dd>заведений было и стало в десяти
-      местах шорт-листа 2019 года</dd></div>
-      <div><dt>3</dt><dd>устойчивых кандидата на 2026 год: Кутузовская, Марьина Роща, Савёловская</dd></div>
+      <div><dt>3</dt><dd>лучших места на 2026 год: Кутузовская, Марьина Роща и Савёловская. Кафе здесь заметно
+      меньше обычного, и это подтверждают все проверки</dd></div>
+      <div><dt>67%</dt><dd>различий в числе кафе между участками объясняет окружение: метро,
+      магазины, услуги и расстояние до центра</dd></div>
+      <div><dt>+69%</dt><dd>стало кафе к 2026 году там, где в 2019-м их сильнее всего не хватало.
+      Где кафе было с избытком, их стало на 11% меньше</dd></div>
+      <div><dt>36&nbsp;→&nbsp;69</dt><dd>кафе было в 2019 году и стало
+      в 2026-м на десяти участках, которые модель выбрала по данным 2019 года</dd></div>
     </dl>
   </header>
+
+  <section class="prose" id="glossary" aria-labelledby="glossary-title">
+    <h2 id="glossary-title">Как читать карту и таблицы</h2>
+    <dl class="glossary">
+      <div><dt>Участок</dt><dd>Шестиугольник около 600&nbsp;м в поперечнике. Всего их 364.</dd></div>
+      <div><dt>Кафе рядом</dt><dd>Кафе и рестораны в 300&nbsp;м от центра участка, это около пяти минут
+      пешком. Фастфуд, бары и столовые не считаются.</dd></div>
+      <div><dt>Обычно</dt><dd>Сколько кафе в среднем бывает на участках с таким же окружением: с тем же
+      числом выходов метро, магазинов, услуг и остановок и на том же расстоянии от центра.</dd></div>
+      <div><dt>Не хватает кафе</dt><dd>Кафе рядом заметно меньше, чем обычно. На карте такие участки
+      красные, а участки, где кафе больше обычного, синие.</dd></div>
+    </dl>
+  </section>
 
   <section class="wide" id="map" aria-labelledby="map-title">
     <div class="section-head">
       <h2 id="map-title">Карта: где кафе меньше, чем обычно</h2>
-      <div class="tabs" role="tablist" aria-label="Слой карты">
-        <button class="tab" role="tab" aria-selected="true" data-layer="score2026">Разрыв 2026</button>
-        <button class="tab" role="tab" aria-selected="false" data-layer="score2019">Разрыв 2019</button>
-        <button class="tab" role="tab" aria-selected="false" data-layer="type">Типы мест</button>
-        <button class="tab" role="tab" aria-selected="false" data-layer="competitors">Конкуренты 2026</button>
+      <div class="tabs" role="tablist" aria-label="Что показать на карте">
+        <button class="tab" role="tab" aria-selected="true" data-layer="score2026">Нехватка кафе, 2026</button>
+        <button class="tab" role="tab" aria-selected="false" data-layer="score2019">Нехватка кафе, 2019</button>
+        <button class="tab" role="tab" aria-selected="false" data-layer="type">Типы районов</button>
+        <button class="tab" role="tab" aria-selected="false" data-layer="competitors">Кафе сейчас</button>
       </div>
     </div>
     <div class="map-layout">
       <figure class="map-frame">
-        <svg id="map-svg" role="img" aria-label="Карта ячеек сетки в радиусе 6 км от Красной площади"></svg>
+        <svg id="map-svg" role="img" aria-label="Карта участков в радиусе 6 км от Красной площади"></svg>
         <div class="tip" id="map-tip" hidden></div>
       </figure>
       <aside class="map-side">
@@ -373,221 +404,214 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
         <div id="cell-card" class="cell-card" aria-live="polite"></div>
       </aside>
     </div>
-    <p class="note">Наведите на ячейку или нажмите на неё, чтобы увидеть цифры обоих лет; числа в кружках
-    обозначают шорт-лист 2026 года, а на слое «Разрыв 2019» список 2019 года. Голубые линии: Москва-река и Яуза, серые: Бульварное, Садовое и Третье
-    транспортное кольца, точки: станции метро. Сетка повёрнута примерно на 17°, потому что в 2019 году её
-    строили в зоне UTM 33.</p>
+    <p class="note">Наведите на участок или нажмите на него, чтобы увидеть цифры. Числа в кружках обозначают
+    места из списка 2026 года, а на вкладке 2019 года места из списка 2019 года. Голубые линии показывают
+    Москву-реку и Яузу, серые линии Бульварное, Садовое и Третье транспортное кольца, точки станции метро.</p>
   </section>
 
   <section class="wide" id="shortlist" aria-labelledby="shortlist-title">
-    <h2 id="shortlist-title">Шорт-лист 2026: десять мест</h2>
-    <p class="prose">Ячейки у метро с уличной торговлей вокруг, где кафе и ресторанов меньше всего
-    относительно ожидания модели. Конкуренты и генераторы трафика (входы метро, МЦК и МЦД, остановки,
-    магазины, услуги, фитнес-клубы) взяты из OpenStreetMap на 28&nbsp;сентября 2026&nbsp;г., парковки из 2019 года. Оценка
-    усреднена по трём радиусам (250, 300 и 400&nbsp;м), факт и ожидание даны для 300&nbsp;м. Столбец «Реестр 2019» показывает, сколько кафе и ресторанов было здесь по городскому
-    реестру семь лет назад. Нажмите на строку, чтобы найти место на карте.</p>
-    <div class="table-wrap"><table class="shortlist"><thead><tr><th class="num">№</th><th>Метро</th><th>Адрес центра ячейки</th><th class="num">До выхода метро</th><th class="num">До Красной площади</th><th class="num">Кафе и рестораны: факт / ожидание</th><th class="num">Оценка</th><th class="num">Реестр 2019</th><th class="num">Место при 250 · 300 · 400&nbsp;м</th><th></th></tr></thead><tbody><tr data-cell="330" tabindex="0" aria-label="Показать место № 1 на карте"><td class="num">1</td><td>Митьково</td><td class="address">Русаковская улица, 8 c3<a class="osm" href="https://www.openstreetmap.org/?mlat=55.782115&amp;mlon=37.67335#map=17/55.782115/37.67335" target="_blank" rel="noopener">OSM ↗</a></td><td class="num">347&nbsp;м</td><td class="num">4,5&nbsp;км</td><td class="num">0 / 7,2</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,82</td><td class="num">2</td><td class="num">1 · 1 · —</td><td><span class="chips"></span></td></tr><tr data-cell="60" tabindex="0" aria-label="Показать место № 2 на карте"><td class="num">2</td><td>Кутузовская</td><td class="address">Кутузовский проспект, 35<a class="osm" href="https://www.openstreetmap.org/?mlat=55.740622&amp;mlon=37.539417#map=17/55.740622/37.539417" target="_blank" rel="noopener">OSM ↗</a></td><td class="num">309&nbsp;м</td><td class="num">5,3&nbsp;км</td><td class="num">1 / 9,5</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,67</td><td class="num">2</td><td class="num">3 · 2 · 1</td><td><span class="chips"><span class="chip">устойчиво</span></span></td></tr><tr data-cell="324" tabindex="0" aria-label="Показать место № 3 на карте"><td class="num">3</td><td>Марьина Роща</td><td class="address">улица Сущёвский Вал, 56<a class="osm" href="https://www.openstreetmap.org/?mlat=55.792416&amp;mlon=37.620372#map=17/55.792416/37.620372" target="_blank" rel="noopener">OSM ↗</a></td><td class="num">248&nbsp;м</td><td class="num">4,3&nbsp;км</td><td class="num">1 / 7,9</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,58</td><td class="num">3</td><td class="num">6 · 4 · 2</td><td><span class="chips"><span class="chip">устойчиво</span></span></td></tr><tr data-cell="303" tabindex="0" aria-label="Показать место № 4 на карте"><td class="num">4</td><td>Лефортово</td><td class="address">Солдатский переулок, 8<a class="osm" href="https://www.openstreetmap.org/?mlat=55.766623&amp;mlon=37.703362#map=17/55.766623/37.703362" target="_blank" rel="noopener">OSM ↗</a></td><td class="num">228&nbsp;м</td><td class="num">5,3&nbsp;км</td><td class="num">2 / 10,8</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,56</td><td class="num">2</td><td class="num">4 · 5 · —</td><td><span class="chips"></span></td></tr><tr data-cell="307" tabindex="0" aria-label="Показать место № 5 на карте"><td class="num">5</td><td>Савёловская</td><td class="address">улица Сущёвский Вал, 9 с7<a class="osm" href="https://www.openstreetmap.org/?mlat=55.792391&amp;mlon=37.595654#map=17/55.792391/37.595654" target="_blank" rel="noopener">OSM ↗</a></td><td class="num">381&nbsp;м</td><td class="num">4,6&nbsp;км</td><td class="num">1 / 8,1</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,55</td><td class="num">9</td><td class="num">7 · 3 · 3</td><td><span class="chips"><span class="chip">устойчиво</span><span class="chip warn">сверить данные</span></span></td></tr><tr data-cell="343" tabindex="0" aria-label="Показать место № 6 на карте"><td class="num">6</td><td>Митьково</td><td class="address">улица Шумкина, 20 с2<a class="osm" href="https://www.openstreetmap.org/?mlat=55.787282&amp;mlon=37.671577#map=17/55.787282/37.671577" target="_blank" rel="noopener">OSM ↗</a></td><td class="num">282&nbsp;м</td><td class="num">4,9&nbsp;км</td><td class="num">1 / 7,5</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,45</td><td class="num">3</td><td class="num">5 · 6 · —</td><td><span class="chips"></span></td></tr><tr data-cell="188" tabindex="0" aria-label="Показать место № 7 на карте"><td class="num">7</td><td>Римская</td><td class="address">улица Рогожский Вал, 9/2 с2<a class="osm" href="https://www.openstreetmap.org/?mlat=55.742498&amp;mlon=37.678702#map=17/55.742498/37.678702" target="_blank" rel="noopener">OSM ↗</a></td><td class="num">440&nbsp;м</td><td class="num">3,8&nbsp;км</td><td class="num">4 / 11,9</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,33</td><td class="num">8</td><td class="num">21 · 10 · 4</td><td><span class="chips"></span></td></tr><tr data-cell="61" tabindex="0" aria-label="Показать место № 8 на карте"><td class="num">8</td><td>Студенческая</td><td class="address">Киевская улица, 20<a class="osm" href="https://www.openstreetmap.org/?mlat=55.738914&amp;mlon=37.548243#map=17/55.738914/37.548243" target="_blank" rel="noopener">OSM ↗</a></td><td class="num">6&nbsp;м</td><td class="num">4,9&nbsp;км</td><td class="num">4 / 10,2</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,33</td><td class="num">5</td><td class="num">15 · 19 · 5</td><td><span class="chips"></span></td></tr><tr data-cell="192" tabindex="0" aria-label="Показать место № 9 на карте"><td class="num">9</td><td>Беговая</td><td class="address">Хорошёвское шоссе, 1<a class="osm" href="https://www.openstreetmap.org/?mlat=55.773369&amp;mlon=37.544541#map=17/55.773369/37.544541" target="_blank" rel="noopener">OSM ↗</a></td><td class="num">4&nbsp;м</td><td class="num">5,3&nbsp;км</td><td class="num">4 / 10,4</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,31</td><td class="num">8</td><td class="num">8 · 17 · 7</td><td><span class="chips"></span></td></tr><tr data-cell="157" tabindex="0" aria-label="Показать место № 10 на карте"><td class="num">10</td><td>Краснопресненская</td><td class="address">Дружинниковская улица, 11А с3<a class="osm" href="https://www.openstreetmap.org/?mlat=55.757906&amp;mlon=37.574609#map=17/55.757906/37.574609" target="_blank" rel="noopener">OSM ↗</a></td><td class="num">301&nbsp;м</td><td class="num">3,0&nbsp;км</td><td class="num">3 / 9,6</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,26</td><td class="num">4</td><td class="num">11 · 12 · 10</td><td><span class="chips"></span></td></tr></tbody></table></div>
+    <h2 id="shortlist-title">Десять мест на 2026 год</h2>
+    <p class="prose">Участки у метро, где уже есть магазины и услуги, а значит, и помещения под кафе, но кафе
+    заметно меньше обычного. Сверху те, где нехватка сильнее всего. Кафе, метро, магазины и услуги взяты
+    из OpenStreetMap на 28&nbsp;сентября 2026&nbsp;года. Нажмите на строку, чтобы найти место на карте.</p>
+    <div class="table-wrap"><table class="shortlist"><thead><tr><th class="num">№</th><th>Где</th><th>Метро, до входа</th><th class="num">До центра</th><th class="num">Кафе рядом</th><th class="num">Обычно</th><th class="num">В 2019</th><th></th></tr></thead><tbody><tr data-cell="330" tabindex="0" aria-label="Показать место № 1 на карте"><td class="num">1</td><td class="address">Русаковская улица, 8 c3<a class="osm" href="https://www.openstreetmap.org/?mlat=55.782115&amp;mlon=37.67335#map=17/55.782115/37.67335" target="_blank" rel="noopener">OSM ↗</a></td><td>Митьково, 347&nbsp;м</td><td class="num">4,5&nbsp;км</td><td class="num key">0</td><td class="num">7</td><td class="num">2</td><td><span class="chips"><span class="chip new">новая станция</span></span></td></tr><tr data-cell="60" tabindex="0" aria-label="Показать место № 2 на карте"><td class="num">2</td><td class="address">Кутузовский проспект, 35<a class="osm" href="https://www.openstreetmap.org/?mlat=55.740622&amp;mlon=37.539417#map=17/55.740622/37.539417" target="_blank" rel="noopener">OSM ↗</a></td><td>Кутузовская, 309&nbsp;м</td><td class="num">5,3&nbsp;км</td><td class="num key">1</td><td class="num">10</td><td class="num">2</td><td><span class="chips"><span class="chip">надёжно</span></span></td></tr><tr data-cell="324" tabindex="0" aria-label="Показать место № 3 на карте"><td class="num">3</td><td class="address">улица Сущёвский Вал, 56<a class="osm" href="https://www.openstreetmap.org/?mlat=55.792416&amp;mlon=37.620372#map=17/55.792416/37.620372" target="_blank" rel="noopener">OSM ↗</a></td><td>Марьина Роща, 248&nbsp;м</td><td class="num">4,3&nbsp;км</td><td class="num key">1</td><td class="num">8</td><td class="num">3</td><td><span class="chips"><span class="chip">надёжно</span></span></td></tr><tr data-cell="303" tabindex="0" aria-label="Показать место № 4 на карте"><td class="num">4</td><td class="address">Солдатский переулок, 8<a class="osm" href="https://www.openstreetmap.org/?mlat=55.766623&amp;mlon=37.703362#map=17/55.766623/37.703362" target="_blank" rel="noopener">OSM ↗</a></td><td>Лефортово, 228&nbsp;м</td><td class="num">5,3&nbsp;км</td><td class="num key">2</td><td class="num">11</td><td class="num">2</td><td><span class="chips"><span class="chip new">новая станция</span></span></td></tr><tr data-cell="307" tabindex="0" aria-label="Показать место № 5 на карте"><td class="num">5</td><td class="address">улица Сущёвский Вал, 9 с7<a class="osm" href="https://www.openstreetmap.org/?mlat=55.792391&amp;mlon=37.595654#map=17/55.792391/37.595654" target="_blank" rel="noopener">OSM ↗</a></td><td>Савёловская, 381&nbsp;м</td><td class="num">4,6&nbsp;км</td><td class="num key">1</td><td class="num">8</td><td class="num">9</td><td><span class="chips"><span class="chip">надёжно</span><span class="chip warn">проверить на месте</span></span></td></tr><tr data-cell="343" tabindex="0" aria-label="Показать место № 6 на карте"><td class="num">6</td><td class="address">улица Шумкина, 20 с2<a class="osm" href="https://www.openstreetmap.org/?mlat=55.787282&amp;mlon=37.671577#map=17/55.787282/37.671577" target="_blank" rel="noopener">OSM ↗</a></td><td>Митьково, 282&nbsp;м</td><td class="num">4,9&nbsp;км</td><td class="num key">1</td><td class="num">8</td><td class="num">3</td><td><span class="chips"><span class="chip new">новая станция</span></span></td></tr><tr data-cell="188" tabindex="0" aria-label="Показать место № 7 на карте"><td class="num">7</td><td class="address">улица Рогожский Вал, 9/2 с2<a class="osm" href="https://www.openstreetmap.org/?mlat=55.742498&amp;mlon=37.678702#map=17/55.742498/37.678702" target="_blank" rel="noopener">OSM ↗</a></td><td>Римская, 440&nbsp;м</td><td class="num">3,8&nbsp;км</td><td class="num key">4</td><td class="num">12</td><td class="num">8</td><td><span class="chips"></span></td></tr><tr data-cell="61" tabindex="0" aria-label="Показать место № 8 на карте"><td class="num">8</td><td class="address">Киевская улица, 20<a class="osm" href="https://www.openstreetmap.org/?mlat=55.738914&amp;mlon=37.548243#map=17/55.738914/37.548243" target="_blank" rel="noopener">OSM ↗</a></td><td>Студенческая, 6&nbsp;м</td><td class="num">4,9&nbsp;км</td><td class="num key">4</td><td class="num">10</td><td class="num">5</td><td><span class="chips"></span></td></tr><tr data-cell="192" tabindex="0" aria-label="Показать место № 9 на карте"><td class="num">9</td><td class="address">Хорошёвское шоссе, 1<a class="osm" href="https://www.openstreetmap.org/?mlat=55.773369&amp;mlon=37.544541#map=17/55.773369/37.544541" target="_blank" rel="noopener">OSM ↗</a></td><td>Беговая, 4&nbsp;м</td><td class="num">5,3&nbsp;км</td><td class="num key">4</td><td class="num">10</td><td class="num">8</td><td><span class="chips"></span></td></tr><tr data-cell="157" tabindex="0" aria-label="Показать место № 10 на карте"><td class="num">10</td><td class="address">Дружинниковская улица, 11А с3<a class="osm" href="https://www.openstreetmap.org/?mlat=55.757906&amp;mlon=37.574609#map=17/55.757906/37.574609" target="_blank" rel="noopener">OSM ↗</a></td><td>Краснопресненская, 301&nbsp;м</td><td class="num">3,0&nbsp;км</td><td class="num key">3</td><td class="num">10</td><td class="num">4</td><td><span class="chips"></span></td></tr></tbody></table></div>
     <div class="prose">
-      <p><strong>Устойчивые кандидаты</strong> (№&nbsp;2, 3 и 5) проходят фильтры при любом радиусе и держатся
-      в первой дюжине при каждом, остаются в топ-10, даже если считать конкурентами ещё и фастфуд, были
-      недообеспечены уже по реестру 2019 года и входят в первую десятку и со слоями трафика 2019 года.</p>
-      <p><strong>Новые станции, новые разрывы.</strong> №&nbsp;1 и №&nbsp;6 стоят у станции МЦД Митьково,
-      №&nbsp;4 у станции БКЛ «Лефортово», открытой в 2023 году; в 2019 году метро здесь было далеко. Модель
-      ждёт здесь кафе из-за нового потока людей, а открыться они ещё не успели. Это самые молодые разрывы
-      в списке и наименее проверенные: при радиусе 400&nbsp;м ни одна из трёх ячеек не проходит фильтры.</p>
-      <p><strong>Рынки выпали из списка.</strong> Реестр 2019 года считал 1&nbsp;316 торговых мест
-      «Дубровки» магазинами, а OpenStreetMap отмечает там 23 магазина. Ячейка у Рижской тоже больше
-      не проходит фильтры: магазинов и услуг вокруг неё в OpenStreetMap меньше, чем было в реестрах. Это
-      пробелы в данных, а не на рынке.</p>
-      <p><strong>Сверьте данные перед выездом.</strong> OpenStreetMap пропускает заведения, чаще всего
-      внутри рынков и торговых центров. У №&nbsp;5, Савёловской, реестр 2019 года насчитывал 9 заведений,
-      все в комплексе Савёловского рынка (Сущёвский Вал, 5), а OpenStreetMap знает одно. Место остаётся
-      кандидатом, потому что и в 2019 году здесь было 9 заведений при ожидаемых 25.</p>
+      <p><strong>Как читать таблицу.</strong> «Кафе рядом» показывает, сколько кафе и ресторанов сейчас
+      в 300&nbsp;м от участка, «Обычно» показывает, сколько их бывает у похожих участков, а «В 2019» сколько
+      было по городскому реестру семь лет назад. Места упорядочены по тому, насколько кафе меньше обычного,
+      с поправкой на надёжность: нехватка пяти кафе там, где обычно восемь, значит больше, чем та же
+      нехватка там, где обычно пятьдесят.</p>
+      <ul class="chip-notes">
+        <li><span class="chip">надёжно</span> Место остаётся среди лучших, как бы мы ни меняли расчёт:
+        считали кафе в 250 или 400&nbsp;м вместо 300, добавляли к конкурентам фастфуд, брали данные
+        о метро и магазинах 2019 года. И кафе здесь не хватало уже в 2019 году. Таких мест три:
+        №&nbsp;2, 3 и 5.</li>
+        <li><span class="chip new">новая станция</span> Рядом открылась станция после 2019 года:
+        №&nbsp;1 и №&nbsp;6 стоят у станции МЦД Митьково, №&nbsp;4 у станции «Лефортово» Большой кольцевой
+        линии, открытой в 2023 году. Люди здесь уже ходят, а кафе ещё не успели открыться. Эти ниши самые
+        свежие, но они же быстрее всего могут закрыться, и проверок у них меньше: при радиусе 400&nbsp;м они
+        в отбор не проходят.</li>
+        <li><span class="chip warn">проверить на месте</span> В OpenStreetMap здесь намного меньше кафе,
+        чем было в городском реестре, и часть кафе могла просто не попасть на карту. У №&nbsp;5 все 9 кафе
+        из реестра стояли в комплексе Савёловского рынка (Сущёвский Вал, 5), а OpenStreetMap знает одно.
+        Но кафе здесь не хватало и в 2019 году: 9 при обычных 25.</li>
+      </ul>
+      <p><strong>Почему в списке нет рынков.</strong> Городской реестр 2019 года считал каждое торговое
+      место «Дубровки» отдельным магазином, их было 1&nbsp;316, а в OpenStreetMap там 23 магазина. Поэтому
+      по данным 2026 года модель недооценивает поток людей у рынков, и участки у «Дубровки» и Рижского
+      рынка выпали из списка. Это пробел в данных, а не отсутствие покупателей.</p>
     </div>
   </section>
 
   <section class="wide" id="backtest" aria-labelledby="backtest-title">
     <h2 id="backtest-title">Проверка временем: 2019&nbsp;→&nbsp;2026</h2>
     <div class="prose">
-      <p>Модель обучена на городском реестре общепита 2019 года, а OpenStreetMap показывает, где кафе
-      и рестораны находятся в 2026 году. Если ожидание модели отражает реальный спрос, то там, где в 2019 году
-      заведений было меньше ожидаемого, их должно прибавиться, а в перенасыщенных местах убавиться. Источники
-      разные, но вокруг ячеек они насчитывают почти поровну: 3 659 заведений в реестре 2019 года
-      и 3 691 в OpenStreetMap. Поэтому сравниваются изменения между ячейками, а не точные числа.</p>
-      <figure class="chart" id="quintiles"><figcaption><strong>Сколько заведений стало к 2026 году</strong>Ячейки разбиты на пять равных групп по оценке 2019 года. Отношение числа кафе и ресторанов в OpenStreetMap 2026 к реестру 2019; вертикальная линия отмечает ×1.</figcaption><div class="bars"><div class="bar-row"><span class="bar-label">1: самые недообеспеченные<small>130 → 220</small></span><span class="bar-track"><span class="bar" style="width:94.0%;background:var(--d0)"></span><span class="ref" style="left:55.6%"></span></span><span class="bar-value">×1,69</span></div><div class="bar-row"><span class="bar-label">2<small>337 → 431</small></span><span class="bar-track"><span class="bar" style="width:71.1%;background:var(--d1)"></span><span class="ref" style="left:55.6%"></span></span><span class="bar-value">×1,28</span></div><div class="bar-row"><span class="bar-label">3<small>635 → 686</small></span><span class="bar-track"><span class="bar" style="width:60.0%;background:var(--ring)"></span><span class="ref" style="left:55.6%"></span></span><span class="bar-value">×1,08</span></div><div class="bar-row"><span class="bar-label">4<small>1 046 → 1 004</small></span><span class="bar-track"><span class="bar" style="width:53.3%;background:var(--d5)"></span><span class="ref" style="left:55.6%"></span></span><span class="bar-value">×0,96</span></div><div class="bar-row"><span class="bar-label">5: самые насыщенные<small>1 511 → 1 350</small></span><span class="bar-track"><span class="bar" style="width:49.6%;background:var(--d6)"></span><span class="ref" style="left:55.6%"></span></span><span class="bar-value">×0,89</span></div></div></figure>
-      <p>В самой недообеспеченной пятой части ячеек заведений стало в 1,7 раза больше, в самой насыщенной
-      на 11% меньше. Отчасти это возврат к среднему: случайно низкий счёт в одном источнике обычно
-      выше в другом. Но и при одинаковом числе заведений в 2019 году ячейка, где модель ожидала вдвое
-      больше, к 2026 году получила в среднем на 10% больше заведений (95% интервал блочного
-      бутстрэпа: от +1 до +19%).</p>
-      <h3>Рынок или сами эти годы?</h3>
-      <p>Семь лет между источниками были необычными: пандемия и удалёнка, война и санкции, уход
-      иностранных сетей (Starbucks, McDonald’s и KFC открылись под новыми вывесками), обвал иностранного
-      туризма. Такие шоки сами перемещают кафе между типами мест, поэтому их нужно отделить от модели:</p>
+      <p>Впервые модель посчитали на данных 2019 года. Теперь видно, что стало с местами, которые она тогда
+      отметила. Если модель права, там, где кафе не хватало, их должно было стать больше, а там, где был
+      избыток, меньше. Кафе 2019 года взяты из городского реестра, кафе 2026 года из OpenStreetMap. Вокруг
+      участков оба источника насчитывают почти поровну (3 659 и 3 691), так что их можно
+      сравнивать.</p>
+      <figure class="chart" id="quintiles"><figcaption><strong>Как изменилось число кафе с 2019 по 2026 год</strong>Все участки разделены на пять равных групп по тому, насколько в 2019 году кафе не хватало. Пунктир отмечает «без изменений».</figcaption><div class="bars"><div class="bar-row"><span class="bar-label">Сильнее всего не хватало<small>130 → 220 кафе</small></span><span class="bar-track"><span class="bar" style="width:94.0%;background:var(--d0)"></span><span class="ref" style="left:55.6%"></span></span><span class="bar-value">+69%</span></div><div class="bar-row"><span class="bar-label">Скорее не хватало<small>337 → 431 кафе</small></span><span class="bar-track"><span class="bar" style="width:71.1%;background:var(--d1)"></span><span class="ref" style="left:55.6%"></span></span><span class="bar-value">+28%</span></div><div class="bar-row"><span class="bar-label">Как обычно<small>635 → 686 кафе</small></span><span class="bar-track"><span class="bar" style="width:60.0%;background:var(--ring)"></span><span class="ref" style="left:55.6%"></span></span><span class="bar-value">+8%</span></div><div class="bar-row"><span class="bar-label">Скорее с избытком<small>1 046 → 1 004 кафе</small></span><span class="bar-track"><span class="bar" style="width:53.3%;background:var(--d5)"></span><span class="ref" style="left:55.6%"></span></span><span class="bar-value">−4%</span></div><div class="bar-row"><span class="bar-label">Больше всего с избытком<small>1 511 → 1 350 кафе</small></span><span class="bar-track"><span class="bar" style="width:49.6%;background:var(--d6)"></span><span class="ref" style="left:55.6%"></span></span><span class="bar-value">−11%</span></div></div></figure>
+      <p>Так и вышло: там, где кафе сильнее всего не хватало, их стало на 69% больше, а там, где был
+      избыток, на 11% меньше. Из десяти мест списка 2019 года кафе прибавилось в 8, всего их
+      стало 69 вместо 36. В список 2026 года не вошло ни одно из них.</p>
+      <h3>Это заслуга модели или самих этих лет?</h3>
+      <p>Годы между 2019 и 2026 были необычными: пандемия и удалёнка, война и санкции, уход иностранных
+      сетей (Starbucks, McDonald’s и KFC открылись под новыми вывесками), почти полное исчезновение
+      иностранных туристов. Эти события сами двигали кафе, поэтому их надо отделить от модели:</p>
       <ul>
-        <li>Дальше 3&nbsp;км от Красной площади картина та же: ×1,62 в самой недообеспеченной пятой
-        части и ×0,83 в самой насыщенной. Дело не только в опустевшем туристическом центре.</li>
-        <li>Если добавить в регрессию расстояние до Красной площади, эффект ожидания модели падает
-        до +4% (95% интервал: от −5 до +13%) и становится
-        неотличим от нуля. Вклад модели трудно отделить от географии.</li>
-        <li>Изменение сильно зависит от типа места: транспортные узлы потеряли 12% заведений
-        (улицы у Кремля, Экспоцентр, крупные торговые центры), жилой пояс прибавил 11%, парки
-        и бывшие промзоны выросли вдвое с низкой базы. Часть потерь узлов связана с тем, что OpenStreetMap
-        хуже реестра учитывает заведения внутри торговых и выставочных центров.</li>
+        <li>Дальше 3&nbsp;км от Красной площади, где туристов было немного и в 2019 году, картина та же:
+        +62% там, где кафе не хватало, и −17% там, где был избыток.</li>
+        <li>Сильнее всего изменились типы районов: у транспортных узлов кафе стало на 12% меньше
+        (улицы у Кремля, Экспоцентр, крупные торговые центры), в жилых районах на 11% больше,
+        в парках и бывших промзонах вдвое больше, хотя их там и было немного.</li>
+        <li>Если учесть, насколько участок далеко от центра, вклад самой модели становится неразличимым:
+        остаётся разница, которая может быть случайной.</li>
       </ul>
-      <div class="table-wrap"><table class="compact"><thead><tr><th>Тип места</th><th class="num">Ячеек</th><th class="num">Заведений в 2019</th><th class="num">В 2026</th><th class="num">Изменение</th></tr></thead><tbody><tr><td><span class="swatch t0" aria-hidden="true"></span>Транспортные узлы</td><td class="num">45</td><td class="num">1 284</td><td class="num">1 126</td><td class="num">×0,88</td></tr><tr><td><span class="swatch t1" aria-hidden="true"></span>Центральные кварталы</td><td class="num">76</td><td class="num">1 430</td><td class="num">1 428</td><td class="num">×1,00</td></tr><tr><td><span class="swatch t2" aria-hidden="true"></span>Жилой пояс</td><td class="num">157</td><td class="num">847</td><td class="num">936</td><td class="num">×1,11</td></tr><tr><td><span class="swatch t3" aria-hidden="true"></span>Парки, железные дороги и промзоны</td><td class="num">86</td><td class="num">98</td><td class="num">201</td><td class="num">×2,05</td></tr></tbody></table></div>
-      <p>Проверка совпадает с моделью по направлению, но не доказывает её, потому что шоки этих лет
-      двигали рынок в ту же сторону. Практический вывод от этого не меняется: разрывы долго не держатся.</p>
-      <p><strong>Шорт-лист 2019 года.</strong> В 8 из 10 мест заведений прибавилось, всего их стало
-      69 вместо 36. В шорт-лист 2026 года не вошло ни одно из них.</p>
+      <div class="table-wrap"><table class="compact"><thead><tr><th>Тип района</th><th class="num">Участков</th><th class="num">Кафе в 2019</th><th class="num">Кафе в 2026</th><th class="num">Изменение</th></tr></thead><tbody><tr><td><span class="swatch t0" aria-hidden="true"></span>Транспортные узлы</td><td class="num">45</td><td class="num">1 284</td><td class="num">1 126</td><td class="num key">−12%</td></tr><tr><td><span class="swatch t1" aria-hidden="true"></span>Центральные кварталы</td><td class="num">76</td><td class="num">1 430</td><td class="num">1 428</td><td class="num key">0%</td></tr><tr><td><span class="swatch t2" aria-hidden="true"></span>Жилой пояс</td><td class="num">157</td><td class="num">847</td><td class="num">936</td><td class="num key">+11%</td></tr><tr><td><span class="swatch t3" aria-hidden="true"></span>Парки, железные дороги и промзоны</td><td class="num">86</td><td class="num">98</td><td class="num">201</td><td class="num key">+105%</td></tr></tbody></table></div>
+      <p>Модель указала в правильную сторону, но доказать, что дело именно в ней, эти данные не могут:
+      события этих лет двигали рынок туда же. Практический урок от этого не меняется. Ниши заполняются
+      за несколько лет, поэтому список мест нужно пересчитывать.</p>
+      <details class="details">
+        <summary>Подробнее для специалистов</summary>
+        <p>При одинаковом числе кафе в 2019 году участок, где модель ожидала вдвое больше, получил к 2026
+        году в среднем на 10% больше кафе (95% интервал блочного бутстрэпа: от +1
+        до +19%). С поправкой на расстояние до Красной площади эффект равен +4%
+        (от −5 до +13%). Часть изменения объясняется возвратом к среднему:
+        случайно низкий счёт в одном источнике обычно выше в другом.</p>
+      </details>
+      <h3>Что стало с десятью местами 2019 года</h3>
     </div>
-    <div class="table-wrap"><table class="shortlist history"><thead><tr><th class="num">№</th><th>Метро</th><th>Адрес центра ячейки</th><th class="num">2019: факт / ожидание</th><th class="num">Оценка 2019</th><th class="num">2026, OpenStreetMap</th><th></th></tr></thead><tbody><tr data-cell="149" tabindex="0" aria-label="Показать место № 1 списка 2019 года на карте"><td class="num">1</td><td>Пролетарская</td><td class="address">Стройковская улица, 10</td><td class="num">1 / 9,8</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,53</td><td class="num">7 <span class="delta">+6</span></td><td></td></tr><tr data-cell="337" tabindex="0" aria-label="Показать место № 2 списка 2019 года на карте"><td class="num">2</td><td>Марьина Роща</td><td class="address">Шереметьевская улица, 8</td><td class="num">4 / 18,2</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,40</td><td class="num">7 <span class="delta">+3</span></td><td></td></tr><tr data-cell="146" tabindex="0" aria-label="Показать место № 3 списка 2019 года на карте"><td class="num">3</td><td>Таганская</td><td class="address">Гончарная набережная, 3 с1</td><td class="num">2 / 14,9</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,27</td><td class="num">7 <span class="delta">+5</span></td><td></td></tr><tr data-cell="128" tabindex="0" aria-label="Показать место № 4 списка 2019 года на карте"><td class="num">4</td><td>Пролетарская</td><td class="address">Крестьянская площадь, 10 с1</td><td class="num">1 / 7,8</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,27</td><td class="num">2 <span class="delta">+1</span></td><td></td></tr><tr data-cell="2" tabindex="0" aria-label="Показать место № 5 списка 2019 года на карте"><td class="num">5</td><td>Ленинский проспект</td><td class="address">Ленинский проспект, 39А</td><td class="num">1 / 8,5</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,24</td><td class="num">5 <span class="delta">+4</span></td><td></td></tr><tr data-cell="339" tabindex="0" aria-label="Показать место № 6 списка 2019 года на карте"><td class="num">6</td><td>Рижская</td><td class="address">проспект Мира, 88 с4</td><td class="num">2 / 8,2</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,21</td><td class="num">0 <span class="delta">−2</span></td><td></td></tr><tr data-cell="38" tabindex="0" aria-label="Показать место № 7 списка 2019 года на карте"><td class="num">7</td><td>Шаболовская</td><td class="address">улица Шухова, 14</td><td class="num">3 / 10,3</td><td class="num"><span class="swatch d0" aria-hidden="true"></span>−1,20</td><td class="num">4 <span class="delta">+1</span></td><td></td></tr><tr data-cell="174" tabindex="0" aria-label="Показать место № 8 списка 2019 года на карте"><td class="num">8</td><td>Улица 1905 года</td><td class="address">Большая Декабрьская улица, вл11</td><td class="num">5 / 15,8</td><td class="num"><span class="swatch d1" aria-hidden="true"></span>−1,18</td><td class="num">7 <span class="delta">+2</span></td><td></td></tr><tr data-cell="129" tabindex="0" aria-label="Показать место № 9 списка 2019 года на карте"><td class="num">9</td><td>Пролетарская</td><td class="address">улица Крутицкий Вал, 3 с1</td><td class="num">9 / 24,6</td><td class="num"><span class="swatch d1" aria-hidden="true"></span>−1,15</td><td class="num">9 <span class="delta">±0</span></td><td></td></tr><tr data-cell="298" tabindex="0" aria-label="Показать место № 10 списка 2019 года на карте"><td class="num">10</td><td>Комсомольская</td><td class="address">Комсомольская площадь, 4 с4</td><td class="num">8 / 26,2</td><td class="num"><span class="swatch d1" aria-hidden="true"></span>−1,15</td><td class="num">21 <span class="delta">+13</span></td><td></td></tr></tbody></table></div>
+    <div class="table-wrap"><table class="shortlist history"><thead><tr><th class="num">№</th><th>Где</th><th>Метро, до входа</th><th class="num">Кафе в 2019</th><th class="num">Обычно в 2019</th><th class="num">Кафе в 2026</th></tr></thead><tbody><tr data-cell="149" tabindex="0" aria-label="Показать место № 1 списка 2019 года на карте"><td class="num">1</td><td class="address">Стройковская улица, 10</td><td>Пролетарская, 366&nbsp;м</td><td class="num key">1</td><td class="num">10</td><td class="num">7 <span class="delta">+6</span></td></tr><tr data-cell="337" tabindex="0" aria-label="Показать место № 2 списка 2019 года на карте"><td class="num">2</td><td class="address">Шереметьевская улица, 8</td><td>Марьина Роща, 114&nbsp;м</td><td class="num key">4</td><td class="num">18</td><td class="num">7 <span class="delta">+3</span></td></tr><tr data-cell="146" tabindex="0" aria-label="Показать место № 3 списка 2019 года на карте"><td class="num">3</td><td class="address">Гончарная набережная, 3 с1</td><td>Таганская, 377&nbsp;м</td><td class="num key">2</td><td class="num">15</td><td class="num">7 <span class="delta">+5</span></td></tr><tr data-cell="128" tabindex="0" aria-label="Показать место № 4 списка 2019 года на карте"><td class="num">4</td><td class="address">Крестьянская площадь, 10 с1</td><td>Пролетарская, 411&nbsp;м</td><td class="num key">1</td><td class="num">8</td><td class="num">2 <span class="delta">+1</span></td></tr><tr data-cell="2" tabindex="0" aria-label="Показать место № 5 списка 2019 года на карте"><td class="num">5</td><td class="address">Ленинский проспект, 39А</td><td>Ленинский проспект, 138&nbsp;м</td><td class="num key">1</td><td class="num">8</td><td class="num">5 <span class="delta">+4</span></td></tr><tr data-cell="339" tabindex="0" aria-label="Показать место № 6 списка 2019 года на карте"><td class="num">6</td><td class="address">проспект Мира, 88 с4</td><td>Рижская, 171&nbsp;м</td><td class="num key">2</td><td class="num">8</td><td class="num">0 <span class="delta">−2</span></td></tr><tr data-cell="38" tabindex="0" aria-label="Показать место № 7 списка 2019 года на карте"><td class="num">7</td><td class="address">улица Шухова, 14</td><td>Шаболовская, 417&nbsp;м</td><td class="num key">3</td><td class="num">10</td><td class="num">4 <span class="delta">+1</span></td></tr><tr data-cell="174" tabindex="0" aria-label="Показать место № 8 списка 2019 года на карте"><td class="num">8</td><td class="address">Большая Декабрьская улица, вл11</td><td>Улица 1905 года, 326&nbsp;м</td><td class="num key">5</td><td class="num">16</td><td class="num">7 <span class="delta">+2</span></td></tr><tr data-cell="129" tabindex="0" aria-label="Показать место № 9 списка 2019 года на карте"><td class="num">9</td><td class="address">улица Крутицкий Вал, 3 с1</td><td>Пролетарская, 134&nbsp;м</td><td class="num key">9</td><td class="num">25</td><td class="num">9 <span class="delta">±0</span></td></tr><tr data-cell="298" tabindex="0" aria-label="Показать место № 10 списка 2019 года на карте"><td class="num">10</td><td class="address">Комсомольская площадь, 4 с4</td><td>Комсомольская, 167&nbsp;м</td><td class="num key">8</td><td class="num">26</td><td class="num">21 <span class="delta">+13</span></td></tr></tbody></table></div>
   </section>
 
   <section class="prose" id="method" aria-labelledby="method-title">
     <h2 id="method-title">Как это посчитано</h2>
     <ol class="steps">
-      <li><strong>Сетка.</strong> 364 шестиугольные ячейки с шагом 600&nbsp;м в радиусе 6&nbsp;км от Красной
-      площади, построенные в 2019 году. Для каждой считаем объекты в радиусе 300&nbsp;м, это около четырёх
-      минут пешком.</li>
-      <li><strong>Проекция.</strong> Все координаты переведены в UTM, зона 37. В 2019 году расчёты шли
-      в зоне 33, осевой меридиан которой на 22,6° западнее Москвы, и расстояния завышались на 2,4%.</li>
-      <li><strong>Признаки.</strong> Выходы метро, остановки, парковочные места, магазины, бытовые услуги,
-      спортзалы, вузы и колледжи, расстояния до ближайшего выхода метро и до Красной площади. Конкуренты,
-      как и в исходном проекте, это кафе и рестораны из реестра общепита.</li>
-      <li><strong>Модель спроса.</strong> Пуассоновская регрессия предсказывает число кафе и ресторанов
-      только по этим признакам. Качество проверяется пространственной кросс-валидацией: город разбит на
-      блоки 2&nbsp;×&nbsp;2&nbsp;км, и каждую ячейку предсказывает модель, не видевшая её блока. Такой
-      прогноз вне выборки и есть ожидаемое число конкурентов.</li>
-      <li><strong>Оценка.</strong> Разрыв между фактом и ожиданием, нормированный с поправкой на
-      сверхдисперсию (дисперсия отрицательного биномиального распределения, θ&nbsp;=&nbsp;4,0).
-      Отрицательная оценка значит, что кафе меньше, чем обычно бывает при таком окружении. Расчёт повторён
-      для радиусов 250, 300 и 400&nbsp;м, оценки усреднены.</li>
-      <li><strong>Фильтры.</strong> В шорт-лист попадают ячейки, где хотя бы при двух радиусах из трёх
-      выход метро ближе 500&nbsp;м, вокруг не меньше 10 магазинов и услуг (значит, есть помещения под
-      торговлю), а ожидаемый спрос не ниже медианы.</li>
-      <li><strong>Проверка и обновление.</strong> Изменения 2019&nbsp;→&nbsp;2026 сравниваются с оценками
-      2019 года. Затем весь расчёт повторяется на данных OpenStreetMap 2026 года: конкуренты, входы метро,
-      МЦК и МЦД, остановки, магазины, услуги и фитнес-клубы. Так получается шорт-лист 2026.</li>
-      <li><strong>Типология.</strong> Метод k-средних делит ячейки на четыре типа мест, это помогает
-      читать карту.</li>
+      <li><strong>Участки.</strong> Центр в радиусе 6&nbsp;км от Красной площади разбит на 364 шестиугольника
+      по 600&nbsp;м. Для каждого считаем всё в 300&nbsp;м от центра, это около пяти минут пешком.</li>
+      <li><strong>Что приводит людей.</strong> Выходы метро (в 2026 году ещё МЦК и МЦД), остановки,
+      магазины, бытовые услуги (парикмахерские и салоны красоты, ателье, химчистки, ремонт), фитнес, вузы
+      и колледжи, платные парковки и расстояние до Красной площади.</li>
+      <li><strong>Сколько кафе обычно.</strong> Модель по всем участкам находит, как число кафе зависит
+      от окружения. Каждый участок она оценивает, не видя ни его самого, ни соседей в квадрате
+      2&nbsp;×&nbsp;2&nbsp;км, чтобы не подглядывать в ответ.</li>
+      <li><strong>Нехватка.</strong> Сравниваем, сколько кафе есть и сколько обычно. Чтобы результат
+      не зависел от выбранного радиуса, расчёт повторён для 250 и 400&nbsp;м и усреднён.</li>
+      <li><strong>Отбор.</strong> В список попадают участки, где вход в метро ближе 500&nbsp;м, вокруг хотя
+      бы 10 магазинов и услуг (значит, есть помещения) и где кафе обычно не меньше, чем на половине
+      участков.</li>
+      <li><strong>Проверка и пересчёт.</strong> Список 2019 года проверен по данным 2026-го. Затем весь
+      расчёт повторён на данных 2026 года из OpenStreetMap.</li>
+      <li><strong>Типы районов.</strong> Участки с похожим окружением сгруппированы в четыре типа, это
+      помогает читать карту.</li>
     </ol>
+    <details class="details">
+      <summary>Подробнее для специалистов</summary>
+      <p>Модель: пуассоновская регрессия по логарифмам счётчиков с обрезкой по 99-му перцентилю
+      и линейным расстояниям. Качество проверено пространственной кросс-валидацией: блоки
+      2&nbsp;×&nbsp;2&nbsp;км разложены по 6 фолдам. Нехватка: стандартизованный остаток с дисперсией
+      отрицательного биномиального распределения (θ&nbsp;=&nbsp;4,0), усреднённый по радиусам 250,
+      300 и 400&nbsp;м. Типы: k-средних, k&nbsp;=&nbsp;4, силуэт 0,17. Координаты переведены
+      в UTM, зона 37: в 2019 году расчёты шли в зоне 33 и завышали расстояния на 2,4%.</p>
+      <div class="table-wrap"><table class="compact"><thead><tr><th>Способ расчёта</th><th class="num">D²</th></tr></thead><tbody><tr><td>Пуассоновская регрессия, логарифм расстояний</td><td class="num">0,62</td></tr><tr class=best><td>Пуассоновская регрессия, линейные расстояния</td><td class="num">0,67</td></tr><tr><td>Градиентный бустинг с пуассоновской функцией потерь</td><td class="num">0,63</td></tr><tr><td>Среднее регрессии и бустинга</td><td class="num">0,67</td></tr></tbody></table></div>
+      <p>В таблице доля объяснённой пуассоновской девиансы (D²) на пространственной кросс-валидации,
+      данные 2019 года. Бустинг не превзошёл регрессию, поэтому «обычное» число кафе считает регрессия.
+      Случайная кросс-валидация даёт почти то же (66%). На данных 2026 года с генераторами трафика
+      из OpenStreetMap регрессия даёт 67%, со слоями 2019 года было бы 58%.</p>
+    </details>
   </section>
 
   <section class="prose" id="results" aria-labelledby="results-title">
-    <h2 id="results-title">Что показала модель</h2>
-    <p>На данных 2019 года регрессия объясняет 67% пуассоновской девиансы на пространственной
-    кросс-валидации. Бустинг (63%) её не превзошёл, а среднее двух моделей ничего не добавило,
-    поэтому ожидания считает интерпретируемая регрессия. Обычная случайная кросс-валидация даёт почти то же
-    (66%): зоны в 300&nbsp;м у соседних ячеек почти не пересекаются. Расстояния работают линейно:
-    плотность кафе убывает с расстоянием экспоненциально, как в классическом градиенте плотности из городской
-    экономики. Логарифм расстояния взрывается у Красной площади и даёт только 62%.</p>
-    <div class="table-wrap"><table class="compact"><thead><tr><th>Модель</th><th class="num">D², пространственная кросс-валидация</th></tr></thead><tbody><tr><td>Пуассоновская регрессия, логарифм расстояний</td><td class="num">0,62</td></tr><tr class=best><td>Пуассоновская регрессия, линейные расстояния</td><td class="num">0,67</td></tr><tr><td>Градиентный бустинг с пуассоновской функцией потерь</td><td class="num">0,63</td></tr><tr><td>Среднее регрессии и бустинга</td><td class="num">0,67</td></tr></tbody></table></div>
-    <figure class="chart" id="effects"><figcaption><strong>Как меняется ожидаемое число кафе и ресторанов</strong>Точка: оценка регрессии, линия: 95% интервал блочного бутстрэпа. Серым отмечены эффекты, которые нельзя отличить от нуля.</figcaption><div class="dots" style="--zero:48.48%"><div class="dot-row" title="Вдвое больше магазинов: +25,7% (95%: +21,1…+30,4%)"><span class="dot-label">Вдвое больше магазинов</span><span class="dot-track"><span class="ci pos" style="left:80.48%;width:14.09%"></span><span class="pt pos" style="left:87.35%"></span></span><span class="dot-value">+26%</span></div><div class="dot-row" title="Вдвое больше бытовых услуг: +18,4% (95%: +9,2…+29,5%)"><span class="dot-label">Вдвое больше бытовых услуг</span><span class="dot-track"><span class="ci pos" style="left:62.46%;width:30.74%"></span><span class="pt pos" style="left:76.33%"></span></span><span class="dot-value">+18%</span></div><div class="dot-row" title="Вдвое больше выходов метро: +8,0% (95%: +0,3…+16,0%)"><span class="dot-label">Вдвое больше выходов метро</span><span class="dot-track"><span class="ci pos" style="left:48.94%;width:23.72%"></span><span class="pt pos" style="left:60.67%"></span></span><span class="dot-value">+8%</span></div><div class="dot-row" title="Вдвое больше парковочных мест: +3,1% (95%: −1,3…+7,7%)"><span class="dot-label">Вдвое больше парковочных мест</span><span class="dot-track"><span class="ci flat" style="left:46.48%;width:13.69%"></span><span class="pt flat" style="left:53.20%"></span></span><span class="dot-value">+3%</span></div><div class="dot-row" title="Вдвое больше остановок: −0,7% (95%: −9,2…+9,5%)"><span class="dot-label">Вдвое больше остановок</span><span class="dot-track"><span class="ci flat" style="left:34.49%;width:28.36%"></span><span class="pt flat" style="left:47.47%"></span></span><span class="dot-value">−1%</span></div><div class="dot-row" title="Вдвое больше вузов и колледжей: −3,4% (95%: −11,9…+7,0%)"><span class="dot-label">Вдвое больше вузов и колледжей</span><span class="dot-track"><span class="ci flat" style="left:30.48%;width:28.60%"></span><span class="pt flat" style="left:43.40%"></span></span><span class="dot-value">−3%</span></div><div class="dot-row" title="На 100 м дальше от выхода метро: −4,5% (95%: −6,9…−2,0%)"><span class="dot-label">На 100 м дальше от выхода метро</span><span class="dot-track"><span class="ci neg" style="left:37.98%;width:7.54%"></span><span class="pt neg" style="left:41.66%"></span></span><span class="dot-value">−5%</span></div><div class="dot-row" title="Вдвое больше спортзалов: −5,9% (95%: −26,4…+17,5%)"><span class="dot-label">Вдвое больше спортзалов</span><span class="dot-track"><span class="ci flat" style="left:8.54%;width:66.42%"></span><span class="pt flat" style="left:39.50%"></span></span><span class="dot-value">−6%</span></div><div class="dot-row" title="На 1 км дальше от Красной площади: −21,9% (95%: −28,2…−17,2%)"><span class="dot-label">На 1 км дальше от Красной площади</span><span class="dot-track"><span class="ci neg" style="left:5.71%;width:16.64%"></span><span class="pt neg" style="left:15.25%"></span></span><span class="dot-value">−22%</span></div><div class="dot-row axis"><span></span><span class="dot-track"><span class="tick" style="left:3.03%">−30%</span><span class="tick" style="left:18.18%">−20%</span><span class="tick" style="left:33.33%">−10%</span><span class="tick" style="left:48.48%">0%</span><span class="tick" style="left:63.64%">+10%</span><span class="tick" style="left:78.79%">+20%</span><span class="tick" style="left:93.94%">+30%</span></span><span></span></div></div></figure>
-    <p>Каждый километр от Красной площади отнимает около 22% ожидаемых заведений, каждые
-    100&nbsp;м до метро около 4,5%. Вдвое больше магазинов дают +26%, вдвое больше
-    бытовых услуг +18%, вдвое больше выходов метро +8%. Влияние парковок,
-    остановок, вузов и спортзалов неотличимо от нуля. На данных 2026 года, где и конкуренты, и генераторы
-    трафика взяты из OpenStreetMap, модель объясняет 67% девиансы, столько же, сколько в 2019 году.
-    Со слоями трафика 2019 года было бы 58%: за семь лет магазины, услуги и станции
-    изменились заметно.</p>
+    <h2 id="results-title">Что влияет на число кафе</h2>
+    <p>Больше всего кафе там, где много магазинов и бытовых услуг и близко метро; чем дальше от центра, тем
+    их меньше. Окружение объясняет 67% различий в числе кафе между участками. Остальное приходится
+    на то, чего нет в данных: офисы, туристов, характер улицы.</p>
+    <figure class="chart" id="effects"><figcaption><strong>Как меняется обычное число кафе</strong>Точка показывает оценку, отрезок диапазон, в котором она почти наверняка лежит. Серым отмечено то, что на число кафе заметно не влияет.</figcaption><div class="dots" style="--zero:48.48%"><div class="dot-row" title="Вдвое больше магазинов: +25,7%, почти наверняка от +21,1 до +30,4%"><span class="dot-label">Вдвое больше магазинов</span><span class="dot-track"><span class="ci pos" style="left:80.48%;width:14.09%"></span><span class="pt pos" style="left:87.35%"></span></span><span class="dot-value">+26%</span></div><div class="dot-row" title="Вдвое больше бытовых услуг: +18,4%, почти наверняка от +9,2 до +29,5%"><span class="dot-label">Вдвое больше бытовых услуг</span><span class="dot-track"><span class="ci pos" style="left:62.46%;width:30.74%"></span><span class="pt pos" style="left:76.33%"></span></span><span class="dot-value">+18%</span></div><div class="dot-row" title="Вдвое больше выходов метро: +8,0%, почти наверняка от +0,3 до +16,0%"><span class="dot-label">Вдвое больше выходов метро</span><span class="dot-track"><span class="ci pos" style="left:48.94%;width:23.72%"></span><span class="pt pos" style="left:60.67%"></span></span><span class="dot-value">+8%</span></div><div class="dot-row" title="Вдвое больше парковочных мест: +3,1%, почти наверняка от −1,3 до +7,7%"><span class="dot-label">Вдвое больше парковочных мест</span><span class="dot-track"><span class="ci flat" style="left:46.48%;width:13.69%"></span><span class="pt flat" style="left:53.20%"></span></span><span class="dot-value">+3%</span></div><div class="dot-row" title="Вдвое больше остановок: −0,7%, почти наверняка от −9,2 до +9,5%"><span class="dot-label">Вдвое больше остановок</span><span class="dot-track"><span class="ci flat" style="left:34.49%;width:28.36%"></span><span class="pt flat" style="left:47.47%"></span></span><span class="dot-value">−1%</span></div><div class="dot-row" title="Вдвое больше вузов и колледжей: −3,4%, почти наверняка от −11,9 до +7,0%"><span class="dot-label">Вдвое больше вузов и колледжей</span><span class="dot-track"><span class="ci flat" style="left:30.48%;width:28.60%"></span><span class="pt flat" style="left:43.40%"></span></span><span class="dot-value">−3%</span></div><div class="dot-row" title="На 100 м дальше от выхода метро: −4,5%, почти наверняка от −6,9 до −2,0%"><span class="dot-label">На 100 м дальше от выхода метро</span><span class="dot-track"><span class="ci neg" style="left:37.98%;width:7.54%"></span><span class="pt neg" style="left:41.66%"></span></span><span class="dot-value">−5%</span></div><div class="dot-row" title="Вдвое больше спортзалов: −5,9%, почти наверняка от −26,4 до +17,5%"><span class="dot-label">Вдвое больше спортзалов</span><span class="dot-track"><span class="ci flat" style="left:8.54%;width:66.42%"></span><span class="pt flat" style="left:39.50%"></span></span><span class="dot-value">−6%</span></div><div class="dot-row" title="На 1 км дальше от Красной площади: −21,9%, почти наверняка от −28,2 до −17,2%"><span class="dot-label">На 1 км дальше от Красной площади</span><span class="dot-track"><span class="ci neg" style="left:5.71%;width:16.64%"></span><span class="pt neg" style="left:15.25%"></span></span><span class="dot-value">−22%</span></div><div class="dot-row axis"><span></span><span class="dot-track"><span class="tick" style="left:3.03%">−30%</span><span class="tick" style="left:18.18%">−20%</span><span class="tick" style="left:33.33%">−10%</span><span class="tick" style="left:48.48%">0%</span><span class="tick" style="left:63.64%">+10%</span><span class="tick" style="left:78.79%">+20%</span><span class="tick" style="left:93.94%">+30%</span></span><span></span></div></div></figure>
+    <p>Каждый километр от Красной площади уменьшает обычное число кафе примерно на 22%, каждые
+    100&nbsp;м до метро на 4,5%. Вдвое больше магазинов прибавляет 26%, вдвое больше
+    бытовых услуг 18%, вдвое больше выходов метро 8%. Парковки, остановки,
+    вузы и спортзалы на число кафе заметно не влияют.</p>
     <figure class="chart" id="scatter">
-      <figcaption><strong>Факт и ожидание по ячейкам, 2019</strong>Каждая точка соответствует ячейке. Ниже
-      диагонали кафе меньше, чем ожидает модель; красным отмечен шорт-лист 2019 года. Оси в масштабе
-      квадратного корня.</figcaption>
+      <figcaption><strong>Сколько кафе есть и сколько обычно, 2019</strong>Каждая точка обозначает участок.
+      Ниже линии кафе меньше обычного; красные точки показывают десять мест из списка 2019 года. Шкалы
+      сжаты, чтобы уместить участки и с одним кафе, и с восемьюдесятью.</figcaption>
       <div class="scatter-box">
         <svg id="scatter-svg" role="img"
-          aria-label="Диаграмма рассеяния: ожидаемое и фактическое число кафе по ячейкам, 2019"></svg>
+          aria-label="Диаграмма: сколько кафе есть и сколько обычно на каждом участке, 2019"></svg>
         <div class="tip" id="scatter-tip" hidden></div>
       </div>
     </figure>
-    <h3>Четыре типа мест</h3>
-    <div class="table-wrap"><table class="compact"><thead><tr><th>Тип</th><th class="num">Ячеек</th><th class="num">Кафе и рестораны</th><th class="num">Выходы метро</th><th class="num">Магазины</th><th class="num">Услуги</th><th class="num">До метро, м</th><th class="num">До центра, км</th></tr></thead><tbody><tr><td><span class="swatch t0" aria-hidden="true"></span>Транспортные узлы</td><td class="num">45</td><td class="num">26</td><td class="num">4</td><td class="num">60</td><td class="num">15</td><td class="num">138</td><td class="num">3,3</td></tr><tr><td><span class="swatch t1" aria-hidden="true"></span>Центральные кварталы</td><td class="num">76</td><td class="num">15</td><td class="num">0</td><td class="num">22</td><td class="num">12</td><td class="num">438</td><td class="num">2,5</td></tr><tr><td><span class="swatch t2" aria-hidden="true"></span>Жилой пояс</td><td class="num">157</td><td class="num">4</td><td class="num">0</td><td class="num">12</td><td class="num">5</td><td class="num">573</td><td class="num">4,3</td></tr><tr><td><span class="swatch t3" aria-hidden="true"></span>Парки, железные дороги и промзоны</td><td class="num">86</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">0</td><td class="num">773</td><td class="num">5,1</td></tr></tbody></table></div>
-    <p>Транспортные узлы и центральные кварталы держат основную массу кафе. В жилом поясе, в основном между
-    Садовым кольцом и ТТК, заведений немного, а в парках, на железнодорожных и промышленных территориях их
-    почти нет и открывать кафе негде. Силуэт k-средних низкий (0,17), как обычно для плавно
-    меняющейся городской ткани.</p>
+    <h3>Четыре типа районов</h3>
+    <div class="table-wrap"><table class="compact"><thead><tr><th>Тип района</th><th class="num">Участков</th><th class="num">Кафе</th><th class="num">Выходы метро</th><th class="num">Магазины</th><th class="num">Услуги</th><th class="num">До метро</th><th class="num">До центра</th></tr></thead><tbody><tr><td><span class="swatch t0" aria-hidden="true"></span>Транспортные узлы</td><td class="num">45</td><td class="num">26</td><td class="num">4</td><td class="num">60</td><td class="num">15</td><td class="num">138&nbsp;м</td><td class="num">3,3&nbsp;км</td></tr><tr><td><span class="swatch t1" aria-hidden="true"></span>Центральные кварталы</td><td class="num">76</td><td class="num">15</td><td class="num">0</td><td class="num">22</td><td class="num">12</td><td class="num">438&nbsp;м</td><td class="num">2,5&nbsp;км</td></tr><tr><td><span class="swatch t2" aria-hidden="true"></span>Жилой пояс</td><td class="num">157</td><td class="num">4</td><td class="num">0</td><td class="num">12</td><td class="num">5</td><td class="num">573&nbsp;м</td><td class="num">4,3&nbsp;км</td></tr><tr><td><span class="swatch t3" aria-hidden="true"></span>Парки, железные дороги и промзоны</td><td class="num">86</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">0</td><td class="num">773&nbsp;м</td><td class="num">5,1&nbsp;км</td></tr></tbody></table></div><p class="table-note">Типичный участок каждого типа (медиана), всё в 300&nbsp;м, данные 2019 года.</p>
+    <p>Транспортные узлы и центральные кварталы держат основную массу кафе. В жилых районах, в основном между
+    Садовым кольцом и ТТК, кафе немного, а в парках, на железнодорожных и промышленных территориях их почти
+    нет, и открывать кафе негде.</p>
     <h3>Рынок в 2019 году</h3>
-    <p>В радиусе 6&nbsp;км реестр насчитывает 5 784 заведения общепита: 2 747 кафе, 1 209 ресторанов,
-    547 столовых, 450 баров, 448 точек быстрого обслуживания и закусочных и 383 прочих (буфеты,
-    кафетерии, кулинарии). У конкурентов, то есть кафе и ресторанов, 233 174 посадочных места. Сетям принадлежат
-    22% из них, крупнейшие сети продают кофе.</p>
-    <figure class="chart" id="chains"><figcaption><strong>Крупнейшие сети в радиусе 6&nbsp;км, 2019</strong>Кафе и рестораны с отметкой сетевого заведения в реестре.</figcaption><div class="bars"><div class="bar-row"><span class="bar-label">Шоколадница</span><span class="bar-track"><span class="bar" style="width:100.0%"></span></span><span class="bar-value">90</span></div><div class="bar-row"><span class="bar-label">Прайм стар</span><span class="bar-track"><span class="bar" style="width:57.8%"></span></span><span class="bar-value">52</span></div><div class="bar-row"><span class="bar-label">Starbucks</span><span class="bar-track"><span class="bar" style="width:44.4%"></span></span><span class="bar-value">40</span></div><div class="bar-row"><span class="bar-label">Хлеб насущный</span><span class="bar-track"><span class="bar" style="width:30.0%"></span></span><span class="bar-value">27</span></div><div class="bar-row"><span class="bar-label">Кофе Хауз</span><span class="bar-track"><span class="bar" style="width:27.8%"></span></span><span class="bar-value">25</span></div><div class="bar-row"><span class="bar-label">KFC</span><span class="bar-track"><span class="bar" style="width:25.6%"></span></span><span class="bar-value">23</span></div><div class="bar-row"><span class="bar-label">Чайхона №1</span><span class="bar-track"><span class="bar" style="width:24.4%"></span></span><span class="bar-value">22</span></div><div class="bar-row"><span class="bar-label">Хинкальная</span><span class="bar-track"><span class="bar" style="width:20.0%"></span></span><span class="bar-value">18</span></div><div class="bar-row"><span class="bar-label">Il Patio</span><span class="bar-track"><span class="bar" style="width:20.0%"></span></span><span class="bar-value">18</span></div><div class="bar-row"><span class="bar-label">Му-Му</span><span class="bar-track"><span class="bar" style="width:16.7%"></span></span><span class="bar-value">15</span></div><div class="bar-row"><span class="bar-label">Кулинарная лавка братьев Караваевых</span><span class="bar-track"><span class="bar" style="width:16.7%"></span></span><span class="bar-value">15</span></div><div class="bar-row"><span class="bar-label">Burger King</span><span class="bar-track"><span class="bar" style="width:16.7%"></span></span><span class="bar-value">15</span></div></div></figure>
+    <p>В радиусе 6&nbsp;км городской реестр насчитывает 5 784 заведения общепита: 2 747 кафе,
+    1 209 ресторанов, 547 столовых, 450 баров, 448 точек быстрого обслуживания и закусочных и 383 прочих
+    (буфеты, кафетерии, кулинарии). Конкурентами мы считаем только кафе и рестораны, у них 233 174 посадочных места.
+    Сетям принадлежат 22% из них, крупнейшие сети продают кофе.</p>
+    <figure class="chart" id="chains"><figcaption><strong>Крупнейшие сети кафе и ресторанов в радиусе 6&nbsp;км, 2019</strong>Число заведений с отметкой сети в городском реестре.</figcaption><div class="bars"><div class="bar-row"><span class="bar-label">Шоколадница</span><span class="bar-track"><span class="bar" style="width:100.0%"></span></span><span class="bar-value">90</span></div><div class="bar-row"><span class="bar-label">Прайм стар</span><span class="bar-track"><span class="bar" style="width:57.8%"></span></span><span class="bar-value">52</span></div><div class="bar-row"><span class="bar-label">Starbucks</span><span class="bar-track"><span class="bar" style="width:44.4%"></span></span><span class="bar-value">40</span></div><div class="bar-row"><span class="bar-label">Хлеб насущный</span><span class="bar-track"><span class="bar" style="width:30.0%"></span></span><span class="bar-value">27</span></div><div class="bar-row"><span class="bar-label">Кофе Хауз</span><span class="bar-track"><span class="bar" style="width:27.8%"></span></span><span class="bar-value">25</span></div><div class="bar-row"><span class="bar-label">KFC</span><span class="bar-track"><span class="bar" style="width:25.6%"></span></span><span class="bar-value">23</span></div><div class="bar-row"><span class="bar-label">Чайхона №1</span><span class="bar-track"><span class="bar" style="width:24.4%"></span></span><span class="bar-value">22</span></div><div class="bar-row"><span class="bar-label">Хинкальная</span><span class="bar-track"><span class="bar" style="width:20.0%"></span></span><span class="bar-value">18</span></div><div class="bar-row"><span class="bar-label">Il Patio</span><span class="bar-track"><span class="bar" style="width:20.0%"></span></span><span class="bar-value">18</span></div><div class="bar-row"><span class="bar-label">Му-Му</span><span class="bar-track"><span class="bar" style="width:16.7%"></span></span><span class="bar-value">15</span></div><div class="bar-row"><span class="bar-label">Кулинарная лавка братьев Караваевых</span><span class="bar-track"><span class="bar" style="width:16.7%"></span></span><span class="bar-value">15</span></div><div class="bar-row"><span class="bar-label">Burger King</span><span class="bar-track"><span class="bar" style="width:16.7%"></span></span><span class="bar-value">15</span></div></div></figure>
   </section>
 
   <section class="prose" id="discussion" aria-labelledby="discussion-title">
     <h2 id="discussion-title">Что это значит</h2>
-    <p><strong>Разрывы закрываются, и модель тут не единственная причина.</strong> Недообеспеченные в 2019
-    году места получили новые заведения, насыщенные часть потеряли, в том числе вдали от центра. Но
-    пандемия, удалёнка, война, санкции, уход иностранных сетей и обвал туризма сами сдвигали кафе
-    из транспортных узлов к жилым улицам, в ту же сторону, что и модель. Для нового кафе вывод прежний:
-    разрыв даёт фору на несколько лет, поэтому шорт-лист нужно пересчитывать на свежих данных и действовать
-    быстро.</p>
-    <p><strong>Исторический центр занят.</strong> Ни одна ячейка шорт-листа 2026 года не лежит внутри
-    Садового кольца: в центре кафе столько, сколько обещают магазины и метро, или больше. Единственная такая
-    ячейка в списке 2019 года, Гончарная набережная у Таганской, с тех пор получила ещё пять заведений.
-    Кандидаты 2026 года лежат в 3,0–5,3&nbsp;км от Красной площади, вокруг ТТК, не дальше
-    440&nbsp;м от выхода метро.</p>
+    <p><strong>Ниши заполняются.</strong> Там, где в 2019 году кафе не хватало, их стало больше, и в центре,
+    и вдали от него. Отчасти это заслуга самих событий этих лет, но вывод для нового кафе тот же: нехватка
+    даёт фору на несколько лет, поэтому список нужно пересчитывать на свежих данных и действовать быстро.</p>
+    <p><strong>Исторический центр занят.</strong> Внутри Садового кольца нет ни одного места из списка 2026
+    года: кафе там столько, сколько обещают метро и магазины, или больше. Все десять мест лежат
+    в 3,0–5,3&nbsp;км от Красной площади, около Третьего кольца, не дальше 440&nbsp;м от
+    входа в метро.</p>
     <h3>Чего модель не видит</h3>
-    <p>Больше всего лишних конкурентов в 2019 году было у фудмолла «Депо» на Лесной улице у Белорусской
-    (реестр записал его стойки как три десятка ресторанов «Веранда»), у трёх десятков маленьких кафе по одному
-    адресу на Нижней Красносельской у Бауманской, у башен Москва-Сити, у гостиницы «Украина» с деловым
-    кварталом Трёхгорной мануфактуры и у Центра международной торговли. Фудхоллы, офисы и гостиницы собирают
-    кафе сильнее, чем объясняют магазины и метро. Та же слепая зона может сделать место недообеспеченным
-    на бумаге, если его спрос держится на том, чего нет в данных.</p>
-    <div class="table-wrap"><table class="compact"><thead><tr><th>Адрес центра ячейки</th><th>Метро</th><th class="num">2019: факт / ожидание</th><th class="num">Оценка</th></tr></thead><tbody><tr><td>Миусская площадь, 5</td><td>Белорусская</td><td class="num">41 / 6,0</td><td class="num"><span class="swatch d6" aria-hidden="true"></span>10,60</td></tr><tr><td>Бауманская улица, 5 с1</td><td>Бауманская</td><td class="num">38 / 6,2</td><td class="num"><span class="swatch d6" aria-hidden="true"></span>8,75</td></tr><tr><td>Пресненская набережная, 10</td><td>Международная</td><td class="num">37 / 7,7</td><td class="num"><span class="swatch d6" aria-hidden="true"></span>5,99</td></tr><tr><td>Краснопресненская набережная, 2/1</td><td>Краснопресненская</td><td class="num">23 / 5,8</td><td class="num"><span class="swatch d6" aria-hidden="true"></span>4,91</td></tr><tr><td>1-й Красногвардейский проезд, 19</td><td>Деловой центр</td><td class="num">26 / 8,7</td><td class="num"><span class="swatch d6" aria-hidden="true"></span>4,13</td></tr><tr><td>Рочдельская улица, 15/56</td><td>Улица 1905 года</td><td class="num">32 / 10,0</td><td class="num"><span class="swatch d6" aria-hidden="true"></span>4,07</td></tr></tbody></table></div>
+    <p>Больше всего лишних кафе в 2019 году было там, где людей приводит то, чего нет в данных: у фудмолла
+    «Депо» на Лесной улице, у трёх десятков маленьких кафе по одному адресу на Нижней Красносельской,
+    у башен Москва-Сити, у гостиницы «Украина» и делового квартала Трёхгорной мануфактуры, у Центра
+    международной торговли. Офисы, фудхоллы и гостиницы собирают кафе сильнее, чем магазины и метро. Та же
+    слепая зона может показать нехватку там, где спрос держится на чём-то, чего модель не знает.</p>
+    <div class="table-wrap"><table class="compact"><thead><tr><th>Где</th><th>Метро</th><th class="num">Кафе рядом</th><th class="num">Обычно</th><th class="num">Больше обычного</th></tr></thead><tbody><tr><td>Миусская площадь, 5</td><td>Белорусская</td><td class="num key">41</td><td class="num">6</td><td class="num">в&nbsp;6,8 раза</td></tr><tr><td>Бауманская улица, 5 с1</td><td>Бауманская</td><td class="num key">38</td><td class="num">6</td><td class="num">в&nbsp;6,1 раза</td></tr><tr><td>Пресненская набережная, 10</td><td>Международная</td><td class="num key">37</td><td class="num">8</td><td class="num">в&nbsp;4,8 раза</td></tr><tr><td>Краснопресненская набережная, 2/1</td><td>Краснопресненская</td><td class="num key">23</td><td class="num">6</td><td class="num">в&nbsp;4,0 раза</td></tr><tr><td>1-й Красногвардейский проезд, 19</td><td>Деловой центр</td><td class="num key">26</td><td class="num">9</td><td class="num">в&nbsp;3,0 раза</td></tr><tr><td>Рочдельская улица, 15/56</td><td>Улица 1905 года</td><td class="num key">32</td><td class="num">10</td><td class="num">в&nbsp;3,2 раза</td></tr></tbody></table></div>
     <h3>Ограничения</h3>
     <ul>
-      <li>Каждый год посчитан на данных своего года: 2019-й на реестрах, 2026-й на OpenStreetMap. Исключения:
-      вузы (OpenStreetMap в обоих случаях) и парковки (слой 2019 года в обоих, потому что OpenStreetMap редко
-      знает вместимость уличных парковок). OpenStreetMap беднее реестров по магазинам и услугам и почти
-      не отмечает торговые места на рынках, а его фитнес-клубы коммерческие, тогда как в 2019 году это были
-      муниципальные спортцентры.</li>
-      <li>Слои считают магазины, услуги и входы в метро, а не людей. Пандемия, удалёнка, война и санкции,
-      уход иностранных сетей и падение иностранного туризма изменили, сколько людей проходит мимо них,
-      и этого данные не показывают.</li>
-      <li>Проверка 2019&nbsp;→&nbsp;2026 сравнивает разные источники. Вокруг сетки их итоги совпадают, но
-      OpenStreetMap пропускает заведения на рынках и в торговых центрах и размечает часть кофеен как фастфуд,
-      поэтому отдельная ячейка может измениться по причинам, не связанным с рынком.</li>
-      <li>Конкуренты посчитаны, но не взвешены: кофейня на десять мест весит столько же, сколько ресторан
+      <li>Модель считает магазины, услуги и входы в метро, а не людей. Сколько людей проходит мимо, данные
+      не показывают, а пандемия, удалёнка, война, санкции и уход туристов это сильно изменили.</li>
+      <li>OpenStreetMap беднее городских реестров: магазинов и услуг в нём меньше, торговых мест на рынках
+      почти нет, а часть кофеен отмечена как фастфуд. Вместимость парковок в нём почти не указана, поэтому
+      парковки взяты из 2019 года.</li>
+      <li>Кафе посчитаны, но не взвешены: кофейня на десять мест весит столько же, сколько ресторан
       на двести, а цены и формат не учтены.</li>
-      <li>Нет данных об аренде, пешеходном трафике, офисных площадях и доходах. Расстояние до Красной
-      площади заменяет туристов и офисы.</li>
+      <li>Нет данных об аренде, пешеходном трафике, офисах и доходах жителей. Расстояние до Красной площади
+      отчасти заменяет туристов и офисы.</li>
     </ul>
-    <p>Следующие шаги: пройтись по местам из шорт-листа в час пик, проверить свободные помещения и ставки
-    аренды, добавить офисы и данные о пешеходном трафике, обновить слои 2019 года и пересчитывать шорт-лист
-    раз в год-два: разрывы долго не держатся.</p>
+    <p>Что делать дальше: пройтись по местам из списка в час пик, проверить свободные помещения и ставки
+    аренды, добавить данные об офисах и пешеходном трафике и пересчитывать список раз в год-два.</p>
   </section>
 
   <section class="prose" id="data" aria-labelledby="data-title">
     <h2 id="data-title">Данные</h2>
-    <div class="table-wrap"><table class="compact"><thead><tr><th>Слой</th><th>Источник</th><th class="num">Записей</th></tr></thead><tbody><tr><td>Ячейки-кандидаты</td><td>сетка 2019 года</td><td class="num">364</td></tr><tr><td>Кафе, рестораны и другой общепит</td><td>реестр data.mos.ru, 2019</td><td class="num">15 366</td></tr><tr><td>Выходы метро</td><td>data.mos.ru, 2019</td><td class="num">1 067</td></tr><tr><td>Остановки наземного транспорта</td><td>data.mos.ru, 2019</td><td class="num">11 507</td></tr><tr><td>Платные парковки</td><td>data.mos.ru, 2019</td><td class="num">9 254</td></tr><tr><td>Магазины</td><td>реестр data.mos.ru, 2019</td><td class="num">60 320</td></tr><tr><td>Бытовые услуги</td><td>data.mos.ru, 2019</td><td class="num">14 540</td></tr><tr><td>Спортзалы</td><td>data.mos.ru, 2019</td><td class="num">385</td></tr><tr><td>Вузы и колледжи</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;г.</td><td class="num">283</td></tr><tr><td>Кафе, рестораны, фастфуд и бары</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;г.</td><td class="num">6 729</td></tr><tr><td>Входы метро, МЦК и МЦД</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;г.</td><td class="num">427</td></tr><tr><td>Остановки</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;г.</td><td class="num">2 261</td></tr><tr><td>Магазины</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;г.</td><td class="num">11 437</td></tr><tr><td>Бытовые услуги</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;г.</td><td class="num">3 767</td></tr><tr><td>Фитнес-клубы</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;г.</td><td class="num">212</td></tr></tbody></table></div>
+    <div class="table-wrap"><table class="compact"><thead><tr><th>Слой</th><th>Источник</th><th class="num">Записей</th></tr></thead><tbody><tr><td>Участки</td><td>сетка 2019 года</td><td class="num">364</td></tr><tr><td>Кафе, рестораны и другой общепит</td><td>реестр data.mos.ru, 2019</td><td class="num">15 366</td></tr><tr><td>Выходы метро</td><td>data.mos.ru, 2019</td><td class="num">1 067</td></tr><tr><td>Остановки наземного транспорта</td><td>data.mos.ru, 2019</td><td class="num">11 507</td></tr><tr><td>Платные парковки</td><td>data.mos.ru, 2019</td><td class="num">9 254</td></tr><tr><td>Магазины</td><td>реестр data.mos.ru, 2019</td><td class="num">60 320</td></tr><tr><td>Бытовые услуги</td><td>data.mos.ru, 2019</td><td class="num">14 540</td></tr><tr><td>Спортзалы</td><td>data.mos.ru, 2019</td><td class="num">385</td></tr><tr><td>Вузы и колледжи</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;года</td><td class="num">283</td></tr><tr><td>Кафе, рестораны, фастфуд и бары</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;года</td><td class="num">6 729</td></tr><tr><td>Входы метро, МЦК и МЦД</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;года</td><td class="num">427</td></tr><tr><td>Остановки</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;года</td><td class="num">2 261</td></tr><tr><td>Магазины</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;года</td><td class="num">11 437</td></tr><tr><td>Бытовые услуги</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;года</td><td class="num">3 767</td></tr><tr><td>Фитнес-клубы</td><td>OpenStreetMap, 28&nbsp;сентября 2026&nbsp;года</td><td class="num">212</td></tr></tbody></table></div>
     <p>Реестры общепита и торговли 2019 года восстановлены из резервной копии Dropbox проекта. Слои 2019 года
-    взяты по всему городу, слои OpenStreetMap в радиусе 7&nbsp;км от Красной площади; в расчёт попадает
-    то, что лежит в радиусе 300&nbsp;м от ячеек.</p>
+    взяты по всему городу, слои OpenStreetMap в радиусе 7&nbsp;км от Красной площади; в расчёт попадает то,
+    что лежит в 300&nbsp;м от участков.</p>
   </section>
 
   <section class="prose" id="conclusion" aria-labelledby="conclusion-title">
     <h2 id="conclusion-title">Вывод</h2>
-    <p>Проект искал места в центре Москвы, где новому кафе достанется поток людей с меньшим числом
-    конкурентов, чем обычно. Открытые данные Москвы 2019 года об общепите, транспорте, торговле и услугах
-    сведены на сетку из 364 ячеек, и модель научилась предсказывать, сколько кафе и ресторанов обычно бывает
-    в месте с таким окружением (67% девиансы на пространственной кросс-валидации). Сравнение
-    с реальностью показывает насыщенный исторический центр и места у станций метро, в основном
-    в 3–6&nbsp;км от Красной площади, где кафе заметно меньше ожидаемого.</p>
-    <p>Через семь лет там, где модель видела нехватку кафе в 2019 году, их стало в 1,7 раза больше, а
-    в перенасыщенных местах на 11% меньше. Направление совпадает с моделью, но это были годы
-    пандемии, войны и санкций, которые сами сдвигали кафе из узлов к жилым улицам, так что проверка
-    подкрепляет метод, но не доказывает его. На данных 2026 года тот же метод объясняет рынок так же
-    хорошо (67% девиансы) и называет самыми сильными кандидатами Кутузовская, Марьина Роща и Савёловская; новые разрывы
-    появились у станций, открытых после 2019 года.</p>
+    <p>Проект искал в центре Москвы места, где новому кафе достанется поток людей при меньшем числе
+    конкурентов, чем обычно. Метро, магазины и услуги вокруг участка объясняют 67% различий в числе
+    кафе, и по ним видно, где кафе меньше, чем должно быть. Исторический центр занят, а свободные места
+    лежат у станций метро в 3–5&nbsp;км от Красной площади.</p>
+    <p>Через семь лет там, где в 2019 году кафе не хватало, их стало на 69% больше, а где был
+    избыток, на 11% меньше. Модель указала в правильную сторону, хотя события этих лет двигали рынок
+    туда же. На данных 2026 года самые надёжные места Кутузовская, Марьина Роща и Савёловская, а новые ниши появились у станций,
+    открытых после 2019 года.</p>
     <p>Анализ сужает поиск с целого центра до десятка мест. Окончательный выбор требует того, чего нет
     в открытых данных: прогулки в час пик, ставки аренды и концепции самого кафе.</p>
   </section>
 
   <footer class="footer">
     <p>Данные: портал открытых данных Москвы, реестры 2019 года; © участники OpenStreetMap, лицензия ODbL,
-    снимок от 28&nbsp;сентября 2026&nbsp;г.; адреса ячеек тоже из OpenStreetMap.</p>
+    снимок от 28&nbsp;сентября 2026&nbsp;года; адреса участков тоже из OpenStreetMap.</p>
     <p>Код, ноутбуки и данные: <a href="https://github.com/petro1eum/capstone" target="_blank"
     rel="noopener">github.com/petro1eum/capstone</a>.</p>
   </footer>
@@ -606,15 +630,6 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
     new Intl.NumberFormat("ru-RU", { minimumFractionDigits: digits, maximumFractionDigits: digits })
       .format(value)
       .replace("-", "−");
-  const signed = (value, digits = 2) => (value > 0 ? "+" : "") + format(value, digits);
-  const plural = (n, one, few, many) => {
-    const tens = Math.abs(n) % 100;
-    const units = tens % 10;
-    if (tens > 10 && tens < 20) return many;
-    if (units === 1) return one;
-    return units >= 2 && units <= 4 ? few : many;
-  };
-  const venues = (n) => `${format(n)} ${plural(n, "заведение", "заведения", "заведений")}`;
 
   function svg(tag, attrs, parent) {
     const node = document.createElementNS(SVG_NS, tag);
@@ -745,6 +760,16 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
   const COUNT_EDGES = [1, 3, 6, 11, 21, 41];
   const COUNT_LABELS = ["0", "1–2", "3–5", "6–10", "11–20", "21–40", "41+"];
   const scoreClass = (score) => `d${SCORE_EDGES.filter((edge) => score > edge).length}`;
+  const VERDICTS = [
+    "кафе сильно не хватает",
+    "кафе не хватает",
+    "кафе немного меньше обычного",
+    "кафе столько, сколько обычно",
+    "кафе немного больше обычного",
+    "кафе больше обычного",
+    "кафе намного больше обычного",
+  ];
+  const verdict = (score) => VERDICTS[SCORE_EDGES.filter((edge) => score > edge).length];
   const countClass = (count) => `q${COUNT_EDGES.filter((edge) => count >= edge).length}`;
   const LAYERS = {
     score2026: { year: "2026", fill: (cell) => scoreClass(cell.y2026.score) },
@@ -767,10 +792,11 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
   function renderLegend() {
     legend.replaceChildren();
     if (layer === "score2026" || layer === "score2019") {
-      html("div", "legend-title", `Кафе и рестораны относительно ожидания, ${LAYERS[layer].year}`, legend);
-      legend.appendChild(ramp("d", ["меньше", "как обычно", "больше"]));
+      html("div", "legend-title", `Кафе здесь по сравнению с похожими местами, ${LAYERS[layer].year}`, legend);
+      legend.appendChild(ramp("d", ["не хватает", "как обычно", "избыток"]));
+      html("p", "legend-note", "Похожие места: участки с таким же числом выходов метро, магазинов и услуг.", legend);
     } else if (layer === "type") {
-      html("div", "legend-title", "Тип места", legend);
+      html("div", "legend-title", "Тип района", legend);
       const list = html("ul", "legend-list", null, legend);
       DATA.types.forEach((name, index) => {
         const item = html("li", null, null, list);
@@ -778,14 +804,14 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
         html("span", null, `${name} (${format(cells.filter((cell) => cell.type === index).length)})`, item);
       });
     } else {
-      html("div", "legend-title", "Кафе и рестораны в 300 м, 2026", legend);
+      html("div", "legend-title", "Кафе и рестораны в 5 минутах ходьбы, 2026", legend);
       legend.appendChild(ramp("q", COUNT_LABELS));
     }
     const keys = html("ul", "legend-list keys", null, legend);
     const markerKey = html("li", null, null, keys);
     const year = LAYERS[layer].year;
     html("span", year === "2019" ? "key-marker past" : "key-marker", "1", markerKey);
-    html("span", null, `шорт-лист ${year}`, markerKey);
+    html("span", null, `место из списка ${year} года`, markerKey);
     const riverKey = html("li", null, null, keys);
     html("span", "key-line", null, riverKey);
     html("span", null, "Москва-река и Яуза", riverKey);
@@ -824,13 +850,13 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
   // ---------- tooltip and cell card ----------
   function yearLines(cell, year) {
     const numbers = cell[`y${year}`];
-    return `${year}: ${venues(numbers.competitors)} при ожидаемых ${format(numbers.expected, 1)}, оценка ${signed(numbers.score)}`;
+    return [`${year}: ${format(numbers.competitors)} кафе рядом, обычно ${format(numbers.expected)}`, verdict(numbers.score)];
   }
 
   function showCellTip(event, cell) {
     const year = LAYERS[layer].year;
-    const lines = [yearLines(cell, year)];
-    if (cell[`rank${year}`]) lines.push(`№ ${cell[`rank${year}`]} шорт-листа ${year}`);
+    const lines = yearLines(cell, year);
+    if (cell[`rank${year}`]) lines.push(`№ ${cell[`rank${year}`]} в списке ${year} года`);
     fillTip(tip, cell.address, lines);
     placeTip(tip, frame, event.clientX, event.clientY);
   }
@@ -859,25 +885,29 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
     card.replaceChildren();
     html("h3", null, cell.address, card);
     const now = cell.y2026;
-    const where = [DATA.types[cell.type], `${now.metro}, ${format(now.metro_m)} м`, `${format(cell.center_km, 1)} км от центра`];
+    const past = cell.y2019;
+    const where = [
+      `${now.metro}, ${format(now.metro_m)} м до входа`,
+      `${format(cell.center_km, 1)} км от Красной площади`,
+      DATA.types[cell.type].toLowerCase(),
+    ];
     html("p", "where", where.join(" · "), card);
     if (cell.rank2026 || cell.rank2019) {
       const badges = html("div", "badges", null, card);
-      if (cell.rank2026) html("span", "badge badge-strong", `№ ${cell.rank2026} шорт-листа 2026`, badges);
-      if (cell.rank2019) html("span", "badge", `№ ${cell.rank2019} шорт-листа 2019`, badges);
+      if (cell.rank2026) html("span", "badge badge-strong", `№ ${cell.rank2026} в списке 2026 года`, badges);
+      if (cell.rank2019) html("span", "badge", `№ ${cell.rank2019} в списке 2019 года`, badges);
     }
+    html("p", "verdict", now.eligible ? verdict(now.score) : `${verdict(now.score)}, но участок не подходит для списка: далеко от метро, мало магазинов или мало людей`, card);
     const list = html("dl", null, null, card);
     const row = (term, value) => {
       html("dt", null, term, list);
       html("dd", null, value, list);
     };
-    for (const year of ["2026", "2019"]) {
-      const numbers = cell[`y${year}`];
-      row(`Кафе и рестораны, ${year}`, `${format(numbers.competitors)} / ${format(numbers.expected, 1)}`);
-      row(`Оценка ${year}`, `${signed(numbers.score)}${numbers.eligible ? "" : " · вне фильтров"}`);
-      row(`Магазины / услуги, ${year}`, `${format(numbers.shops)} / ${format(numbers.services)}`);
-    }
-    html("p", "card-note", "Кафе и рестораны: факт в радиусе 300 м / ожидание модели.", card);
+    row("Кафе рядом сейчас", format(now.competitors));
+    row("Обычно для такого места", format(now.expected));
+    row("В 2019 году было", `${format(past.competitors)}, обычно ${format(past.expected)}`);
+    row("Магазины и услуги рядом", `${format(now.shops)} и ${format(now.services)}`);
+    html("p", "card-note", "Рядом: в 300 м, около пяти минут пешком. Обычно: столько кафе бывает на участках с таким же окружением.", card);
   }
 
   function select(id, { scroll = false } = {}) {
@@ -938,9 +968,9 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
     const top = Math.min(maxValue, domain * domain);
     svg("line", { class: "diagonal", x1: sx(0), y1: sy(0), x2: sx(top), y2: sy(top) }, scatter);
     const xTitle = svg("text", { class: "axis-title", x: (margin.left + width - margin.right) / 2, y: height - 8, "text-anchor": "middle" }, scatter);
-    xTitle.textContent = "Ожидание модели (вне выборки)";
+    xTitle.textContent = "Обычно для такого места";
     const yTitle = svg("text", { class: "axis-title", x: 12, y: margin.top + 4, "text-anchor": "start" }, scatter);
-    yTitle.textContent = "Факт";
+    yTitle.textContent = "Есть кафе";
     const ordered = [...cells].sort((a, b) => Boolean(a.rank2019) - Boolean(b.rank2019));
     scatterPoints = ordered.map((cell) => {
       const x = sx(cell.y2019.expected);
@@ -972,8 +1002,8 @@ ul { display: flex; flex-direction: column; gap: 8px; padding-left: 1.2em; }
     focusRing.setAttribute("cx", best.x);
     focusRing.setAttribute("cy", best.y);
     const numbers = best.cell.y2019;
-    const lines = [`2019: ${venues(numbers.competitors)} при ожидаемых ${format(numbers.expected, 1)}`];
-    if (best.cell.rank2019) lines.push(`№ ${best.cell.rank2019} шорт-листа 2019`);
+    const lines = [`2019: ${format(numbers.competitors)} кафе рядом, обычно ${format(numbers.expected)}`];
+    if (best.cell.rank2019) lines.push(`№ ${best.cell.rank2019} в списке 2019 года`);
     fillTip(scatterTip, best.cell.address, lines);
     placeTip(scatterTip, scatterBox, event.clientX, event.clientY);
   });

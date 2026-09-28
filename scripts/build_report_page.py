@@ -31,6 +31,7 @@ OSM = ROOT / "data" / "osm"
 EXTENT_KM = 6.6
 YEARS = (2019, 2026)
 RADII = (250, 300, 400)
+METRO_FILTER_M = 500  # the shortlist wants a station entrance this close
 
 TYPES_RU = {
     "Transit hubs": "Транспортные узлы",
@@ -71,6 +72,7 @@ MONTHS_RU = ["января", "февраля", "марта", "апреля", "м
 # update the notes too, so the build stops instead of publishing text that no longer fits.
 NOTES = {
     "robust": [2, 3, 5],  # ranks on the 2026 shortlist
+    "new_station": [1, 4, 6],  # ranks next to Mitkovo (MCD) and Lefortovo (Big Circle Line)
     "check": {5: (9, 1)},  # rank: (2019 register, OpenStreetMap 2026)
     "saturated": [254, 316, 78, 137, 96, 136],  # cell ids, most saturated in 2019 first
 }
@@ -246,8 +248,9 @@ def cell_records(scores):
 
 def shortlist_2026(summary, scores):
     """The 2026 shortlist with its checks: stable across catchments, competitor definitions and
-    footfall layers, and under-served in the 2019 register as well (`robust`); far fewer venues in
-    OpenStreetMap than in the register (`check`)."""
+    footfall layers, and under-served in the 2019 register as well (`robust`); next to a station
+    opened since 2019 (`new_station`); far fewer venues in OpenStreetMap than in the register
+    (`check`)."""
     now = summary["now"]
     kept = set(now["kept_with_fast_food"])
     old_ranks = now["ranks_with_2019_footfall"]
@@ -264,8 +267,8 @@ def shortlist_2026(summary, scores):
                 "id": int(cell_id),
                 "rank": rank,
                 "cell": cell,
-                "ranks": ranks,
                 "robust": stable and cell["score_2019"] < 0,
+                "new_station": cell["metro_m_2019"] > METRO_FILTER_M >= cell["metro_m_2026"],
                 "check": before >= 2 * max(after, 1) and before - after >= 5,
             }
         )
@@ -273,14 +276,16 @@ def shortlist_2026(summary, scores):
 
 
 def check_notes(rows, summary):
-    robust = [row["rank"] for row in rows if row["robust"]]
-    checked = {
-        row["rank"]: (int(row["cell"]["competitors_2019"]), int(row["cell"]["competitors_2026"]))
-        for row in rows
-        if row["check"]
+    found = {
+        "robust": [row["rank"] for row in rows if row["robust"]],
+        "new_station": [row["rank"] for row in rows if row["new_station"]],
+        "check": {
+            row["rank"]: (int(row["cell"]["competitors_2019"]), int(row["cell"]["competitors_2026"]))
+            for row in rows
+            if row["check"]
+        },
+        "saturated": [entry["cell_id"] for entry in summary["most_saturated"]],
     }
-    saturated = [entry["cell_id"] for entry in summary["most_saturated"]]
-    found = {"robust": robust, "check": checked, "saturated": saturated}
     if found != NOTES:
         raise SystemExit(f"The results changed: update the notes in report_page.html and NOTES.\n{found}")
 
@@ -294,40 +299,44 @@ def osm_link(cell):
     return f'<a class="osm" href="{href}" target="_blank" rel="noopener">OSM ↗</a>'
 
 
-def facts_vs_expected(cell, year):
-    return f"{int(cell[f'competitors_{year}'])} / {num(cell[f'expected_{year}'], 1)}"
+def station(cell, year):
+    return f"{escape(cell[f'nearest_metro_{year}'])}, {num(cell[f'metro_m_{year}'])}&nbsp;м"
 
 
-def score_td(score):
-    return td(f"{swatch(score_class(score))}{num(score, 2)}", numeric=True)
+def usual(cell, year):
+    """The expected number of cafés, rounded: nobody counts 17,4 cafés."""
+    return num(cell[f"expected_{year}"])
+
+
+def change_pct(ratio):
+    value = 100 * (ratio - 1)
+    return "0%" if abs(value) < 0.5 else f"{num(value, sign=True)}%"
 
 
 def shortlist_2026_table(rows):
     header = [
-        ("№", True), ("Метро", False), ("Адрес центра ячейки", False), ("До выхода метро", True),
-        ("До Красной площади", True), ("Кафе и рестораны: факт / ожидание", True), ("Оценка", True),
-        ("Реестр 2019", True), ("Место при 250 · 300 · 400&nbsp;м", True), ("", False),
+        ("№", True), ("Где", False), ("Метро, до входа", False), ("До центра", True), ("Кафе рядом", True),
+        ("Обычно", True), ("В 2019", True), ("", False),
     ]
     body = []
     for row in rows:
         cell = row["cell"]
         chips = []
         if row["robust"]:
-            chips.append('<span class="chip">устойчиво</span>')
+            chips.append('<span class="chip">надёжно</span>')
+        if row["new_station"]:
+            chips.append('<span class="chip new">новая станция</span>')
         if row["check"]:
-            chips.append('<span class="chip warn">сверить данные</span>')
-        ranks = " · ".join("—" if rank is None else num(rank) for rank in row["ranks"])
+            chips.append('<span class="chip warn">проверить на месте</span>')
         body.append(
             f'<tr data-cell="{row["id"]}" tabindex="0" aria-label="Показать место № {row["rank"]} на карте">'
             + td(row["rank"], numeric=True)
-            + td(escape(cell["nearest_metro_2026"]))
             + td(escape(cell["address"]) + osm_link(cell), css_class="address")
-            + td(f"{num(cell['metro_m_2026'])}&nbsp;м", numeric=True)
+            + td(station(cell, 2026))
             + td(f"{num(cell['center_km'], 1)}&nbsp;км", numeric=True)
-            + td(facts_vs_expected(cell, 2026), numeric=True)
-            + score_td(cell["score_2026"])
+            + td(int(cell["competitors_2026"]), numeric=True, css_class="key")
+            + td(usual(cell, 2026), numeric=True)
             + td(int(cell["competitors_2019"]), numeric=True)
-            + td(ranks, numeric=True)
             + td(f'<span class="chips">{"".join(chips)}</span>')
             + "</tr>"
         )
@@ -336,68 +345,69 @@ def shortlist_2026_table(rows):
 
 def shortlist_2019_table(scores):
     header = [
-        ("№", True), ("Метро", False), ("Адрес центра ячейки", False), ("2019: факт / ожидание", True),
-        ("Оценка 2019", True), ("2026, OpenStreetMap", True), ("", False),
+        ("№", True), ("Где", False), ("Метро, до входа", False), ("Кафе в 2019", True), ("Обычно в 2019", True),
+        ("Кафе в 2026", True),
     ]
     body = []
     for cell_id, cell in scores[scores["rank_2019"].notna()].sort_values("rank_2019").iterrows():
         rank = int(cell["rank_2019"])
         before, after = int(cell["competitors_2019"]), int(cell["competitors_2026"])
         change = "±0" if after == before else num(after - before, sign=True)
-        stayed = "" if pd.isna(cell["rank_2026"]) else f'<span class="chip">№&nbsp;{cell["rank_2026"]} в 2026</span>'
         body.append(
             f'<tr data-cell="{cell_id}" tabindex="0" aria-label="Показать место № {rank} списка 2019 года на карте">'
             + td(rank, numeric=True)
-            + td(escape(cell["nearest_metro_2019"]))
             + td(escape(cell["address"]), css_class="address")
-            + td(facts_vs_expected(cell, 2019), numeric=True)
-            + score_td(cell["score_2019"])
+            + td(station(cell, 2019))
+            + td(before, numeric=True, css_class="key")
+            + td(usual(cell, 2019), numeric=True)
             + td(f'{after} <span class="delta">{change}</span>', numeric=True)
-            + td(stayed)
             + "</tr>"
         )
     return table(header, body, "shortlist history")
 
 
 def saturated_table(summary, scores):
-    header = [("Адрес центра ячейки", False), ("Метро", False), ("2019: факт / ожидание", True), ("Оценка", True)]
+    header = [("Где", False), ("Метро", False), ("Кафе рядом", True), ("Обычно", True), ("Больше обычного", True)]
     body = []
     for entry in summary["most_saturated"]:
         cell = scores.loc[entry["cell_id"]]
+        ratio = cell["competitors_2019"] / cell["expected_2019"]
         body.append(
             "<tr>"
             + td(escape(cell["address"]))
             + td(escape(cell["nearest_metro_2019"]))
-            + td(facts_vs_expected(cell, 2019), numeric=True)
-            + score_td(cell["score_2019"])
+            + td(int(cell["competitors_2019"]), numeric=True, css_class="key")
+            + td(usual(cell, 2019), numeric=True)
+            + td(f"в&nbsp;{num(ratio, 1)} раза", numeric=True)
             + "</tr>"
         )
     return table(header, body)
 
 
 def quintile_chart(look_forward):
-    labels = ["1: самые недообеспеченные", "2", "3", "4", "5: самые насыщенные"]
+    labels = ["Сильнее всего не хватало", "Скорее не хватало", "Как обычно", "Скорее с избытком",
+              "Больше всего с избытком"]
     colors = ["var(--d0)", "var(--d1)", "var(--ring)", "var(--d5)", "var(--d6)"]
     top = 1.8
     rows = []
     for label, color, quintile in zip(labels, colors, look_forward["by_quintile"], strict=True):
-        counts = f"{num(quintile['venues_2019'])} → {num(quintile['venues_2026'])}"
+        counts = f"{num(quintile['venues_2019'])} → {num(quintile['venues_2026'])} кафе"
         rows.append(
             f'<div class="bar-row"><span class="bar-label">{label}<small>{counts}</small></span>'
             f'<span class="bar-track"><span class="bar" style="width:{100 * quintile["change"] / top:.1f}%;'
             f'background:{color}"></span><span class="ref" style="left:{100 / top:.1f}%"></span></span>'
-            f'<span class="bar-value">×{num(quintile["change"], 2)}</span></div>'
+            f'<span class="bar-value">{change_pct(quintile["change"])}</span></div>'
         )
     return (
-        '<figure class="chart" id="quintiles"><figcaption><strong>Сколько заведений стало к 2026 году'
-        "</strong>Ячейки разбиты на пять равных групп по оценке 2019 года. Отношение числа кафе и ресторанов "
-        "в OpenStreetMap 2026 к реестру 2019; вертикальная линия отмечает ×1.</figcaption>"
+        '<figure class="chart" id="quintiles"><figcaption><strong>Как изменилось число кафе с 2019 по 2026 год'
+        "</strong>Все участки разделены на пять равных групп по тому, насколько в 2019 году кафе не хватало. "
+        "Пунктир отмечает «без изменений».</figcaption>"
         f'<div class="bars">{"".join(rows)}</div></figure>'
     )
 
 
 def by_type_table(look_forward):
-    header = [("Тип места", False), ("Ячеек", True), ("Заведений в 2019", True), ("В 2026", True),
+    header = [("Тип района", False), ("Участков", True), ("Кафе в 2019", True), ("Кафе в 2026", True),
               ("Изменение", True)]
     body = []
     for i, name in enumerate(TYPES_RU):
@@ -406,7 +416,7 @@ def by_type_table(look_forward):
             "<tr>"
             + td(f"{swatch(f't{i}')}{TYPES_RU[name]}")
             + "".join(td(num(row[key]), numeric=True) for key in ["cells", "venues_2019", "venues_2026"])
-            + td(f"×{num(row['change'], 2)}", numeric=True)
+            + td(change_pct(row["change"]), numeric=True, css_class="key")
             + "</tr>"
         )
     return table(header, body)
@@ -424,8 +434,8 @@ def effects_chart(summary):
         value, lo, hi = effect["effect, %"], effect["95% low"], effect["95% high"]
         clear = lo > 0 or hi < 0
         kind = ("pos" if value > 0 else "neg") if clear else "flat"
-        interval = f"95%: {num(lo, 1, sign=True)}…{num(hi, 1, sign=True)}%"
-        title = f"{EFFECTS_RU[column]}: {num(value, 1, sign=True)}% ({interval})"
+        interval = f"почти наверняка от {num(lo, 1, sign=True)} до {num(hi, 1, sign=True)}%"
+        title = f"{EFFECTS_RU[column]}: {num(value, 1, sign=True)}%, {interval}"
         lines.append(
             f'<div class="dot-row" title="{escape(title)}">'
             f'<span class="dot-label">{EFFECTS_RU[column]}</span>'
@@ -439,9 +449,9 @@ def effects_chart(summary):
     )
     return (
         '<figure class="chart" id="effects">'
-        "<figcaption><strong>Как меняется ожидаемое число кафе и ресторанов</strong>"
-        "Точка: оценка регрессии, линия: 95% интервал блочного бутстрэпа. Серым отмечены эффекты, "
-        "которые нельзя отличить от нуля.</figcaption>"
+        "<figcaption><strong>Как меняется обычное число кафе</strong>"
+        "Точка показывает оценку, отрезок диапазон, в котором она почти наверняка лежит. Серым отмечено то, "
+        "что на число кафе заметно не влияет.</figcaption>"
         f'<div class="dots" style="--zero:{position(0):.2f}%">{"".join(lines)}'
         f'<div class="dot-row axis"><span></span><span class="dot-track">{ticks}</span><span></span></div>'
         "</div></figure>"
@@ -458,8 +468,8 @@ def chains_chart(summary):
         for name, count in chains
     )
     return (
-        '<figure class="chart" id="chains"><figcaption><strong>Крупнейшие сети в радиусе 6&nbsp;км, 2019'
-        "</strong>Кафе и рестораны с отметкой сетевого заведения в реестре.</figcaption>"
+        '<figure class="chart" id="chains"><figcaption><strong>Крупнейшие сети кафе и ресторанов в радиусе '
+        "6&nbsp;км, 2019</strong>Число заведений с отметкой сети в городском реестре.</figcaption>"
         f'<div class="bars">{rows}</div></figure>'
     )
 
@@ -470,12 +480,12 @@ def model_table(summary):
         f'<tr{" class=best" if name == best else ""}>{td(MODELS_RU[name])}{td(num(value, 2), numeric=True)}</tr>'
         for name, value in summary["model_d2"].items()
     ]
-    return table([("Модель", False), ("D², пространственная кросс-валидация", True)], body)
+    return table([("Способ расчёта", False), ("D²", True)], body)
 
 
 def typology_table(summary):
-    header = [("Тип", False), ("Ячеек", True), ("Кафе и рестораны", True), ("Выходы метро", True),
-              ("Магазины", True), ("Услуги", True), ("До метро, м", True), ("До центра, км", True)]
+    header = [("Тип района", False), ("Участков", True), ("Кафе", True), ("Выходы метро", True),
+              ("Магазины", True), ("Услуги", True), ("До метро", True), ("До центра", True)]
     body = []
     for i, name in enumerate(TYPES_RU):
         profile = summary["typology"][name]
@@ -483,16 +493,18 @@ def typology_table(summary):
             "<tr>"
             + td(f"{swatch(f't{i}')}{TYPES_RU[name]}")
             + "".join(td(num(profile[key]), numeric=True)
-                      for key in ["cells", "competitors", "metro_exits", "shops", "services", "metro_distance"])
-            + td(num(profile["center_distance"] / 1000, 1), numeric=True)
+                      for key in ["cells", "competitors", "metro_exits", "shops", "services"])
+            + td(f"{num(profile['metro_distance'])}&nbsp;м", numeric=True)
+            + td(f"{num(profile['center_distance'] / 1000, 1)}&nbsp;км", numeric=True)
             + "</tr>"
         )
-    return table(header, body)
+    note = '<p class="table-note">Типичный участок каждого типа (медиана), всё в 300&nbsp;м, данные 2019 года.</p>'
+    return table(header, body) + note
 
 
 def data_table(osm_date):
     layers = [
-        ("Ячейки-кандидаты", "сетка 2019 года", data.load_candidates),
+        ("Участки", "сетка 2019 года", data.load_candidates),
         ("Кафе, рестораны и другой общепит", "реестр data.mos.ru, 2019", data.load_catering),
         ("Выходы метро", "data.mos.ru, 2019", data.load_metro_exits),
         ("Остановки наземного транспорта", "data.mos.ru, 2019", data.load_bus_stops),
@@ -533,44 +545,38 @@ def fields(summary, scores, rows):
     robust = [row for row in rows if row["robust"]]
     now = pd.DataFrame([row["cell"] for row in rows])
     year, month, day = (int(part) for part in summary["osm_date"].split("-"))
-    osm_date = f"{day}&nbsp;{MONTHS_RU[month - 1]} {year}&nbsp;г."
+    osm_date = f"{day}&nbsp;{MONTHS_RU[month - 1]} {year}&nbsp;года"
     return {
-        "competitors_2019": counted(summary["competitors_within_6km"], "кафе и ресторан", "кафе и ресторана",
-                                    "кафе и ресторанов"),
-        "q1_times": f"в {num(q1, 1)} раза больше",
-        "q1_change": f"×{num(q1, 2)}",
-        "q5_change": f"×{num(q5, 2)}",
+        "robust_count": num(len(robust)),
+        "robust_word": plural(len(robust), "лучшее место", "лучших места", "лучших мест"),
+        "robust_listing": listing(escape(row["cell"]["nearest_metro_2026"]) for row in robust),
+        "robust_ranks": "№&nbsp;" + listing(str(row["rank"]) for row in robust),
+        "q1_pct": change_pct(q1),
+        "q1_gain": num(100 * (q1 - 1)),
         "q5_drop": num(100 * (1 - q5)),
+        "outer_q1_pct": change_pct(look["outer_change"][0]),
+        "outer_q5_pct": change_pct(look["outer_change"][-1]),
+        "hubs_drop": num(100 * (1 - look["by_type"]["Transit hubs"]["change"])),
+        "belt_gain": num(100 * (look["by_type"]["Residential belt"]["change"] - 1)),
         "slope": num(100 * slope[0]),
         "slope_low": num(100 * slope[1], sign=True),
         "slope_high": num(100 * slope[2], sign=True),
-        "outer_q1": f"×{num(look['outer_change'][0], 2)}",
-        "outer_q5": f"×{num(look['outer_change'][-1], 2)}",
         "distance_slope": num(100 * distance_slope[0], sign=True),
         "distance_low": num(100 * distance_slope[1], sign=True),
         "distance_high": num(100 * distance_slope[2], sign=True),
-        "hubs_drop": num(100 * (1 - look["by_type"]["Transit hubs"]["change"])),
-        "belt_gain": num(100 * (look["by_type"]["Residential belt"]["change"] - 1)),
-        "by_type_table": by_type_table(look),
-        "venues_2019": counted(look["venues_2019"], "заведение", "заведения", "заведений"),
+        "venues_2019": num(look["venues_2019"]),
         "venues_2026": num(look["venues_2026"]),
         "short2019_before": num(past["competitors_2019"].sum()),
         "short2019_after": num(past["competitors_2026"].sum()),
         "gained": num((past["competitors_2026"] > past["competitors_2019"]).sum()),
-        "stayed": f"В шорт-листе 2026 года остались {listing(stayed)}." if stayed
-        else "В шорт-лист 2026 года не вошло ни одно из них.",
-        "robust_count": num(len(robust)),
-        "robust_label": plural(len(robust), "устойчивый кандидат", "устойчивых кандидата", "устойчивых кандидатов"),
-        "robust_names": ", ".join(escape(row["cell"]["nearest_metro_2026"]) for row in robust),
-        "robust_listing": listing(escape(row["cell"]["nearest_metro_2026"]) for row in robust),
-        "robust_ranks": "№&nbsp;" + listing(str(row["rank"]) for row in robust),
+        "stayed": f"В список 2026 года попали {listing(stayed)}." if stayed
+        else "В список 2026 года не вошло ни одно из них.",
         "osm_date": osm_date,
         "distance_range": f"{num(now['center_km'].min(), 1)}–{num(now['center_km'].max(), 1)}",
         "max_metro": num(now["metro_m_2026"].max()),
         "theta": num(summary["theta"], 1),
+        "silhouette": num(summary["silhouette_k4"], 2),
         "d2_glm": pct(d2["Poisson GLM, linear distances"]),
-        "d2_boosting": pct(d2["Gradient boosting, Poisson loss"]),
-        "d2_log": pct(d2["Poisson GLM, log distances"]),
         "d2_random": pct(summary["random_cv_d2"]),
         "d2_2026": pct(summary["now"]["d2"]),
         "d2_2026_old": pct(summary["now"]["d2_2019_footfall"]),
@@ -579,7 +585,6 @@ def fields(summary, scores, rows):
         "effect_shops": num(effects["shops"]),
         "effect_services": num(effects["services"]),
         "effect_exits": num(effects["metro_exits"]),
-        "silhouette": num(summary["silhouette_k4"], 2),
         "catering_total": counted(sum(catering.values()), "заведение", "заведения", "заведений"),
         "cafes": f"{num(catering['кафе'])} кафе",
         "restaurants": counted(catering["ресторан"], "ресторан", "ресторана", "ресторанов"),
@@ -589,6 +594,7 @@ def fields(summary, scores, rows):
         "other": num(other),
         "seats": counted(summary["competitor_seats"], "посадочное место", "посадочных места", "посадочных мест"),
         "chain_share": pct(summary["chain_share"]),
+        "by_type_table": by_type_table(look),
         "shortlist_2026_table": shortlist_2026_table(rows),
         "shortlist_2019_table": shortlist_2019_table(scores),
         "saturated_table": saturated_table(summary, scores),
