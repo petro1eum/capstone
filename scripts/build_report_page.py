@@ -5,8 +5,8 @@
 
 Inputs: report/summary.json, report/cell_scores.csv and report/shortlist_{2019,2026}.csv (written
 by the notebook), data/osm/osm_basemap.geojson and data/osm/osm_cell_addresses_ru.csv (written by
-scripts/fetch_osm_data.py) and the data layers themselves, for the record counts. The text of the
-page is report_page.html, its style and script are report_page.css and report_page.js.
+scripts/fetch_osm_data.py) and the data layers themselves, for the record counts. The page's text,
+style and script are in scripts/report_page/: template.html, style.css and script.js.
 """
 
 import argparse
@@ -25,7 +25,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from moscow_cafes import data  # noqa: E402
 from moscow_cafes.geo import RED_SQUARE, grid_hexagons, to_xy  # noqa: E402
 
-HERE = Path(__file__).resolve().parent
+PAGE = Path(__file__).resolve().parent / "report_page"
 REPORT = ROOT / "report"
 OSM = ROOT / "data" / "osm"
 EXTENT_KM = 6.6
@@ -68,7 +68,7 @@ METRO_NAMES = {
 MONTHS_RU = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
              "ноября", "декабря"]
 
-# The hand-written notes of report_page.html describe these cells. A rerun that changes them must
+# The hand-written notes of report_page/template.html describe these cells. A rerun that changes them must
 # update the notes too, so the build stops instead of publishing text that no longer fits.
 NOTES = {
     "robust": [2, 3, 5],  # ranks on the 2026 shortlist
@@ -291,7 +291,7 @@ def check_notes(rows, summary):
         "saturated": [entry["cell_id"] for entry in summary["most_saturated"]],
     }
     if found != NOTES:
-        raise SystemExit(f"The results changed: update the notes in report_page.html and NOTES.\n{found}")
+        raise SystemExit(f"The results changed: update the notes in report_page/template.html and NOTES.\n{found}")
 
 
 # ---------------------------------------------------------------- page parts
@@ -554,7 +554,7 @@ def data_table(osm_date):
 
 
 def fields(summary, scores, rows):
-    """Values of the ${...} placeholders of report_page.html."""
+    """Values of the ${...} placeholders of report_page/template.html."""
     look = summary["look_forward"]
     q1, q5 = look["by_quintile"][0]["change"], look["by_quintile"][-1]["change"]
     slope = [2 ** look[key] - 1 for key in ("slope", "slope_low", "slope_high")]
@@ -660,9 +660,9 @@ def build(fragment):
         "start": rows[0]["id"],
     }
     blob = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-    page = Template((HERE / "report_page.html").read_text(encoding="utf-8")).substitute(fields(summary, scores, rows))
-    style = (HERE / "report_page.css").read_text(encoding="utf-8")
-    script = (HERE / "report_page.js").read_text(encoding="utf-8")
+    page = Template((PAGE / "template.html").read_text(encoding="utf-8")).substitute(fields(summary, scores, rows))
+    style = (PAGE / "style.css").read_text(encoding="utf-8")
+    script = (PAGE / "script.js").read_text(encoding="utf-8")
     head = f"{HEAD}<style>\n{style}</style>\n"
     content = f'{page}<script type="application/json" id="report-data">{blob}</script>\n<script>\n{script}</script>\n'
     if fragment:

@@ -1,0 +1,18 @@
+# Tool settings. The project is a set of notebooks and scripts, not an installable package:
+# the dependencies are in requirements.txt.
+
+[tool.ruff]
+line-length = 120
+src = ["src"]
+# Notebooks 01 and 02 are kept as they ran in 2019.
+extend-exclude = [
+    "notebooks/01_data_collection_moscow_open_data.ipynb",
+    "notebooks/02_foursquare_central_districts.ipynb",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

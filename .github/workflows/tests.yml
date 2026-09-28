@@ -1,0 +1,22 @@
+name: tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install the dependencies of the package and the tests
+        run: pip install numpy pandas scipy scikit-learn pyproj requests pytest ruff==0.16.9
+      - name: Lint
+        run: ruff check .
+      - name: Test
+        run: pytest
