@@ -1,0 +1,11 @@
+cell_id,rank,address,type,nearest_metro,metro_m,center_km,competitors,expected,score,shops,services,lat,lon
+307,1,Savyolovsky Drive,Residential belt,Савёловская,376.0,4.6,1,10.7,-1.49,6,34,55.792391,37.595654
+324,2,Festivalny Park,Residential belt,Марьина роща,253.0,4.3,1,10.4,-1.48,6,7,55.792416,37.620372
+192,3,"Khoroshyovskoye Highway, вл1",Transit hubs,Беговая,4.0,5.3,4,14.1,-1.36,27,13,55.773369,37.544541
+188,4,"Rogozhsky Val Street, 9/2с2",Central neighbourhoods,Площадь Ильича,439.0,3.8,4,14.9,-1.27,27,16,55.742498,37.678702
+94,5,"Sharikopodshipnikovskaya Street, 11с1",Transit hubs,Дубровка,118.0,5.3,4,15.9,-1.23,1306,13,55.718383,37.678742
+329,6,"Tsentralniy Administrative Okrug, Krasnoselskiy District",Residential belt,Красносельская,440.0,4.3,3,11.3,-1.12,26,9,55.783833,37.664522
+129,7,"Krutitsky Val Street, 3с1",Transit hubs,Пролетарская,134.0,3.8,9,23.6,-1.09,27,30,55.730433,37.666384
+325,8,Verzemneka Street,Residential belt,Рижская,465.0,4.2,5,11.3,-0.94,7,13,55.7907,37.629204
+337,9,4th Maryinoy Roschi Drive,Transit hubs,Марьина роща,114.0,4.9,7,16.8,-0.94,54,12,55.797583,37.618591
+312,10,"Skryabinsky Lane, 12/14с2",Residential belt,Проспект Мира,455.0,3.6,6,15.0,-0.93,21,14,55.783817,37.639812
