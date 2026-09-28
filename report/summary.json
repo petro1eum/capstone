@@ -439,59 +439,94 @@
    "food_court": 38
   },
   "competitors_within_6km": 3933,
-  "d2": 0.583480755322446,
-  "theta": 3.5497718700542333,
-  "eligible_cells": 117,
-  "single_radius_ranks": {
-   "307": {
-    "rank at 250 m": 3.0,
-    "rank at 300 m": 1.0,
-    "rank at 400 m": 2.0
+  "footfall_within_6km": {
+   "metro": {
+    "2019": 289,
+    "2026": 349
    },
-   "339": {
+   "bus": {
+    "2019": 1654,
+    "2026": 1772
+   },
+   "shops": {
+    "2019": 12695,
+    "2026": 9686
+   },
+   "services": {
+    "2019": 3031,
+    "2026": 3328
+   },
+   "fitness": {
+    "2019": 43,
+    "2026": 178
+   }
+  },
+  "d2": 0.6745153596251416,
+  "d2_2019_footfall": 0.583480755322446,
+  "ranks_with_2019_footfall": {
+   "330": null,
+   "60": 4.0,
+   "324": 3.0,
+   "303": null,
+   "307": 1.0,
+   "343": null,
+   "188": 6.0,
+   "61": 11.0,
+   "192": 5.0,
+   "157": 8.0
+  },
+  "theta": 4.962420776682982,
+  "eligible_cells": 126,
+  "single_radius_ranks": {
+   "330": {
     "rank at 250 m": 1.0,
-    "rank at 300 m": 2.0,
+    "rank at 300 m": 1.0,
     "rank at 400 m": null
+   },
+   "60": {
+    "rank at 250 m": 3.0,
+    "rank at 300 m": 2.0,
+    "rank at 400 m": 1.0
    },
    "324": {
     "rank at 250 m": 6.0,
-    "rank at 300 m": 3.0,
-    "rank at 400 m": 1.0
-   },
-   "60": {
-    "rank at 250 m": 8.0,
     "rank at 300 m": 4.0,
+    "rank at 400 m": 2.0
+   },
+   "303": {
+    "rank at 250 m": 4.0,
+    "rank at 300 m": 5.0,
     "rank at 400 m": null
    },
-   "192": {
-    "rank at 250 m": 5.0,
-    "rank at 300 m": 11.0,
+   "307": {
+    "rank at 250 m": 7.0,
+    "rank at 300 m": 3.0,
     "rank at 400 m": 3.0
    },
+   "343": {
+    "rank at 250 m": 5.0,
+    "rank at 300 m": 6.0,
+    "rank at 400 m": null
+   },
    "188": {
-    "rank at 250 m": 9.0,
-    "rank at 300 m": 7.0,
+    "rank at 250 m": 21.0,
+    "rank at 300 m": 10.0,
     "rank at 400 m": 4.0
    },
-   "157": {
-    "rank at 250 m": 7.0,
-    "rank at 300 m": 10.0,
+   "61": {
+    "rank at 250 m": 15.0,
+    "rank at 300 m": 19.0,
+    "rank at 400 m": 5.0
+   },
+   "192": {
+    "rank at 250 m": 8.0,
+    "rank at 300 m": 17.0,
     "rank at 400 m": 7.0
    },
-   "94": {
-    "rank at 250 m": 2.0,
-    "rank at 300 m": 5.0,
-    "rank at 400 m": 12.0
-   },
-   "128": {
-    "rank at 250 m": null,
-    "rank at 300 m": 6.0,
-    "rank at 400 m": 8.0
-   },
-   "329": {
-    "rank at 250 m": 14.0,
-    "rank at 300 m": 9.0,
-    "rank at 400 m": 9.0
+   "157": {
+    "rank at 250 m": 11.0,
+    "rank at 300 m": 12.0,
+    "rank at 400 m": 10.0
    }
   },
   "kept_with_fast_food": [
@@ -501,9 +536,7 @@
    4,
    5,
    6,
-   7,
-   9,
-   10
+   8
   ]
  }
 }

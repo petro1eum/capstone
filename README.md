@@ -25,9 +25,11 @@ noticeably fewer cafés and restaurants than comparable places?
   2020-2026 (the pandemic, the war and sanctions, the exit of foreign chains, fewer tourists) moved
   cafés from transit hubs to residential streets on its own, so the check supports the method
   without proving it.
-- The same pipeline with the competitors of 2026 gives today's shortlist. The most robust candidates
-  are around **Savyolovskaya, Maryina Roshcha, Begovaya, Ploshchad Ilyicha and Krasnopresnenskaya**;
-  the full top 10 and the caveats are in the report.
+- The same pipeline with the competitors and the footfall generators of 2026 (OpenStreetMap: metro,
+  MCC and MCD entrances, stops, shops, services, gyms) explains the market of 2026 as well (67%) and
+  gives today's shortlist. The most robust candidates are around **Kutuzovskaya, Maryina Roshcha and
+  Savyolovskaya**; new gaps have opened next to stations built since 2019 (Lefortovo on the Big
+  Circle Line, Mitkovo on the MCD). The full top 10 and the caveats are in the report.
 
 Read the [**report**](report/REPORT.md) ([по-русски](report/REPORT.ru.md)), or the analysis notebook
 itself: [`notebooks/03_cafe_location_analysis.ipynb`](notebooks/03_cafe_location_analysis.ipynb)
@@ -92,9 +94,11 @@ The code is licensed under the GNU GPL v3, see [LICENSE](LICENSE).
   насыщенных на 11% меньше. Направление совпадает с моделью, но пандемия, война, санкции и уход
   иностранных сетей сами сдвигали кафе из транспортных узлов к жилым улицам, так что это подкрепляет
   метод, но не доказывает его.
-- Исторический центр насыщен. Самые устойчивые кандидаты на 2026 год находятся у станций
-  **Савёловская, Марьина Роща, Беговая, Площадь Ильича и Краснопресненская**, в 3–5,3 км от Красной
-  площади.
+- Шорт-лист 2026 года посчитан на данных 2026 года: конкуренты и генераторы трафика (входы метро,
+  МЦК и МЦД, остановки, магазины, услуги, фитнес-клубы) взяты из OpenStreetMap. Модель объясняет 67%
+  девиансы, как и в 2019 году. Исторический центр насыщен. Самые устойчивые кандидаты находятся
+  у станций **Кутузовская, Марьина Роща и Савёловская**, новые разрывы появились у станций, открытых
+  после 2019 года (Лефортово на БКЛ, Митьково на МЦД).
 
 Подробности в [отчёте на русском](report/REPORT.ru.md); интерактивная страница с картой:
 `report/report_ru.html`.

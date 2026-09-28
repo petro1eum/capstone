@@ -56,16 +56,22 @@ MODELS_RU = {
     "Average of the GLM and boosting": "Среднее регрессии и бустинга",
 }
 # Station names as the metro signs spell them.
-METRO_NAMES = {"Марьина роща": "Марьина Роща", "Крестьянская застава": "Крестьянская Застава",
-               "Савеловская": "Савёловская"}
+METRO_NAMES = {
+    "Марьина роща": "Марьина Роща",
+    "Савеловская": "Савёловская",
+    "Крестьянская Застава": "Крестьянская застава",
+    "Кузнецкий Мост": "Кузнецкий мост",
+    "Красные Ворота": "Красные ворота",
+    "Парк Культуры": "Парк культуры",
+}
 MONTHS_RU = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
              "ноября", "декабря"]
 
 # The hand-written notes of report_page.html describe these cells. A rerun that changes them must
 # update the notes too, so the build stops instead of publishing text that no longer fits.
 NOTES = {
-    "robust": [1, 3, 5, 6, 7],  # ranks on the 2026 shortlist
-    "check": {1: (9, 1), 8: (16, 4), 10: (13, 3)},  # rank: (2019 register, OpenStreetMap 2026)
+    "robust": [2, 3, 5],  # ranks on the 2026 shortlist
+    "check": {5: (9, 1)},  # rank: (2019 register, OpenStreetMap 2026)
     "saturated": [254, 316, 78, 137, 96, 136],  # cell ids, most saturated in 2019 first
 }
 
@@ -199,7 +205,8 @@ def load():
     # Russian street addresses from OpenStreetMap; the English ones of the 2019 geocoder as a fallback.
     addresses = pd.read_csv(OSM / "osm_cell_addresses_ru.csv", index_col="cell_id")["address"]
     scores["address"] = addresses.reindex(scores.index).fillna(scores["address"])
-    scores["nearest_metro"] = scores["nearest_metro"].replace(METRO_NAMES)
+    for year in YEARS:
+        scores[f"nearest_metro_{year}"] = scores[f"nearest_metro_{year}"].replace(METRO_NAMES)
     return summary, scores
 
 
@@ -218,14 +225,14 @@ def cell_records(scores):
             "y": round(float(center_y[i]), 3),
             "address": row["address"],
             "type": types.index(row["type"]),
-            "metro": row["nearest_metro"],
-            "metro_m": int(row["metro_m"]),
             "center_km": float(row["center_km"]),
-            "shops": int(row["shops"]),
-            "services": int(row["services"]),
         }
         for year in YEARS:
             record[f"y{year}"] = {
+                "metro": row[f"nearest_metro_{year}"],
+                "metro_m": int(row[f"metro_m_{year}"]),
+                "shops": int(row[f"shops_{year}"]),
+                "services": int(row[f"services_{year}"]),
                 "competitors": int(row[f"competitors_{year}"]),
                 "expected": float(row[f"expected_{year}"]),
                 "score": float(row[f"score_{year}"]),
@@ -238,17 +245,20 @@ def cell_records(scores):
 
 
 def shortlist_2026(summary, scores):
-    """The 2026 shortlist with its checks: stable across catchments and competitor definitions, and
-    under-served in the 2019 register as well (`robust`); far fewer venues in OpenStreetMap than in
-    the register (`check`)."""
+    """The 2026 shortlist with its checks: stable across catchments, competitor definitions and
+    footfall layers, and under-served in the 2019 register as well (`robust`); far fewer venues in
+    OpenStreetMap than in the register (`check`)."""
     now = summary["now"]
     kept = set(now["kept_with_fast_food"])
+    old_ranks = now["ranks_with_2019_footfall"]
     rows = []
     for cell_id, cell in scores[scores["rank_2026"].notna()].sort_values("rank_2026").iterrows():
         rank = int(cell["rank_2026"])
         ranks = [now["single_radius_ranks"][str(cell_id)].get(f"rank at {radius} m") for radius in RADII]
         before, after = int(cell["competitors_2019"]), int(cell["competitors_2026"])
+        old_rank = old_ranks.get(str(cell_id))
         stable = all(r is not None and r <= 12 for r in ranks) and rank in kept
+        stable = stable and old_rank is not None and old_rank <= 10
         rows.append(
             {
                 "id": int(cell_id),
@@ -310,9 +320,9 @@ def shortlist_2026_table(rows):
         body.append(
             f'<tr data-cell="{row["id"]}" tabindex="0" aria-label="Показать место № {row["rank"]} на карте">'
             + td(row["rank"], numeric=True)
-            + td(escape(cell["nearest_metro"]))
+            + td(escape(cell["nearest_metro_2026"]))
             + td(escape(cell["address"]) + osm_link(cell), css_class="address")
-            + td(f"{num(cell['metro_m'])}&nbsp;м", numeric=True)
+            + td(f"{num(cell['metro_m_2026'])}&nbsp;м", numeric=True)
             + td(f"{num(cell['center_km'], 1)}&nbsp;км", numeric=True)
             + td(facts_vs_expected(cell, 2026), numeric=True)
             + score_td(cell["score_2026"])
@@ -338,7 +348,7 @@ def shortlist_2019_table(scores):
         body.append(
             f'<tr data-cell="{cell_id}" tabindex="0" aria-label="Показать место № {rank} списка 2019 года на карте">'
             + td(rank, numeric=True)
-            + td(escape(cell["nearest_metro"]))
+            + td(escape(cell["nearest_metro_2019"]))
             + td(escape(cell["address"]), css_class="address")
             + td(facts_vs_expected(cell, 2019), numeric=True)
             + score_td(cell["score_2019"])
@@ -357,7 +367,7 @@ def saturated_table(summary, scores):
         body.append(
             "<tr>"
             + td(escape(cell["address"]))
-            + td(escape(cell["nearest_metro"]))
+            + td(escape(cell["nearest_metro_2019"]))
             + td(facts_vs_expected(cell, 2019), numeric=True)
             + score_td(cell["score_2019"])
             + "</tr>"
@@ -493,6 +503,10 @@ def data_table(osm_date):
         ("Вузы и колледжи", f"OpenStreetMap, {osm_date}", data.load_education),
         ("Кафе, рестораны, фастфуд и бары", f"OpenStreetMap, {osm_date}", data.load_osm_catering),
     ]
+    demand = data.load_osm_demand()
+    for name, key in [("Входы метро, МЦК и МЦД", "metro"), ("Остановки", "bus"), ("Магазины", "shops"),
+                      ("Бытовые услуги", "services"), ("Фитнес-клубы", "fitness")]:
+        layers.append((name, f"OpenStreetMap, {osm_date}", lambda key=key: demand[key]))
     body = [f"<tr>{td(name)}{td(source)}{td(num(len(loader())), numeric=True)}</tr>" for name, source, loader in layers]
     return table([("Слой", False), ("Источник", False), ("Записей", True)], body)
 
@@ -513,7 +527,9 @@ def fields(summary, scores, rows):
     other = catering["буфет"] + catering["кафетерий"] + catering["магазин (отдел кулинарии)"]
     past = scores[scores["rank_2019"].notna()]
     stayed = past[past["rank_2026"].notna()].sort_values("rank_2019")
-    stayed = [f"№&nbsp;{rank} ({escape(metro)})" for rank, metro in stayed[["rank_2019", "nearest_metro"]].to_numpy()]
+    stayed = [
+        f"№&nbsp;{rank} ({escape(metro)})" for rank, metro in stayed[["rank_2019", "nearest_metro_2019"]].to_numpy()
+    ]
     robust = [row for row in rows if row["robust"]]
     now = pd.DataFrame([row["cell"] for row in rows])
     year, month, day = (int(part) for part in summary["osm_date"].split("-"))
@@ -541,21 +557,23 @@ def fields(summary, scores, rows):
         "short2019_before": num(past["competitors_2019"].sum()),
         "short2019_after": num(past["competitors_2026"].sum()),
         "gained": num((past["competitors_2026"] > past["competitors_2019"]).sum()),
-        "stayed": listing(stayed),
+        "stayed": f"В шорт-листе 2026 года остались {listing(stayed)}." if stayed
+        else "В шорт-лист 2026 года не вошло ни одно из них.",
         "robust_count": num(len(robust)),
         "robust_label": plural(len(robust), "устойчивый кандидат", "устойчивых кандидата", "устойчивых кандидатов"),
-        "robust_names": ", ".join(escape(row["cell"]["nearest_metro"]) for row in robust),
-        "robust_listing": listing(escape(row["cell"]["nearest_metro"]) for row in robust),
+        "robust_names": ", ".join(escape(row["cell"]["nearest_metro_2026"]) for row in robust),
+        "robust_listing": listing(escape(row["cell"]["nearest_metro_2026"]) for row in robust),
         "robust_ranks": "№&nbsp;" + listing(str(row["rank"]) for row in robust),
         "osm_date": osm_date,
         "distance_range": f"{num(now['center_km'].min(), 1)}–{num(now['center_km'].max(), 1)}",
-        "max_metro": num(now["metro_m"].max()),
+        "max_metro": num(now["metro_m_2026"].max()),
         "theta": num(summary["theta"], 1),
         "d2_glm": pct(d2["Poisson GLM, linear distances"]),
         "d2_boosting": pct(d2["Gradient boosting, Poisson loss"]),
         "d2_log": pct(d2["Poisson GLM, log distances"]),
         "d2_random": pct(summary["random_cv_d2"]),
         "d2_2026": pct(summary["now"]["d2"]),
+        "d2_2026_old": pct(summary["now"]["d2_2019_footfall"]),
         "effect_center": num(-effects["center_distance_km"]),
         "effect_metro": num(-effects["metro_distance_km"], 1),
         "effect_shops": num(effects["shops"]),

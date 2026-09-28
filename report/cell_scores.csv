@@ -1,365 +1,365 @@
-cell_id,address,type,nearest_metro,metro_m,center_km,shops,services,lat,lon,competitors_2019,expected_2019,score_2019,eligible_2019,competitors_2026,expected_2026,score_2026,eligible_2026
-0,Luzhniki,"Parks, rail and industrial land",Воробьёвы горы,277.0,5.9,0,0,55.711375,37.566005,0,1.2,-0.95,False,2,1.9,0.28,False
-1,Vorobyovy Gory Nature Reserve,"Parks, rail and industrial land",Ленинский проспект,701.0,5.7,0,1,55.709665,37.574822,1,1.0,-0.37,False,2,1.3,0.4,False
-2,"Leninsky Avenue, 39с1",Transit hubs,Ленинский проспект,138.0,5.6,25,12,55.707955,37.583639,1,8.5,-1.24,True,5,7.0,-0.27,False
-3,"Vavilova Street, 3",Transit hubs,Площадь Гагарина,368.0,5.6,213,11,55.706244,37.592454,28,13.0,2.11,True,13,9.0,0.73,True
-4,Muslim Cemetery,"Parks, rail and industrial land",Площадь Гагарина,952.0,5.6,5,0,55.704532,37.601269,0,1.9,-1.08,False,1,2.2,-0.52,False
-5,Danilovskoye Cemetery,"Parks, rail and industrial land",Тульская,957.0,5.7,2,0,55.70282,37.610082,0,1.3,-0.85,False,1,2.0,-0.48,False
-6,"Yuzhniy Administrative Okrug, Donskoy District",Residential belt,Тульская,781.0,5.9,8,3,55.701107,37.618894,7,3.0,2.18,False,6,3.7,0.68,False
-7,Luzhniki,"Parks, rail and industrial land",Лужники,454.0,5.7,0,0,55.71825,37.555399,2,1.0,1.62,False,0,1.5,-0.82,False
-8,"Tsentralniy Administrative Okrug, Khamovniki District","Parks, rail and industrial land",Лужники,525.0,5.5,0,0,55.716541,37.564218,0,1.1,-0.91,False,3,1.7,0.46,False
-9,"Luzhnetskaya Embankment, 2/4с32",Residential belt,Воробьёвы горы,795.0,5.3,6,3,55.714831,37.573037,2,3.2,-0.6,False,1,3.6,-1.03,False
-10,Neskuchny Garden,"Parks, rail and industrial land",Ленинский проспект,626.0,5.1,3,1,55.713121,37.581854,0,2.2,-1.08,False,0,2.4,-0.53,False
-11,"Leninsky Avenue, 33с24",Residential belt,Ленинский проспект,387.0,5.1,13,9,55.71141,37.590671,9,5.2,0.49,True,6,6.2,-0.19,False
-12,"Ordzhonikidze Street, 7с2",Residential belt,Ленинский проспект,767.0,5.1,79,10,55.709698,37.599487,11,10.9,-0.15,False,5,8.2,-0.6,False
-13,"Novaya Zarya Street, 3",Residential belt,Тульская,890.0,5.1,2,1,55.707986,37.608302,1,2.0,-0.71,False,2,3.0,-0.15,False
-14,"Malaya Tulskaya Street, 24",Residential belt,Тульская,378.0,5.3,22,11,55.706274,37.617115,4,7.8,-0.67,True,8,7.8,-0.18,True
-15,"Varshavskoye Highway, 1с2","Parks, rail and industrial land",Тульская,424.0,5.5,5,0,55.70456,37.625928,5,2.2,0.85,False,4,3.2,0.01,False
-16,"Avtozavodskaya Street, 23с85",Residential belt,Тульская,950.0,5.7,96,7,55.702846,37.63474,21,6.1,1.64,False,2,5.1,-0.2,False
-17,Luzhnetskaya Embankment,"Parks, rail and industrial land",Лужники,1118.0,5.8,0,0,55.725124,37.544789,0,0.8,-0.86,False,3,1.2,1.2,False
-18,Khamovnichesky Val Street,"Parks, rail and industrial land",Спортивная,534.0,5.4,0,1,55.723416,37.55361,0,1.4,-1.08,False,0,2.6,-1.3,False
-19,Projected Drive 2309,Residential belt,Спортивная,73.0,5.1,17,4,55.721707,37.562431,5,7.3,-0.65,True,6,10.6,-0.49,True
-20,"Komsomolsky Avenue, 48/22",Residential belt,Спортивная,551.0,4.9,18,12,55.719997,37.571251,2,7.4,-1.15,False,3,7.5,-0.95,False
-21,"Tsentralniy Administrative Okrug, Khamovniki District, 470-y kvartal",Residential belt,Фрунзенская,1018.0,4.7,12,3,55.718287,37.58007,1,3.3,-0.91,False,1,3.0,-0.87,False
-22,"Krymsky Val Street, 9с46","Parks, rail and industrial land",Ленинский проспект,909.0,4.6,15,0,55.716576,37.588888,1,2.8,-0.92,False,3,2.6,0.03,False
-23,"Malaya Kaluzhskaya Street, 15с28","Parks, rail and industrial land",Шаболовская,768.0,4.6,6,3,55.714864,37.597705,1,4.1,-0.84,False,3,4.7,-0.45,False
-24,"Shabolovka Street, 52",Residential belt,Шаболовская,625.0,4.6,19,6,55.713152,37.606521,6,6.6,-0.1,False,7,7.7,-0.06,False
-25,Serpukhovsky Val Street,Residential belt,Тульская,501.0,4.7,32,18,55.71144,37.615336,6,10.9,0.47,False,8,10.1,-0.22,False
-26,"Kholodilny Lane, 2/6",Transit hubs,Тульская,100.0,4.9,253,48,55.709726,37.62415,24,31.3,-0.32,True,44,21.9,1.91,True
-27,"Yuzhniy Administrative Okrug, Danilovskiy District","Parks, rail and industrial land",Тульская,660.0,5.1,5,2,55.708013,37.632963,1,2.9,-0.74,False,1,3.3,-1.02,False
-28,"Yuzhniy Administrative Okrug, Danilovskiy District",Residential belt,ЗИЛ,878.0,5.4,117,4,55.706298,37.641775,7,7.5,0.93,False,13,5.4,1.77,False
-29,"Avtozavodskaya Street, 12к1с1",Residential belt,Автозаводская,459.0,5.8,7,2,55.704583,37.650586,7,2.7,1.23,False,4,3.3,0.18,False
-30,"Vorobyovskoye Highway, 2с44","Parks, rail and industrial land",Студенческая,1015.0,5.6,0,0,55.73029,37.542999,1,0.9,0.16,False,0,1.4,-1.08,False
-31,"Tsentralniy Administrative Okrug, Khamovniki District","Parks, rail and industrial land",Спортивная,943.0,5.2,0,0,55.728582,37.551822,0,1.2,-0.95,False,1,2.0,-0.59,False
-32,10-letiya Oktyabrya Street,Residential belt,Спортивная,443.0,4.8,12,5,55.726873,37.560644,7,5.6,-0.0,False,12,8.1,0.52,True
-33,"Kooperativnaya Street, 3к6",Transit hubs,Спортивная,279.0,4.5,60,3,55.725163,37.569465,35,11.7,1.15,True,22,11.2,0.94,True
-34,"Komsomolsky Avenue, 35",Residential belt,Фрунзенская,466.0,4.3,26,14,55.723453,37.578285,2,9.6,-1.14,True,6,10.5,-0.63,True
-35,"Tsentralniy Administrative Okrug, Khamovniki District",Residential belt,Фрунзенская,754.0,4.2,15,0,55.721742,37.587104,3,4.0,-0.27,False,4,5.2,-0.33,False
-36,Neskuchny Garden,Residential belt,Шаболовская,764.0,4.1,13,6,55.720031,37.595922,2,6.2,-0.96,False,5,6.2,-0.56,False
-37,"Donskaya Street, 39",Residential belt,Шаболовская,201.0,4.1,33,16,55.718319,37.60474,9,16.6,-0.93,True,9,15.7,-0.77,True
-38,Khavskaya Street,Residential belt,Шаболовская,417.0,4.2,15,15,55.716606,37.613556,3,10.3,-1.2,True,4,9.7,-0.87,True
-39,Lyusinovskaya Street,Central neighbourhoods,Тульская,593.0,4.3,29,17,55.714893,37.622371,35,10.9,1.88,False,4,10.2,-0.73,False
-40,"Dubininskaya Street, 98с2",Residential belt,Тульская,674.0,4.5,7,2,55.713179,37.631186,2,3.8,-0.75,False,2,5.1,-0.94,False
-41,"3rd Paveletsky Drive, 6кА","Parks, rail and industrial land",Тульская,1114.0,4.8,5,0,55.711464,37.639999,0,2.0,-0.92,False,0,2.3,-0.87,False
-42,"Yuzhniy Administrative Okrug, Danilovskiy District",Residential belt,Автозаводская,553.0,5.2,55,1,55.709749,37.648812,8,5.6,1.98,False,9,5.1,0.36,False
-43,Masterkova Street,Transit hubs,Автозаводская,59.0,5.6,368,55,55.708034,37.657623,57,31.1,1.14,True,28,22.2,0.38,True
-44,Kiyevsky Overpass,"Parks, rail and industrial land",Студенческая,588.0,5.4,0,0,55.735456,37.541208,0,1.3,-0.79,False,0,2.3,-1.01,False
-45,"Berezhkovskaya Embankment, 20с52","Parks, rail and industrial land",Студенческая,584.0,5.0,0,1,55.733748,37.550032,1,1.5,-0.3,False,4,2.3,0.74,False
-46,"Tsentralniy Administrative Okrug, Khamovniki District",Residential belt,Спортивная,988.0,4.6,5,0,55.732039,37.558856,5,2.4,1.37,False,3,3.2,0.38,False
-47,Bolshaya Pirogovskaya Street,Residential belt,Спортивная,718.0,4.3,6,3,55.730329,37.567678,5,3.7,1.55,False,8,5.5,0.83,False
-48,Trubetskoys' Estate in Khamovniki Children Park,Central neighbourhoods,Фрунзенская,288.0,4.0,33,13,55.728619,37.5765,19,13.6,0.05,True,15,13.7,0.45,True
-49,"Tsentralniy Administrative Okrug, Khamovniki District, 465-y kvartal",Residential belt,Фрунзенская,304.0,3.7,23,9,55.726908,37.58532,11,11.5,0.01,True,9,11.7,-0.52,True
-50,Pushkinskaya Embankment,"Parks, rail and industrial land",Фрунзенская,887.0,3.6,0,0,55.725197,37.59414,5,1.5,1.87,False,7,2.5,2.42,False
-51,Leninsky Avenue,Residential belt,Шаболовская,613.0,3.6,12,4,55.723485,37.602958,3,6.8,-0.9,False,2,8.0,-0.97,False
-52,"Konny Lane, 12",Central neighbourhoods,Шаболовская,405.0,3.6,25,21,55.721772,37.611776,14,13.8,0.04,True,17,13.5,0.44,True
-53,"Pavla Andreyeva Street, 23с2",Residential belt,Шаболовская,796.0,3.7,36,13,55.720059,37.620592,5,11.6,-0.89,False,6,9.6,-0.57,False
-54,"3rd Pavlovsky Lane, 14",Residential belt,Серпуховская,980.0,4.0,55,4,55.718345,37.629408,6,10.0,-0.39,False,8,7.2,0.19,False
-55,"Dubininskaya Street, 63с16","Parks, rail and industrial land",Тульская,1258.0,4.3,2,1,55.716631,37.638223,0,1.9,-1.06,False,1,1.8,-0.74,False
-56,Paveletskaya Embankment,Residential belt,Автозаводская,957.0,4.6,25,6,55.714916,37.647037,6,5.9,-0.14,False,3,4.9,-0.74,False
-57,Lipki Children's Park,Residential belt,Автозаводская,521.0,5.0,41,6,55.7132,37.65585,6,8.3,0.43,False,4,7.3,-0.47,False
-58,"Velozavodskaya Street, 6А",Residential belt,Автозаводская,528.0,5.4,13,5,55.711484,37.664661,5,4.9,-0.23,False,2,5.2,-0.8,False
-59,"Kutuzovsky Avenue, 32к2","Parks, rail and industrial land",Кутузовская,295.0,5.8,1,0,55.74233,37.530591,0,1.7,-0.63,False,15,2.9,4.62,False
-60,"Kutuzovsky Avenue, 35",Residential belt,Кутузовская,321.0,5.3,19,10,55.740622,37.539417,2,6.8,-1.07,True,1,7.5,-1.36,True
-61,Kiyevskaya Street,Residential belt,Студенческая,4.0,4.9,10,2,55.738914,37.548243,5,5.7,-0.47,False,4,9.4,-1.09,True
-62,"Berezhkovskaya Embankment, 16с20","Parks, rail and industrial land",Студенческая,582.0,4.4,1,0,55.737205,37.557068,0,1.7,-1.17,False,0,2.7,-1.19,False
-63,Savvinskaya Embankment,Residential belt,Киевская,832.0,4.0,10,3,55.735495,37.565891,7,5.3,0.78,False,11,6.0,1.04,False
-64,Devichye Pole Public Garden,Residential belt,Фрунзенская,797.0,3.7,2,3,55.733785,37.574714,2,2.9,0.16,False,4,5.2,-0.0,False
-65,"Yazykovsky Lane, 7",Residential belt,Фрунзенская,549.0,3.4,3,2,55.732074,37.583536,1,4.2,-0.57,False,2,6.2,-0.47,False
-66,"Frunzenskaya Embankment, 16к1",Central neighbourhoods,Парк культуры,528.0,3.2,18,13,55.730363,37.592357,10,12.1,-0.25,False,6,12.3,-0.62,False
-67,Gorky Central Park of Culture and Leisure,"Parks, rail and industrial land",Октябрьская,617.0,3.1,0,0,55.728651,37.601176,1,1.8,-0.27,False,9,2.7,2.98,False
-68,"Leninsky Avenue, 1/2к1",Transit hubs,Октябрьская,253.0,3.1,18,11,55.726938,37.609995,13,14.5,-0.37,True,10,16.9,-0.77,True
-69,"4th Dobryninsky Lane, 1/9с22А",Residential belt,Серпуховская,422.0,3.2,3,4,55.725225,37.618813,2,6.2,-1.17,False,1,8.3,-1.17,False
-70,"Bolshaya Serpukhovskaya Street, 31к9",Central neighbourhoods,Серпуховская,396.0,3.4,20,15,55.723511,37.62763,9,13.1,-0.59,True,6,13.9,-0.89,True
-71,"Dubininskaya Street, 55к1с2",Central neighbourhoods,Серпуховская,881.0,3.7,24,4,55.721797,37.636446,10,6.8,0.64,False,8,6.7,0.07,False
-72,"Derbenevskaya Street, 20с48","Parks, rail and industrial land",Павелецкая,1143.0,4.0,7,1,55.720082,37.645261,5,3.4,0.99,False,4,3.7,0.04,False
-73,Simonovskaya Embankment,"Parks, rail and industrial land",Автозаводская,1107.0,4.4,1,0,55.718367,37.654075,0,1.6,-0.81,False,3,2.1,0.53,False
-74,"Yuzhniy Administrative Okrug, Danilovskiy District",Residential belt,Дубровка,848.0,4.9,21,6,55.71665,37.662889,1,6.2,-1.33,False,3,5.7,-0.69,False
-75,"Yugo-Vostochniy Administrative Okrug, Yuzhnoportoviy District",Residential belt,Дубровка,342.0,5.3,14,4,55.714934,37.671701,3,5.3,-0.53,False,5,6.6,-0.52,False
-76,Sharikopodshipnikovsky Overpass,Residential belt,Дубровка,263.0,5.8,3,2,55.713216,37.680512,2,3.0,-0.27,False,2,4.3,-0.85,False
-77,"Tsentralniy Administrative Okrug, Presnenskiy District","Parks, rail and industrial land",Деловой центр,182.0,5.9,0,0,55.747496,37.528799,0,1.3,1.15,False,2,2.0,1.76,False
-78,Testovskaya Street,Residential belt,Международная,359.0,5.3,23,21,55.745788,37.537626,37,7.7,5.99,True,34,7.4,5.07,True
-79,Kutuzovsky Avenue,Residential belt,Выставочная,473.0,4.8,32,6,55.74408,37.546453,5,7.8,-0.72,True,9,8.1,-0.17,True
-80,"Mozhaysky Val Street, 10","Parks, rail and industrial land",Киевская,578.0,4.3,10,1,55.742371,37.555279,3,4.5,-0.66,False,5,5.8,-0.24,False
-81,"Zapadniy Administrative Okrug, Dorogomilovo District","Parks, rail and industrial land",Киевская,252.0,3.9,7,1,55.740662,37.564104,8,4.6,0.94,False,9,5.6,0.2,False
-82,"2nd Vrazhsky Lane, 3с2",Residential belt,Киевская,631.0,3.5,3,5,55.738951,37.572928,4,4.6,-0.16,False,7,6.7,0.09,False
-83,Devichyego Polya Drive,Residential belt,Парк культуры,747.0,3.1,9,5,55.737241,37.581751,5,6.0,0.3,False,16,8.7,1.43,False
-84,"Zubovsky Boulevard, 17с3",Transit hubs,Парк культуры,164.0,2.8,27,11,55.735529,37.590573,26,18.7,0.66,True,27,20.2,0.61,True
-85,Krymsky Bridge,Residential belt,Парк культуры,375.0,2.6,1,1,55.733817,37.599394,2,4.5,-0.75,False,8,6.9,0.2,False
-86,"Krymsky Val Street, 8к2",Residential belt,Октябрьская,290.0,2.5,22,4,55.732105,37.608214,9,13.6,-0.72,True,16,15.6,-0.15,True
-87,"Zhitnaya Street, 12",Central neighbourhoods,Октябрьская,275.0,2.6,5,4,55.730392,37.617034,10,9.6,0.01,False,11,12.3,-0.42,False
-88,"Bolshaya Serpukhovskaya Street, 5",Transit hubs,Серпуховская,198.0,2.8,73,30,55.728678,37.625852,33,33.8,0.13,True,33,30.4,0.27,True
-89,"Bolshaya Pionerskaya Street, 27-29с1",Central neighbourhoods,Павелецкая,399.0,3.1,15,7,55.726963,37.634669,6,9.9,-0.68,True,8,11.6,-0.64,True
-90,"Letnikovskaya Street, 8с1",Residential belt,Павелецкая,575.0,3.5,3,3,55.725249,37.643486,8,4.8,0.94,False,7,5.9,0.51,False
-91,"Derbenevskaya Embankment, 7с13",Residential belt,Павелецкая,1089.0,3.9,5,7,55.723533,37.652301,18,4.7,3.61,False,14,5.1,1.9,False
-92,"Simonovsky Val Street, 16к2",Residential belt,Дубровка,1048.0,4.3,11,5,55.721817,37.661115,2,4.6,-0.91,False,2,4.2,-0.72,False
-93,"Sharikopodshipnikovskaya Street, 4к20",Residential belt,Дубровка,470.0,4.8,8,5,55.7201,37.669929,2,5.3,-0.88,False,3,5.6,-0.73,False
-94,"Sharikopodshipnikovskaya Street, 11с1",Transit hubs,Дубровка,118.0,5.3,1316,13,55.718383,37.678742,16,25.7,-0.94,True,4,16.3,-1.26,True
-95,Third Ring Road,"Parks, rail and industrial land",Угрешская,489.0,5.9,1,0,55.716665,37.687553,0,1.5,-0.71,False,1,2.6,-0.79,False
-96,1st Krasnogvardeysky Drive,Transit hubs,Деловой центр,240.0,5.4,52,12,55.750955,37.535835,26,8.7,4.13,True,40,7.5,5.8,True
-97,"Krasnopresnenskaya Embankment, 14с18",Transit hubs,Выставочная,105.0,4.8,201,16,55.749246,37.544663,71,19.9,3.38,True,9,14.4,-0.38,True
-98,"Kutuzovsky Avenue, 16",Residential belt,Выставочная,601.0,4.3,22,4,55.747537,37.55349,5,7.1,-0.24,False,4,8.0,-0.59,False
-99,Bolshaya Dorogomilovskaya Street,Transit hubs,Киевская,342.0,3.8,370,21,55.745828,37.562317,40,28.8,-0.1,True,25,20.4,0.64,True
-100,Berezhkovskaya Embankment,Residential belt,Киевская,228.0,3.3,1,2,55.744118,37.571142,0,4.5,-1.02,False,13,8.5,0.42,False
-101,"Zemledelchesky Lane, 20А",Residential belt,Смоленская,651.0,2.9,23,9,55.742407,37.579966,6,11.8,-0.68,False,6,11.5,-0.86,False
-102,"Kropotkinsky Lane, 20с1",Central neighbourhoods,Парк культуры,644.0,2.5,20,15,55.740696,37.588789,7,13.2,-0.72,False,11,14.1,-0.58,False
-103,Korobeynikov Lane,Central neighbourhoods,Парк культуры,362.0,2.2,11,9,55.738984,37.597612,10,12.5,-0.24,True,10,15.2,-0.42,True
-104,Krymskaya Embankment,"Parks, rail and industrial land",Парк культуры,731.0,2.1,4,1,55.737271,37.606433,7,5.1,0.36,False,9,6.4,0.79,False
-105,"2nd Khvostov Lane, 12",Transit hubs,Полянка,253.0,2.1,44,24,55.735558,37.615254,19,31.0,-0.85,True,17,26.1,-0.73,True
-106,"Bolshaya Ordynka Street, 56/10",Central neighbourhoods,Полянка,476.0,2.2,17,13,55.733844,37.624073,23,16.2,0.7,True,22,15.8,0.59,True
-107,6th Monetchikovsky Lane,Transit hubs,Павелецкая,194.0,2.5,86,31,55.73213,37.632892,25,42.3,-0.85,True,17,32.5,-0.56,True
-108,Kozhevnicheskaya Street,Transit hubs,Павелецкая,197.0,2.9,137,14,55.730415,37.64171,29,35.1,-0.25,True,36,27.4,0.61,True
-109,"Tsentralniy Administrative Okrug, Zamoskvorechye District",Central neighbourhoods,Павелецкая,744.0,3.3,41,11,55.728699,37.650526,7,13.3,-0.58,False,6,11.6,-0.6,False
-110,"Krutitskaya Street, 17с6",Residential belt,Пролетарская,574.0,3.8,1,3,55.726983,37.659342,3,3.5,-0.68,False,3,5.0,-0.83,False
-111,"Melnikova Street, 23","Parks, rail and industrial land",Пролетарская,699.0,4.3,12,7,55.725267,37.668157,1,4.3,-1.11,False,0,3.9,-1.35,False
-112,"Novoostapovskaya Street, 5с2",Residential belt,Волгоградский проспект,560.0,4.8,9,1,55.723549,37.676971,2,4.0,-0.6,False,0,5.6,-1.49,False
-113,"Sharikopodshipnikovskaya Street, 13с47-48",Residential belt,Волгоградский проспект,334.0,5.4,19,0,55.721831,37.685783,2,3.7,-0.51,False,1,4.5,-0.77,False
-114,"Antonova-Ovseyenko Street, 15с4","Parks, rail and industrial land",Шелепиха,561.0,5.5,7,2,55.756121,37.534043,0,3.2,-1.29,False,0,4.3,-1.46,False
-115,"Tsentralniy Administrative Okrug, Presnenskiy District, City Park Residential Complex","Parks, rail and industrial land",Выставочная,464.0,4.9,1,0,55.754412,37.542873,1,2.0,-0.21,False,2,3.8,-0.53,False
-116,Krasnaya Presnya Park,"Parks, rail and industrial land",Выставочная,631.0,4.4,0,0,55.752704,37.551701,4,1.3,1.66,False,4,2.0,0.89,False
-117,"Kutuzovsky Avenue, 12с1",Central neighbourhoods,Киевская,852.0,3.8,11,6,55.750994,37.560529,17,6.1,3.22,False,2,6.2,-0.63,False
-118,"Kutuzovsky Avenue, 5к3",Residential belt,Киевская,566.0,3.3,19,7,55.749284,37.569355,3,9.5,-0.66,False,3,10.8,-0.7,False
-119,"Smolenskaya Embankment, 2к2",Central neighbourhoods,Смоленская,282.0,2.8,52,15,55.747573,37.578181,19,21.3,-0.14,True,22,19.0,0.25,True
-120,"Denezhny Lane, 24с2",Central neighbourhoods,Смоленская,307.0,2.3,29,13,55.745862,37.587005,15,18.0,-0.27,True,14,19.7,-0.48,True
-121,"Khruschyovsky Lane, 5с2",Residential belt,Кропоткинская,371.0,1.9,5,6,55.74415,37.595829,8,10.0,-0.25,True,6,13.6,-0.5,True
-122,"3rd Obydensky Lane, 1с5",Central neighbourhoods,Кропоткинская,343.0,1.6,8,5,55.742437,37.604652,14,12.8,0.55,True,15,15.1,0.03,True
-123,"Bolshaya Yakimanka Street, 2-4",Central neighbourhoods,Полянка,543.0,1.5,43,8,55.740724,37.613474,28,22.6,0.49,False,24,20.7,0.28,False
-124,"Pyzhovsky Lane, 5с1",Central neighbourhoods,Третьяковская,280.0,1.6,11,8,55.739011,37.622294,10,15.8,-0.67,True,19,19.2,-0.06,True
-125,Novokuznetskaya Street,Central neighbourhoods,Третьяковская,511.0,1.9,44,21,55.737296,37.631114,11,24.4,-0.95,False,19,23.2,-0.44,False
-126,Ozerkovskaya Embankment,Central neighbourhoods,Павелецкая,503.0,2.3,7,12,55.735581,37.639933,15,11.9,0.76,False,29,13.1,1.72,False
-127,"Tsentralniy Administrative Okrug, Taganskiy District",Central neighbourhoods,Таганская,669.0,2.8,7,5,55.733866,37.648751,6,7.6,-0.14,False,4,8.2,-0.64,False
-128,"Krestyanskaya Square, 10с28",Residential belt,Пролетарская,411.0,3.3,6,6,55.73215,37.657568,1,7.8,-1.27,True,2,9.5,-1.17,True
-129,"Krutitsky Val Street, 3с1",Transit hubs,Пролетарская,134.0,3.8,53,30,55.730433,37.666384,9,24.6,-1.15,True,9,22.1,-1.05,True
-130,Sosinskaya Street,Residential belt,Пролетарская,587.0,4.4,39,5,55.728716,37.675199,3,5.9,-0.72,False,4,4.5,-0.24,False
-131,"Talalikhina Street, 41с13",Residential belt,Волгоградский проспект,160.0,4.9,10,1,55.726998,37.684013,0,5.1,-1.19,False,2,7.1,-1.09,False
-132,"Yugo-Vostochniy Administrative Okrug, Nizhegorodskiy District",Residential belt,Волгоградский проспект,324.0,5.5,9,0,55.725279,37.692827,4,3.2,0.12,False,4,5.6,-0.75,False
-133,"Tsentralniy Administrative Okrug, Presnenskiy District","Parks, rail and industrial land",Шелепиха,688.0,5.7,4,0,55.761287,37.532251,0,1.9,-1.04,False,1,3.0,-0.8,False
-134,"Krasnogvardeysky Boulevard, 5к2",Residential belt,Выставочная,1044.0,5.1,15,2,55.759579,37.541082,1,3.4,-0.55,False,1,3.9,-0.93,False
-135,Sergeya Makeyeva Street,Residential belt,Выставочная,965.0,4.5,25,18,55.75787,37.549912,15,7.8,1.26,False,13,7.2,1.58,False
-136,1905 Goda Street,Central neighbourhoods,Улица 1905 года,887.0,3.9,44,10,55.75616,37.55874,32,10.0,4.07,False,20,8.8,2.19,False
-137,Krasnopresnenskaya Embankment,Residential belt,Краснопресненская,877.0,3.4,7,5,55.75445,37.567568,23,5.8,4.91,False,16,6.4,2.15,False
-138,Novy Arbat Street,Residential belt,Смоленская,535.0,2.8,26,9,55.75274,37.576395,5,12.3,-1.05,False,1,11.7,-1.46,False
-139,"Maly Kakovinsky Lane, 8",Central neighbourhoods,Смоленская,290.0,2.3,71,27,55.751028,37.585221,54,29.9,2.05,True,32,26.7,0.55,True
-140,"Starokonyushenny Lane, 41с2",Central neighbourhoods,Арбатская,559.0,1.8,49,25,55.749316,37.594046,30,25.7,0.52,False,23,22.1,0.19,False
-141,"Maly Znamensky Lane, 3/5с1",Central neighbourhoods,Кропоткинская,252.0,1.3,7,5,55.747604,37.60287,8,15.9,-0.89,True,14,19.3,-0.54,True
-142,Bersenevskaya Embankment,Residential belt,Кропоткинская,396.0,1.1,5,2,55.745891,37.611693,9,10.6,-0.34,False,9,13.5,-0.62,False
-143,"Kadashyovskaya Embankment, 14к3",Central neighbourhoods,Третьяковская,504.0,1.1,4,3,55.744177,37.620515,6,9.5,-0.64,False,10,13.3,-0.51,False
-144,"Pyatnitsky Lane, 10с1",Transit hubs,Новокузнецкая,19.0,1.3,129,54,55.742463,37.629336,63,71.3,-0.08,True,50,52.5,-0.08,True
-145,Ozerkovskaya Embankment,Central neighbourhoods,Новокузнецкая,586.0,1.8,11,7,55.740748,37.638157,10,11.4,-0.31,False,8,14.8,-0.51,False
-146,Goncharnaya Embankment,Residential belt,Таганская,377.0,2.3,14,12,55.739033,37.646976,2,14.9,-1.27,True,7,15.2,-0.83,True
-147,Mayakovskogo Lane,Central neighbourhoods,Таганская,280.0,2.8,38,19,55.737316,37.655794,13,21.9,-0.87,True,21,22.9,-0.36,True
-148,"Marksistskaya Street, 34к7",Central neighbourhoods,Крестьянская застава,369.0,3.4,59,23,55.7356,37.664611,13,19.6,-0.5,True,14,18.8,-0.5,True
-149,"Stroykovskaya Street, 10",Residential belt,Пролетарская,366.0,3.9,20,14,55.733882,37.673428,1,9.8,-1.53,True,7,10.4,-0.65,True
-150,"Sibirsky Drive, 2с9",Residential belt,Волгоградский проспект,742.0,4.5,11,0,55.732165,37.682243,3,3.5,-0.15,False,4,4.8,-0.34,False
-151,Kalitnikovskoye Cemetery,"Parks, rail and industrial land",Волгоградский проспект,650.0,5.1,1,0,55.730446,37.691058,0,1.8,-1.19,False,0,3.2,-1.24,False
-152,"Yugo-Vostochniy Administrative Okrug, Nizhegorodskiy District","Parks, rail and industrial land",Волгоградский проспект,885.0,5.7,1,0,55.728727,37.699871,0,1.4,-1.03,False,0,2.2,-1.2,False
-153,"Strelbischensky Lane, 25Ас2",Residential belt,Беговая,1018.0,5.3,2,2,55.764745,37.539291,0,1.8,-0.83,False,0,2.6,-1.24,False
-154,"Tsentralniy Administrative Okrug, Presnenskiy District",Residential belt,Улица 1905 года,813.0,4.7,5,2,55.763036,37.548122,13,3.1,3.66,False,8,4.0,1.28,False
-155,"Tsentralniy Administrative Okrug, Presnenskiy District, Residential Complex Lucky",Central neighbourhoods,Улица 1905 года,434.0,4.1,12,9,55.761327,37.556952,10,7.2,0.53,True,21,8.6,2.28,True
-156,"Sredny Tryokhgorny Lane, 7",Central neighbourhoods,Улица 1905 года,527.0,3.6,29,6,55.759617,37.565781,2,9.0,-0.71,False,1,11.2,-0.74,False
-157,"Kapranova Lane, 4",Residential belt,Краснопресненская,303.0,3.0,6,5,55.757906,37.574609,4,8.1,-0.59,True,3,11.1,-1.26,True
-158,"Novinsky Boulevard, 21",Central neighbourhoods,Баррикадная,517.0,2.4,45,18,55.756195,37.583436,22,19.4,0.42,False,9,18.5,-0.82,False
-159,"Malaya Molchanovka Street, 8",Central neighbourhoods,Арбатская,630.0,1.8,34,16,55.754483,37.592263,25,19.3,-0.21,False,20,19.0,-0.36,False
-160,Vozdvizhenka Street,Transit hubs,Арбатская,73.0,1.3,50,15,55.75277,37.601088,37,39.6,-0.21,True,44,38.5,-0.02,True
-161,Mokhovaya Street,Transit hubs,Боровицкая,79.0,0.8,9,5,55.751057,37.609912,12,22.8,-0.53,True,9,25.4,-0.87,True
-162,"Tsentralniy Administrative Okrug, Tverskoy District","Parks, rail and industrial land",Александровский сад,488.0,0.5,0,0,55.749344,37.618736,1,4.9,-1.18,False,2,8.1,-1.15,False
-163,"Sadovnicheskaya Street, 8",Central neighbourhoods,Новокузнецкая,590.0,0.8,10,7,55.747629,37.627558,23,16.3,0.47,False,17,18.0,0.03,False
-164,"Sadovnicheskaya Street, 29",Residential belt,Новокузнецкая,603.0,1.3,0,1,55.745915,37.63638,4,4.1,-0.1,False,4,8.2,-0.77,False
-165,1st Kotelnichesky Lane,Residential belt,Таганская,547.0,1.8,6,7,55.744199,37.6452,7,9.9,-0.79,False,5,11.9,-1.04,False
-166,Verkhnyaya Radischevskaya Street,Transit hubs,Таганская,29.0,2.4,105,24,55.742483,37.65402,38,37.9,-0.06,True,45,36.9,0.28,True
-167,N. Pryamikov Children's Park,Central neighbourhoods,Марксистская,387.0,3.0,92,26,55.740766,37.662838,21,28.8,-0.53,True,20,22.5,-0.22,True
-168,"Taganskaya Street, 58с12",Central neighbourhoods,Пролетарская,769.0,3.6,43,20,55.739049,37.671656,11,13.1,-0.33,False,5,11.2,-0.74,False
-169,Bolshaya Kalitnikovskaya Street,Residential belt,Пролетарская,947.0,4.1,11,9,55.737331,37.680473,1,4.2,-1.11,False,3,3.9,-0.69,False
-170,"Bolshaya Kalitnikovskaya Street, 42","Parks, rail and industrial land",Волгоградский проспект,1137.0,4.7,6,4,55.735613,37.689288,3,2.4,-0.01,False,3,2.6,-0.09,False
-171,"Skotoprogonnaya Street, 21-23с5",Residential belt,Волгоградский проспект,1219.0,5.3,20,6,55.733894,37.698103,0,4.6,-1.33,False,0,4.2,-1.32,False
-172,"3rd Khoroshyovsky Drive, вл3Ас87","Parks, rail and industrial land",Беговая,589.0,5.6,1,0,55.769911,37.537499,0,1.4,-1.13,False,0,1.9,-1.05,False
-173,Vagankovskoye Cemetery,"Parks, rail and industrial land",Беговая,561.0,5.0,0,0,55.768203,37.546332,0,1.3,-1.0,False,0,2.0,-1.16,False
-174,"Sergeya Makeyeva Street, 12",Residential belt,Улица 1905 года,326.0,4.4,86,12,55.766493,37.555163,5,15.8,-1.18,True,7,13.7,-0.91,True
-175,Presnensky Val Street,Transit hubs,Улица 1905 года,134.0,3.8,50,20,55.764783,37.563993,23,20.2,-0.03,True,15,19.8,-0.32,True
-176,"Volkov Lane, 7-9с3",Residential belt,Краснопресненская,403.0,3.2,33,19,55.763072,37.572823,17,16.8,0.14,True,17,15.3,0.18,True
-177,"Barrikadnaya Street, 8с4",Central neighbourhoods,Баррикадная,71.0,2.6,11,9,55.761361,37.581651,25,12.9,1.21,True,18,18.0,-0.18,True
-178,Granatny Lane,Residential belt,Баррикадная,577.0,2.1,16,6,55.759649,37.590479,10,12.9,-0.08,False,10,13.2,-0.23,False
-179,"Tverskoy Boulevard, 2",Central neighbourhoods,Арбатская,659.0,1.5,27,20,55.757937,37.599305,39,20.1,1.64,False,40,17.9,1.81,False
-180,"Bolshaya Nikitskaya Street, 10",Central neighbourhoods,Охотный ряд,410.0,0.9,12,9,55.756224,37.608131,27,16.5,1.17,True,27,21.6,0.73,True
-181,"Manezhnaya Street, 2-10соор2",Transit hubs,Охотный ряд,184.0,0.3,321,5,55.75451,37.616956,40,80.2,-0.88,True,26,51.6,-0.82,True
-182,"Varvarka Street, 3",Residential belt,Площадь Революции,430.0,0.3,4,1,55.752796,37.625779,3,10.9,-1.22,False,10,14.1,-0.65,False
-183,"Kitaygorodsky Drive, 7с4",Residential belt,Китай-город,234.0,0.9,0,0,55.751081,37.634602,8,4.9,0.32,False,4,8.9,-0.82,False
-184,Yauzskiye Vorota Square,Residential belt,Китай-город,700.0,1.5,5,6,55.749366,37.643424,6,7.5,-0.11,False,8,9.5,-0.43,False
-185,"Nikoloyamskaya Street, 15",Central neighbourhoods,Таганская,578.0,2.1,8,5,55.74765,37.652245,13,8.8,1.03,False,14,11.5,0.56,False
-186,"Stanislavskogo Street, 21с19",Central neighbourhoods,Марксистская,603.0,2.6,8,6,55.745933,37.661065,6,8.3,-0.33,False,8,11.1,-0.21,False
-187,"Bibliotechnaya Street, 2",Residential belt,Площадь Ильича,624.0,3.2,3,5,55.744216,37.669884,5,5.3,-0.4,False,8,7.4,-0.24,False
-188,"Rogozhsky Val Street, 9/2с2",Central neighbourhoods,Площадь Ильича,439.0,3.8,85,16,55.742498,37.678702,8,17.7,-1.01,True,4,15.7,-1.29,True
-189,Rabochaya Street,"Parks, rail and industrial land",Площадь Ильича,743.0,4.4,2,1,55.74078,37.687519,0,2.0,-1.14,False,0,2.1,-1.24,False
-190,"Rabochaya Street, 84с4","Parks, rail and industrial land",Площадь Ильича,1253.0,5.0,7,5,55.739061,37.696335,1,3.0,-0.6,False,0,2.6,-1.28,False
-191,Podyomnaya Street,Residential belt,Нижегородская,1567.0,5.6,17,3,55.737341,37.70515,2,3.3,-0.34,False,2,2.6,-0.33,False
-192,"Khoroshyovskoye Highway, вл1",Transit hubs,Беговая,4.0,5.3,68,13,55.773369,37.544541,8,15.5,-0.89,True,4,13.6,-1.35,True
-193,"1905 Goda Street, 29","Parks, rail and industrial land",Беговая,316.0,4.7,0,0,55.77166,37.553374,0,1.7,-1.18,False,0,2.8,-1.22,False
-194,Khodynskaya Street,Residential belt,Улица 1905 года,488.0,4.1,0,3,55.76995,37.562205,0,2.1,-1.21,False,3,3.2,-0.15,False
-195,"Malaya Gruzinskaya Street, 29с3",Residential belt,Улица 1905 года,720.0,3.6,12,13,55.768239,37.571036,4,9.3,-0.9,False,8,8.7,-0.17,False
-196,"Bolshaya Gruzinskaya Street, 22",Residential belt,Баррикадная,653.0,3.0,7,10,55.766528,37.579866,2,8.7,-1.26,False,6,9.5,-0.75,False
-197,"Sadovaya-Kudrinskaya Street, 19с1",Central neighbourhoods,Баррикадная,641.0,2.4,17,17,55.764816,37.588695,19,14.8,0.96,False,23,13.5,1.1,False
-198,"Bolshoy Kozikhinsky Lane, 10",Central neighbourhoods,Пушкинская,471.0,1.8,51,36,55.763103,37.597523,54,30.4,1.54,True,45,24.0,1.52,True
-199,Leontyevsky Lane,Central neighbourhoods,Пушкинская,319.0,1.3,24,8,55.76139,37.60635,29,18.9,0.59,True,26,21.9,0.35,True
-200,"Bolshaya Dmitrovka Street, 5/6с7",Transit hubs,Охотный ряд,177.0,0.8,57,10,55.759677,37.615175,49,35.7,0.71,True,56,36.1,1.09,True
-201,"Nikolskaya Street, 10",Transit hubs,Лубянка,165.0,0.5,163,17,55.757963,37.624,79,69.3,0.16,True,47,62.3,-0.53,True
-202,"Lubyansky Drive, 15с2",Transit hubs,Китай-город,104.0,0.8,27,18,55.756248,37.632824,54,37.5,0.92,True,28,37.6,-0.46,True
-203,"Podkopayevsky Lane, 4А",Central neighbourhoods,Китай-город,399.0,1.3,20,7,55.754532,37.641648,23,17.2,0.06,True,34,20.2,0.89,True
-204,"Vorontsovo Pole Street, 6-8с3",Residential belt,Чкаловская,596.0,1.8,8,4,55.752816,37.65047,6,9.6,-0.8,False,10,11.5,-0.06,False
-205,"Zemlyanoy Val Street, 57с6",Residential belt,Чкаловская,546.0,2.4,0,2,55.7511,37.659291,1,3.5,-1.32,False,5,6.6,-0.69,False
-206,Kostomarovskaya Embankment,Residential belt,Площадь Ильича,759.0,3.0,4,1,55.749383,37.668111,1,4.2,-0.49,False,3,6.5,-0.2,False
-207,"Gzhelsky Lane, 14",Transit hubs,Площадь Ильича,189.0,3.6,48,18,55.747665,37.67693,10,24.0,-0.92,True,11,21.2,-0.8,True
-208,"Sredny Mezhdunarodny Lane, 8с2",Residential belt,Площадь Ильича,286.0,4.1,15,1,55.745946,37.685749,3,6.3,-0.66,True,3,7.6,-0.86,True
-209,"Yugo-Vostochniy Administrative Okrug, Lefortovo District","Parks, rail and industrial land",Площадь Ильича,870.0,4.7,0,0,55.744227,37.694566,0,1.1,-0.75,False,0,1.7,-1.13,False
-210,Rogozhskoye Cemetery,"Parks, rail and industrial land",Авиамоторная,1279.0,5.3,1,1,55.742508,37.703382,0,1.5,-0.93,False,2,2.1,-0.31,False
-211,"Khoroshyovskoye Highway, 40Ас8","Parks, rail and industrial land",Беговая,519.0,5.7,0,0,55.778535,37.54275,0,1.1,-1.08,False,2,2.1,-0.39,False
-212,"Polikarpova Street, 9",Residential belt,Беговая,313.0,5.1,10,5,55.776826,37.551584,0,4.9,-1.34,False,1,6.1,-1.3,False
-213,"Severniy Administrative Okrug, Begovoy District","Parks, rail and industrial land",Беговая,712.0,4.5,1,0,55.775116,37.560417,0,1.7,-1.26,False,0,2.4,-1.23,False
-214,"Presnensky Val Street, 27с38",Residential belt,Белорусская,869.0,3.9,5,5,55.773405,37.569249,3,4.7,-0.5,False,1,5.0,-1.15,False
-215,"Sredny Kondratyevsky Lane, 10",Residential belt,Белорусская,496.0,3.4,16,11,55.771694,37.57808,11,10.7,0.06,True,14,12.3,-0.09,True
-216,"Vasilyevskaya Street, 2к2",Central neighbourhoods,Маяковская,496.0,2.8,90,25,55.769982,37.58691,16,25.3,-0.47,True,19,22.7,-0.27,True
-217,"Tverskaya Street, 29к2",Transit hubs,Маяковская,121.0,2.3,26,9,55.76827,37.595739,39,19.2,1.34,True,31,24.0,0.47,True
-218,"Nastasyinsky Lane, 4к4",Transit hubs,Пушкинская,66.0,1.8,26,8,55.766557,37.604568,48,24.9,1.62,True,47,27.7,1.07,True
-219,"Petrovsky Lane, 6с2",Central neighbourhoods,Чеховская,331.0,1.3,51,14,55.764843,37.613395,36,27.0,0.88,True,38,22.8,1.12,True
-220,"Rozhdestvenka Street, 11с2",Central neighbourhoods,Кузнецкий мост,208.0,1.1,135,23,55.763129,37.622221,56,50.6,0.26,True,42,44.5,-0.12,True
-221,"Milyutinsky Lane, 3с2",Transit hubs,Лубянка,233.0,1.1,28,8,55.761415,37.631047,26,28.6,0.14,True,39,28.5,0.58,True
-222,"Devyatkin Lane, 1",Central neighbourhoods,Китай-город,568.0,1.3,31,14,55.759699,37.639871,32,21.7,0.91,False,38,20.8,1.48,False
-223,"Kazarmenny Lane, 3",Central neighbourhoods,Чкаловская,635.0,1.8,32,11,55.757983,37.648694,33,17.4,1.23,False,37,16.0,2.0,False
-224,Zemlyanoy Val Street,Transit hubs,Чкаловская,52.0,2.3,263,20,55.756267,37.657517,50,53.3,0.08,True,30,38.4,-0.4,True
-225,"Nizhnyaya Syromyatnicheskaya Street, 1/4",Residential belt,Курская,442.0,2.8,6,4,55.754549,37.666338,10,7.9,0.65,False,15,10.1,1.1,True
-226,"Yugo-Vostochniy Administrative Okrug, Lefortovo District","Parks, rail and industrial land",Римская,712.0,3.4,2,0,55.752832,37.675159,6,2.9,0.83,False,3,4.3,-0.48,False
-227,"Zolotorozhsky Val Street, 22",Residential belt,Римская,471.0,3.9,3,0,55.751113,37.683978,0,3.3,-1.05,False,1,5.2,-1.32,False
-228,"Zolotorozhsky Val Street, 11с24","Parks, rail and industrial land",Римская,789.0,4.5,1,0,55.749394,37.692797,1,1.5,-0.32,False,5,2.0,2.51,False
-229,"Shepelyuginskaya Street, 4",Residential belt,Авиамоторная,1022.0,5.1,6,1,55.747675,37.701615,2,2.5,-0.58,False,4,2.9,0.14,False
-230,"Yugo-Vostochniy Administrative Okrug, Lefortovo District",Residential belt,Авиамоторная,705.0,5.7,101,7,55.745955,37.710431,6,9.5,-0.89,False,7,6.7,-0.3,False
-231,"Severniy Administrative Okrug, Begovoy District","Parks, rail and industrial land",Беговая,849.0,5.5,0,0,55.781993,37.549794,0,0.8,-0.87,False,1,1.5,0.12,False
-232,Begovaya Street,Residential belt,Беговая,887.0,4.9,18,15,55.780283,37.558629,7,5.7,0.48,False,3,6.1,-0.45,False
-233,"Severniy Administrative Okrug, Begovoy District","Parks, rail and industrial land",Белорусская,926.0,4.4,2,0,55.778572,37.567462,1,1.9,-0.61,False,2,2.7,-0.61,False
-234,"Severniy Administrative Okrug, Begovoy District",Residential belt,Белорусская,361.0,3.8,11,9,55.776861,37.576294,3,7.9,-0.79,True,2,9.3,-0.65,True
-235,1st Brestskaya Street,Transit hubs,Белорусская,151.0,3.3,43,13,55.775149,37.585126,36,22.3,1.38,True,56,20.9,2.95,True
-236,2nd Tverskoy-Yamskoy Lane,Transit hubs,Маяковская,258.0,2.8,41,30,55.773437,37.593956,19,28.5,-0.4,True,18,22.8,-0.28,True
-237,"Sadovaya-Triumfalnaya Street, 18-20",Central neighbourhoods,Маяковская,429.0,2.3,12,8,55.771724,37.602786,15,11.2,0.64,True,26,14.4,1.34,True
-238,Petrovka Street,Central neighbourhoods,Чеховская,491.0,1.9,4,6,55.77001,37.611614,16,8.3,1.18,True,19,12.6,0.7,True
-239,1st Kolobovsky Lane,Central neighbourhoods,Трубная,102.0,1.6,83,15,55.768296,37.620442,53,34.6,0.31,True,35,36.3,-0.08,True
-240,Rozhdestvensky Boulevard,Central neighbourhoods,Сретенский бульвар,452.0,1.5,23,16,55.766581,37.629268,29,19.7,1.14,True,29,22.4,0.57,True
-241,Chistoprudny Boulevard,Transit hubs,Чистые пруды,15.0,1.6,21,9,55.764866,37.638094,31,29.0,-0.15,True,31,30.7,-0.12,True
-242,"Chaplygina Street, 10",Central neighbourhoods,Чистые пруды,558.0,1.9,10,17,55.76315,37.646919,8,13.7,-0.56,False,18,16.0,0.08,False
-243,Maly Kazyonny Lane,Central neighbourhoods,Курская,374.0,2.3,28,21,55.761433,37.655742,17,19.5,-0.06,True,22,18.7,0.5,True
-244,"Nizhny Susalny Lane, 5с16",Residential belt,Курская,308.0,2.8,8,0,55.759716,37.664565,17,5.6,2.35,False,15,7.3,1.36,False
-245,May 1 Park,"Parks, rail and industrial land",Курская,830.0,3.3,2,1,55.757998,37.673387,1,3.3,-0.91,False,9,4.5,1.47,False
-246,"Volochayevskaya Street, 12А",Residential belt,Римская,1006.0,3.8,18,11,55.75628,37.682208,2,7.5,-1.17,False,3,6.6,-0.88,False
-247,"Zolotorozhsky Val Street, 11с46","Parks, rail and industrial land",Римская,1034.0,4.4,0,0,55.754561,37.691028,1,1.3,-0.35,False,0,2.1,-1.2,False
-248,"Yugo-Vostochniy Administrative Okrug, Lefortovo District","Parks, rail and industrial land",Авиамоторная,1045.0,4.9,1,1,55.752842,37.699847,1,1.8,-0.62,False,9,2.5,2.63,False
-249,"Zavoda Serp I Molot Drive, 5с2",Residential belt,Авиамоторная,488.0,5.5,13,2,55.751121,37.708665,4,4.4,-0.08,False,14,5.1,2.73,False
-250,"1st Botkinsky Drive, 7с2",Residential belt,Динамо,428.0,5.4,18,8,55.785449,37.55684,7,5.2,0.45,False,7,5.1,0.73,False
-251,"Begovaya Alley, 3Ас2",Residential belt,Динамо,686.0,4.8,17,12,55.783739,37.565674,4,6.6,-0.46,False,8,6.4,0.73,False
-252,Pravdy Street,Residential belt,Белорусская,689.0,4.3,15,11,55.782027,37.574508,10,6.3,0.79,False,9,7.3,0.4,False
-253,1st Yamskogo Polya Street,Central neighbourhoods,Белорусская,315.0,3.8,26,16,55.780316,37.583341,24,11.1,1.74,True,27,10.4,2.14,True
-254,"Miusskaya Square, 5",Central neighbourhoods,Белорусская,394.0,3.3,6,3,55.778603,37.592172,41,6.0,10.6,False,75,8.6,13.48,False
-255,"Dolgorukovskaya Street, 29",Transit hubs,Новослободская,282.0,2.9,23,12,55.77689,37.601003,10,16.7,-0.33,True,17,17.9,0.48,True
-256,"Delegatskaya Street, 3",Central neighbourhoods,Достоевская,710.0,2.5,8,9,55.775177,37.609833,6,8.7,-0.61,False,16,9.7,0.73,False
-257,Sadovaya-Samotyochnaya Street,Central neighbourhoods,Цветной бульвар,231.0,2.2,44,11,55.773463,37.618662,27,21.7,0.38,True,35,25.1,0.18,True
-258,"Bolshoy Sukharevsky Lane, 11с1",Central neighbourhoods,Сухаревская,293.0,2.1,53,31,55.771748,37.62749,14,29.7,-0.78,True,19,28.5,-0.5,True
-259,"Dayev Lane, 8",Central neighbourhoods,Сухаревская,331.0,2.1,27,21,55.770033,37.636316,22,21.2,-0.46,True,26,23.1,0.02,True
-260,Myasnitsky Drive,Central neighbourhoods,Красные ворота,181.0,2.2,12,5,55.768317,37.645142,17,14.2,0.21,True,20,18.3,0.11,True
-261,"Sadovaya-Chernogryazskaya Street, 5/9",Central neighbourhoods,Красные ворота,413.0,2.5,10,7,55.7666,37.653967,14,10.4,0.68,True,10,11.9,-0.07,True
-262,"Gorokhovsky Lane, 4к6",Residential belt,Курская,728.0,2.9,4,3,55.764883,37.662792,6,4.9,0.15,False,5,7.5,-0.32,False
-263,"Kazakova Street, 18-20с1",Residential belt,Курская,886.0,3.3,4,0,55.763165,37.671615,2,2.9,-0.42,False,1,4.4,-1.15,False
-264,"Akademika Tupoleva Embankment, 15к29",Residential belt,Бауманская,1219.0,3.8,7,2,55.761447,37.680437,5,3.7,0.31,False,9,4.6,1.48,False
-265,"Krasnokazarmennaya Street, 2с8",Residential belt,Римская,1484.0,4.3,2,4,55.759728,37.689258,3,2.4,0.62,False,1,2.7,-0.72,False
-266,"Krasnokazarmennaya Street, 9",Residential belt,Авиамоторная,1347.0,4.8,2,1,55.758009,37.698078,3,1.8,0.39,False,3,2.4,0.15,False
-267,"Krasnokazarmennaya Street, 15с1","Parks, rail and industrial land",Авиамоторная,777.0,5.4,0,1,55.756288,37.706898,2,1.3,0.71,False,4,2.2,1.4,False
-268,Leningradsky Avenue (local lane),Transit hubs,Петровский парк,53.0,5.9,17,7,55.790616,37.55505,7,6.7,0.2,True,8,6.7,0.09,False
-269,Petrovsky Park,"Parks, rail and industrial land",Динамо,248.0,5.3,2,0,55.788905,37.563886,2,2.2,0.08,False,13,3.1,3.09,False
-270,"Raskovoy Street, 16",Residential belt,Динамо,826.0,4.8,21,6,55.787194,37.572721,3,5.1,-0.57,False,5,5.6,0.3,False
-271,"Pravdy Street, 8к9",Residential belt,Белорусская,881.0,4.3,5,3,55.785482,37.581555,9,3.6,2.1,False,9,4.5,1.41,False
-272,"Novolesnaya Street, 18к2",Residential belt,Менделеевская,558.0,3.9,12,6,55.78377,37.590388,4,7.3,-0.05,False,1,7.8,-0.21,False
-273,"Novoslobodskaya Street, 16",Transit hubs,Менделеевская,17.0,3.5,79,18,55.782057,37.59922,48,23.5,2.3,True,56,19.5,3.71,True
-274,"Seleznyovskaya Street, 28с1",Central neighbourhoods,Достоевская,358.0,3.1,10,12,55.780344,37.608051,13,10.7,-0.14,True,11,12.4,-0.18,True
-275,3rd Samotyochny Lane,Residential belt,Достоевская,345.0,2.8,6,2,55.77863,37.616881,4,7.7,-0.88,False,4,11.9,-1.12,False
-276,"Vasnetsova Lane, 11с1",Residential belt,Проспект Мира,573.0,2.6,10,9,55.776915,37.625711,11,11.0,-0.08,False,10,13.4,-0.54,False
-277,"Bolshaya Sukharevskaya Square, 3с10",Central neighbourhoods,Сухаревская,268.0,2.5,22,19,55.7752,37.634539,19,19.8,-0.24,True,11,20.0,-0.71,True
-278,"Skornyazhny Lane, 3с2",Central neighbourhoods,Красные ворота,603.0,2.6,7,3,55.773484,37.643366,7,7.4,-0.03,False,6,9.4,-0.54,False
-279,"Kalanchyovskaya Street, 6/2",Central neighbourhoods,Красные ворота,251.0,2.8,19,7,55.771767,37.652192,15,15.3,0.16,True,27,16.2,1.33,True
-280,"Novaya Basmannaya Street, 23с1",Central neighbourhoods,Комсомольская,564.0,3.1,5,8,55.77005,37.661018,9,6.7,0.19,False,12,9.5,0.43,False
-281,"Tokmakov Lane, 5с1",Central neighbourhoods,Бауманская,718.0,3.5,14,11,55.768332,37.669842,4,8.7,-0.79,False,6,8.3,-0.21,False
-282,"Gardnerovsky Lane, 3с2",Residential belt,Бауманская,639.0,3.9,9,7,55.766614,37.678666,4,6.7,-0.59,False,10,7.8,0.6,False
-283,Lefortovskiye Ponds,"Parks, rail and industrial land",Бауманская,983.0,4.3,0,0,55.764895,37.687488,0,1.1,-1.01,False,3,1.8,0.21,False
-284,"Yugo-Vostochniy Administrative Okrug, Lefortovo District","Parks, rail and industrial land",Бауманская,1486.0,4.8,1,0,55.763176,37.69631,0,1.1,-0.84,False,0,1.3,-1.09,False
-285,"Lefortovsky Val Street, 5к2","Parks, rail and industrial land",Авиамоторная,1264.0,5.3,7,2,55.761455,37.70513,1,2.1,-0.26,False,1,2.4,-0.39,False
-286,"Aviamotornaya Street, 4с1",Residential belt,Авиамоторная,849.0,5.9,22,11,55.759735,37.71395,2,5.5,-0.82,False,2,4.8,-0.66,False
-287,"Verkhnyaya Maslovka Street, 15",Residential belt,Петровский парк,261.0,5.8,29,3,55.794072,37.562098,10,4.9,1.99,False,10,5.3,1.34,False
-288,"Petrovsko-Razumovsky Drive, 4А",Residential belt,Петровский парк,763.0,5.3,18,4,55.792361,37.570934,6,3.9,-0.04,False,6,4.4,0.48,False
-289,"Raskovoy Street, 34к21",Residential belt,Савеловская,418.0,4.9,21,2,55.790649,37.579769,10,4.7,1.18,False,9,5.4,0.7,False
-290,"Butyrsky Val Street, 68/70с2",Residential belt,Савёловская,528.0,4.4,12,4,55.788937,37.588604,10,5.8,1.14,False,7,6.7,0.2,False
-291,Tikhvinsky Lane,Residential belt,Менделеевская,600.0,4.0,20,16,55.787224,37.597437,7,9.4,-0.31,False,6,9.3,-0.36,False
-292,"Borby Square, 15",Residential belt,Менделеевская,602.0,3.7,5,3,55.78551,37.606269,2,5.2,-0.68,False,3,7.4,-0.99,False
-293,Sovetskoy Armii Street,Residential belt,Достоевская,247.0,3.4,4,2,55.783796,37.615101,4,6.7,-0.66,False,6,9.9,-0.52,False
-294,Olimpiysky Avenue,Residential belt,Проспект Мира,588.0,3.2,5,4,55.782082,37.623931,2,6.1,-0.6,False,1,7.7,-1.06,False
-295,"Mira Avenue, 31",Transit hubs,Проспект Мира,86.0,3.1,63,17,55.780366,37.632761,18,26.1,-0.43,True,19,26.8,-0.57,True
-296,"Astrakhansky Lane, 10/36",Residential belt,Проспект Мира,516.0,3.1,16,11,55.778651,37.641589,5,11.9,-0.9,False,5,12.6,-1.14,False
-297,"Kalanchyovskaya Street, 12/12с5",Residential belt,Комсомольская,334.0,3.2,1,0,55.776934,37.650417,4,3.0,0.66,False,8,6.5,0.23,False
-298,"Krasnoprudnaya Street, 6",Transit hubs,Комсомольская,167.0,3.4,130,4,55.775217,37.659244,8,26.2,-1.15,True,21,21.4,0.06,True
-299,"Novoryazanskaya Street, 29с3",Residential belt,Бауманская,684.0,3.7,6,2,55.773499,37.668069,2,5.1,-0.83,False,9,5.3,2.18,False
-300,"Pleteshkovsky Lane, 3Ас1А",Transit hubs,Бауманская,135.0,4.0,85,26,55.771781,37.676894,20,26.1,-0.23,True,26,21.2,0.74,True
-301,Malaya Pochtovaya Street,Central neighbourhoods,Бауманская,486.0,4.4,13,4,55.770062,37.685718,7,5.8,0.34,False,15,7.9,1.31,True
-302,"Gospitalnaya Street, 3","Parks, rail and industrial land",Бауманская,1065.0,4.9,0,0,55.768343,37.69454,0,1.2,-0.99,False,1,2.0,-0.85,False
-303,Soldatsky Lane,"Parks, rail and industrial land",Бауманская,1648.0,5.3,18,5,55.766623,37.703362,2,3.1,-0.5,False,2,2.0,-0.1,False
-304,"Storozhevaya Street, 24Ас2","Parks, rail and industrial land",Авиамоторная,1434.0,5.8,4,0,55.764902,37.712183,0,1.2,-0.91,False,0,1.3,-1.08,False
-305,"Bashilovskaya Street, 10с3",Residential belt,Савеловская,476.0,5.4,138,11,55.795816,37.577983,20,8.1,2.21,True,14,4.5,2.45,False
-306,"Butyrskaya Street, 2с3",Transit hubs,Савеловская,18.0,5.0,153,15,55.794104,37.586819,16,19.2,0.28,True,8,12.6,-0.43,True
-307,Savyolovsky Drive,Central neighbourhoods,Савёловская,376.0,4.6,223,34,55.792391,37.595654,9,25.4,-0.87,True,1,17.4,-1.56,True
-308,"Novosuschyovskaya Street, 24с2",Residential belt,Марьина роща,786.0,4.3,12,8,55.790677,37.604487,9,6.1,0.85,False,10,6.7,0.84,False
-309,"Oktyabrskaya Street, 33",Residential belt,Марьина роща,538.0,4.0,15,11,55.788963,37.61332,8,9.0,0.05,False,9,10.0,-0.02,False
-310,Olimpiysky Avenue,Residential belt,Марьина роща,774.0,3.7,7,6,55.787249,37.622152,6,5.7,-0.37,False,4,6.7,-0.86,False
-311,"Gilyarovskogo Street, 47с5",Residential belt,Проспект Мира,425.0,3.6,25,17,55.785533,37.630982,9,13.5,-0.75,True,11,13.8,-0.46,True
-312,"Skryabinsky Lane, 12/14с2",Residential belt,Проспект Мира,455.0,3.6,28,14,55.783817,37.639812,5,13.6,-1.14,True,6,13.0,-0.83,True
-313,"Tsentralniy Administrative Okrug, Krasnoselskiy District","Parks, rail and industrial land",Комсомольская,730.0,3.6,1,0,55.782101,37.648641,0,2.3,-1.17,False,0,3.5,-1.4,False
-314,"Krasnoprudnaya Street, 9/7","Parks, rail and industrial land",Комсомольская,322.0,3.7,5,1,55.780384,37.657469,2,3.9,-0.71,False,2,5.2,-0.93,False
-315,"Krasnoprudnaya Street, 24с1",Transit hubs,Красносельская,147.0,4.0,32,13,55.778666,37.666296,10,13.9,-0.32,True,8,15.8,-0.77,True
-316,"Baumanskaya Street, 5с1",Central neighbourhoods,Бауманская,560.0,4.3,16,3,55.776948,37.675122,38,6.2,8.75,False,24,7.1,3.58,False
-317,Spartakovsky Lane,Central neighbourhoods,Бауманская,437.0,4.6,35,11,55.775229,37.683947,8,10.0,-0.27,True,10,10.9,-0.14,True
-318,"Bolshaya Pochtovaya Street, 18/20к16","Parks, rail and industrial land",Бауманская,863.0,5.0,2,2,55.77351,37.692771,0,2.4,-1.16,False,3,3.1,-0.27,False
-319,"Novaya Doroga Street, 5","Parks, rail and industrial land",Электрозаводская,1155.0,5.4,2,3,55.77179,37.701594,1,2.1,-0.76,False,1,2.1,-0.72,False
-320,"Butyrskaya Street, 42",Residential belt,Савеловская,586.0,5.6,20,4,55.799271,37.585034,8,4.7,1.7,False,12,4.6,2.71,False
-321,"Skladochnaya Street, 1Дс2",Residential belt,Савёловская,466.0,5.2,322,6,55.797558,37.59387,14,15.3,0.15,True,15,10.3,1.16,True
-322,"Streletskaya Street, 8",Residential belt,Савёловская,809.0,4.8,10,3,55.795844,37.602705,5,4.3,0.15,False,3,5.1,-0.35,False
-323,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District, zhiloy kompleks Dzhaz",Transit hubs,Марьина роща,282.0,4.5,37,16,55.79413,37.611539,9,13.2,-0.59,True,12,12.7,0.06,True
-324,Festivalny Park,Residential belt,Марьина роща,253.0,4.3,19,7,55.792416,37.620372,3,9.6,-1.09,True,1,10.7,-1.48,True
-325,Verzemneka Street,Residential belt,Рижская,465.0,4.2,13,13,55.7907,37.629204,6,8.6,-0.62,True,5,10.4,-0.87,True
-326,"Srednyaya Pereyaslavskaya Street, 13с2",Central neighbourhoods,Рижская,399.0,4.1,21,15,55.788984,37.638035,7,11.0,-0.59,True,8,12.5,-0.54,True
-327,Komsomolskoy Ploschadi Drive,"Parks, rail and industrial land",Рижская,888.0,4.1,0,0,55.787268,37.646865,0,1.4,-0.9,False,0,2.1,-1.06,False
-328,"5th Krasnoselsky Lane, 5",Residential belt,Красносельская,899.0,4.2,5,0,55.785551,37.655694,3,2.9,-0.11,False,10,4.0,1.58,False
-329,"Tsentralniy Administrative Okrug, Krasnoselskiy District",Residential belt,Красносельская,440.0,4.3,83,9,55.783833,37.664522,13,13.5,0.09,True,3,11.6,-1.13,True
-330,"Rusakovskaya Street, 8с3",Residential belt,Красносельская,514.0,4.5,7,7,55.782115,37.67335,2,5.5,-0.94,False,0,7.6,-1.6,False
-331,"Spartakovskaya Square, 1Асоор6","Parks, rail and industrial land",Бауманская,912.0,4.8,3,0,55.780396,37.682176,1,2.2,-1.03,False,0,2.9,-1.38,False
-332,Bakuninskaya Street,Residential belt,Электрозаводская,964.0,5.2,7,1,55.778677,37.691001,6,2.6,1.33,False,7,3.3,1.44,False
-333,"Rubtsovskaya Embankment, 3с1",Residential belt,Электрозаводская,652.0,5.6,3,1,55.776957,37.699826,4,2.2,0.34,False,2,3.4,0.01,False
-334,"Novodmitrovskaya Street, 2к7","Parks, rail and industrial land",Дмитровская,880.0,5.8,12,1,55.802725,37.592086,6,2.5,1.72,False,12,2.1,5.25,False
-335,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District, zhiloy kompleks Sheremetyevskiy","Parks, rail and industrial land",Савёловская,1035.0,5.4,0,0,55.801011,37.600922,0,0.8,-0.55,False,1,1.0,-0.5,False
-336,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District",Residential belt,Марьина роща,511.0,5.1,14,7,55.799297,37.609757,4,5.6,-0.15,False,6,6.7,-0.38,False
-337,4th Maryinoy Roschi Drive,Transit hubs,Марьина роща,114.0,4.9,139,12,55.797583,37.618591,4,18.2,-1.4,True,7,16.3,-0.94,True
-338,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District","Parks, rail and industrial land",Рижская,644.0,4.7,1,0,55.795867,37.627425,0,2.0,-1.18,False,0,3.6,-1.37,False
-339,"Tsentralniy Administrative Okrug, Meschanskiy District",Residential belt,Рижская,171.0,4.6,22,2,55.794151,37.636257,2,8.2,-1.21,True,0,9.4,-1.55,True
-340,"Severo-Vostochniy Administrative Okrug, Alekseyevskiy District","Parks, rail and industrial land",Рижская,571.0,4.6,0,0,55.792435,37.645089,0,1.4,-1.09,False,0,2.3,-1.28,False
-341,"1st Rybinskaya Street, 3с1","Parks, rail and industrial land",Рижская,1140.0,4.6,1,0,55.790718,37.653919,2,1.5,0.31,False,1,2.4,-0.67,False
-342,"3rd Rybinskaya Street, 30",Residential belt,Красносельская,1025.0,4.7,8,1,55.789,37.662749,0,3.3,-1.16,False,2,3.9,-0.42,False
-343,Shumkina Street,Residential belt,Сокольники,544.0,4.9,21,11,55.787282,37.671577,3,7.2,-0.6,False,1,7.1,-1.3,False
-344,"2nd Sokolnicheskaya Street, 1",Residential belt,Сокольники,412.0,5.1,17,11,55.785563,37.680405,9,7.5,-0.22,True,7,8.3,-0.48,True
-345,Gastello Street,Residential belt,Сокольники,843.0,5.4,7,6,55.783844,37.689231,1,4.0,-1.05,False,3,4.4,-0.38,False
-346,"Bolshaya Pochtovaya Street, 40с7",Residential belt,Электрозаводская,450.0,5.8,8,1,55.782124,37.698057,3,3.0,0.01,False,15,4.2,2.93,False
-347,"Annenskaya Street, 21","Parks, rail and industrial land",Марьина роща,991.0,5.7,2,1,55.804464,37.607975,0,1.7,-1.22,False,0,2.5,-1.31,False
-348,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District",Residential belt,Марьина роща,624.0,5.5,73,8,55.80275,37.616811,5,7.9,-0.57,False,3,6.7,-0.58,False
-349,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District","Parks, rail and industrial land",Марьина роща,696.0,5.3,0,0,55.801034,37.625645,1,0.9,-0.49,False,0,1.5,-1.18,False
-350,"Severo-Vostochniy Administrative Okrug, Ostankinskiy District","Parks, rail and industrial land",Рижская,751.0,5.1,12,7,55.799319,37.634479,3,5.0,-0.58,False,2,3.6,-0.66,False
-351,"2nd Mytishinskaya Street, 2с6","Parks, rail and industrial land",Рижская,722.0,5.1,0,0,55.797602,37.643312,0,1.1,-1.01,False,0,1.7,-1.16,False
-352,"1st Luchevoy Glade, 15с8","Parks, rail and industrial land",Рижская,1080.0,5.1,1,1,55.795885,37.652144,0,1.4,-1.08,False,0,1.7,-1.16,False
-353,Sokolniki Park,"Parks, rail and industrial land",Сокольники,1285.0,5.1,4,2,55.794168,37.660974,3,2.3,0.26,False,3,2.5,-0.04,False
-354,Sokolniki Park,Residential belt,Сокольники,705.0,5.3,2,8,55.792449,37.669804,3,3.3,-0.11,False,2,4.2,-0.55,False
-355,Sokolnicheskaya Square,Transit hubs,Сокольники,173.0,5.5,265,35,55.790731,37.678633,20,30.7,-0.6,True,18,20.1,-0.24,True
-356,"Barbolina Street, 3к13",Residential belt,Сокольники,475.0,5.7,5,3,55.789011,37.687461,0,3.1,-1.24,False,0,5.5,-1.43,False
-357,"Murmansky Drive, 14к2","Parks, rail and industrial land",Алексеевская,935.0,5.9,2,0,55.806201,37.623866,0,1.5,-1.08,False,2,2.6,-0.32,False
-358,"Bolshaya Maryinskaya Street, 7к2",Residential belt,Алексеевская,513.0,5.7,9,6,55.804486,37.632701,0,4.2,-1.19,False,1,5.0,-1.05,False
-359,"Grafsky Lane, 14к1","Parks, rail and industrial land",Алексеевская,582.0,5.6,2,1,55.802769,37.641535,2,2.2,0.03,False,4,3.4,-0.18,False
-360,"Severo-Vostochniy Administrative Okrug, Alekseyevskiy District","Parks, rail and industrial land",Алексеевская,1049.0,5.6,1,0,55.801052,37.650368,0,1.1,-1.02,False,0,1.4,-0.95,False
-361,Sokolniki Park,"Parks, rail and industrial land",Алексеевская,1597.0,5.6,0,0,55.799335,37.6592,0,0.7,-0.79,False,0,0.8,-0.87,False
-362,2nd Luchevoy Glade,"Parks, rail and industrial land",Сокольники,1177.0,5.7,1,0,55.797617,37.668031,2,1.0,1.0,False,2,1.1,0.36,False
-363,6th Luchevoy Glade,"Parks, rail and industrial land",Сокольники,756.0,5.9,0,0,55.795898,37.676861,4,1.1,2.62,False,6,1.9,3.16,False
+cell_id,address,type,center_km,lat,lon,nearest_metro_2019,metro_m_2019,shops_2019,services_2019,competitors_2019,expected_2019,score_2019,eligible_2019,nearest_metro_2026,metro_m_2026,shops_2026,services_2026,competitors_2026,expected_2026,score_2026,eligible_2026
+0,Luzhniki,"Parks, rail and industrial land",5.9,55.711375,37.566005,Воробьёвы горы,277.0,0,0,0,1.2,-0.95,False,Воробьёвы горы,290.0,4,0,2,2.0,0.4,False
+1,Vorobyovy Gory Nature Reserve,"Parks, rail and industrial land",5.7,55.709665,37.574822,Ленинский проспект,701.0,0,1,1,1.0,-0.37,False,Ленинский проспект,707.0,3,1,2,1.7,0.35,False
+2,"Leninsky Avenue, 39с1",Transit hubs,5.6,55.707955,37.583639,Ленинский проспект,138.0,25,12,1,8.5,-1.24,True,Ленинский проспект,141.0,34,11,5,8.6,-0.61,True
+3,"Vavilova Street, 3",Transit hubs,5.6,55.706244,37.592454,Площадь Гагарина,368.0,213,11,28,13.0,2.11,True,Ленинский проспект,381.0,77,7,13,9.6,0.29,True
+4,Muslim Cemetery,"Parks, rail and industrial land",5.6,55.704532,37.601269,Площадь Гагарина,952.0,5,0,0,1.9,-1.08,False,Ленинский проспект,966.0,3,1,1,2.1,-0.45,False
+5,Danilovskoye Cemetery,"Parks, rail and industrial land",5.7,55.70282,37.610082,Тульская,957.0,2,0,0,1.3,-0.85,False,Тульская,961.0,3,2,1,2.0,-0.37,False
+6,"Yuzhniy Administrative Okrug, Donskoy District",Residential belt,5.9,55.701107,37.618894,Тульская,781.0,8,3,7,3.0,2.18,False,Тульская,786.0,9,0,6,2.5,1.42,False
+7,Luzhniki,"Parks, rail and industrial land",5.7,55.71825,37.555399,Лужники,454.0,0,0,2,1.0,1.62,False,Спортивная,462.0,1,0,0,1.1,-0.64,False
+8,"Tsentralniy Administrative Okrug, Khamovniki District","Parks, rail and industrial land",5.5,55.716541,37.564218,Лужники,525.0,0,0,0,1.1,-0.91,False,Спортивная,527.0,0,0,3,0.9,1.48,False
+9,"Luzhnetskaya Embankment, 2/4с32",Residential belt,5.3,55.714831,37.573037,Воробьёвы горы,795.0,6,3,2,3.2,-0.6,False,Воробьёвы горы,808.0,6,0,1,2.2,-0.89,False
+10,Neskuchny Garden,"Parks, rail and industrial land",5.1,55.713121,37.581854,Ленинский проспект,626.0,3,1,0,2.2,-1.08,False,Ленинский проспект,624.0,0,0,0,1.0,-0.22,False
+11,"Leninsky Avenue, 33с24",Residential belt,5.1,55.71141,37.590671,Ленинский проспект,387.0,13,9,9,5.2,0.49,True,Ленинский проспект,370.0,9,6,6,4.6,-0.1,False
+12,"Ordzhonikidze Street, 7с2",Residential belt,5.1,55.709698,37.599487,Ленинский проспект,767.0,79,10,11,10.9,-0.15,False,Ленинский проспект,755.0,74,9,5,12.3,-1.24,False
+13,"Novaya Zarya Street, 3",Residential belt,5.1,55.707986,37.608302,Тульская,890.0,2,1,1,2.0,-0.71,False,Тульская,891.0,9,2,2,3.7,-0.61,False
+14,"Malaya Tulskaya Street, 24",Residential belt,5.3,55.706274,37.617115,Тульская,378.0,22,11,4,7.8,-0.67,True,Тульская,382.0,18,12,8,6.4,0.59,False
+15,"Varshavskoye Highway, 1с2","Parks, rail and industrial land",5.5,55.70456,37.625928,Тульская,424.0,5,0,5,2.2,0.85,False,Тульская,428.0,8,0,4,2.4,1.07,False
+16,"Avtozavodskaya Street, 23с85",Residential belt,5.7,55.702846,37.63474,Тульская,950.0,96,7,21,6.1,1.64,False,ЗИЛ,911.0,1,1,2,1.2,0.59,False
+17,Luzhnetskaya Embankment,"Parks, rail and industrial land",5.8,55.725124,37.544789,Лужники,1118.0,0,0,0,0.8,-0.86,False,Спортивная,1122.0,1,0,3,1.2,1.31,False
+18,Khamovnichesky Val Street,"Parks, rail and industrial land",5.4,55.723416,37.55361,Спортивная,534.0,0,1,0,1.4,-1.08,False,Спортивная,538.0,1,1,0,1.8,-1.17,False
+19,Projected Drive 2309,Residential belt,5.1,55.721707,37.562431,Спортивная,73.0,17,4,5,7.3,-0.65,True,Спортивная,71.0,23,6,6,10.6,-0.55,True
+20,"Komsomolsky Avenue, 48/22",Residential belt,4.9,55.719997,37.571251,Спортивная,551.0,18,12,2,7.4,-1.15,False,Спортивная,551.0,17,9,3,6.0,-0.81,False
+21,"Tsentralniy Administrative Okrug, Khamovniki District, 470-y kvartal",Residential belt,4.7,55.718287,37.58007,Фрунзенская,1018.0,12,3,1,3.3,-0.91,False,Фрунзенская,1019.0,17,0,1,3.5,-1.01,False
+22,"Krymsky Val Street, 9с46","Parks, rail and industrial land",4.6,55.716576,37.588888,Ленинский проспект,909.0,15,0,1,2.8,-0.92,False,Ленинский проспект,895.0,10,0,3,2.5,0.26,False
+23,"Malaya Kaluzhskaya Street, 15с28","Parks, rail and industrial land",4.6,55.714864,37.597705,Шаболовская,768.0,6,3,1,4.1,-0.84,False,Шаболовская,771.0,4,0,3,2.4,0.1,False
+24,"Shabolovka Street, 52",Residential belt,4.6,55.713152,37.606521,Шаболовская,625.0,19,6,6,6.6,-0.1,False,Шаболовская,626.0,35,12,7,10.7,-0.68,False
+25,Serpukhovsky Val Street,Residential belt,4.7,55.71144,37.615336,Тульская,501.0,32,18,6,10.9,0.47,False,Тульская,502.0,42,23,8,12.6,-0.55,False
+26,"Kholodilny Lane, 2/6",Transit hubs,4.9,55.709726,37.62415,Тульская,100.0,253,48,24,31.3,-0.32,True,Тульская,101.0,76,15,44,15.5,4.02,True
+27,"Yuzhniy Administrative Okrug, Danilovskiy District","Parks, rail and industrial land",5.1,55.708013,37.632963,Тульская,660.0,5,2,1,2.9,-0.74,False,Тульская,659.0,3,0,1,1.8,-0.67,False
+28,"Yuzhniy Administrative Okrug, Danilovskiy District",Residential belt,5.4,55.706298,37.641775,ЗИЛ,878.0,117,4,7,7.5,0.93,False,ЗИЛ,865.0,49,5,13,7.3,1.13,False
+29,"Avtozavodskaya Street, 12к1с1",Residential belt,5.8,55.704583,37.650586,Автозаводская,459.0,7,2,7,2.7,1.23,False,Автозаводская,457.0,17,2,4,3.9,-0.06,False
+30,"Vorobyovskoye Highway, 2с44","Parks, rail and industrial land",5.6,55.73029,37.542999,Студенческая,1015.0,0,0,1,0.9,0.16,False,Студенческая,1015.0,3,0,0,1.6,-1.12,False
+31,"Tsentralniy Administrative Okrug, Khamovniki District","Parks, rail and industrial land",5.2,55.728582,37.551822,Спортивная,943.0,0,0,0,1.2,-0.95,False,Спортивная,946.0,0,0,1,1.1,-0.16,False
+32,10-letiya Oktyabrya Street,Residential belt,4.8,55.726873,37.560644,Спортивная,443.0,12,5,7,5.6,-0.0,False,Спортивная,443.0,14,7,12,6.6,0.92,False
+33,"Kooperativnaya Street, 3к6",Transit hubs,4.5,55.725163,37.569465,Спортивная,279.0,60,3,35,11.7,1.15,True,Спортивная,276.0,33,18,22,14.0,0.59,True
+34,"Komsomolsky Avenue, 35",Residential belt,4.3,55.723453,37.578285,Фрунзенская,466.0,26,14,2,9.6,-1.14,True,Фрунзенская,468.0,39,17,6,12.1,-0.92,True
+35,"Tsentralniy Administrative Okrug, Khamovniki District",Residential belt,4.2,55.721742,37.587104,Фрунзенская,754.0,15,0,3,4.0,-0.27,False,Фрунзенская,752.0,15,0,4,4.0,-0.04,False
+36,Neskuchny Garden,Residential belt,4.1,55.720031,37.595922,Шаболовская,764.0,13,6,2,6.2,-0.96,False,Шаболовская,766.0,13,2,5,5.3,-0.42,False
+37,"Donskaya Street, 39",Residential belt,4.1,55.718319,37.60474,Шаболовская,201.0,33,16,9,16.6,-0.93,True,Шаболовская,203.0,31,12,9,13.5,-0.62,True
+38,Khavskaya Street,Residential belt,4.2,55.716606,37.613556,Шаболовская,417.0,15,15,3,10.3,-1.2,True,Шаболовская,416.0,16,9,4,7.8,-0.85,True
+39,Lyusinovskaya Street,Central neighbourhoods,4.3,55.714893,37.622371,Тульская,593.0,29,17,35,10.9,1.88,False,Тульская,595.0,28,18,4,9.6,-0.78,False
+40,"Dubininskaya Street, 98с2",Residential belt,4.5,55.713179,37.631186,Тульская,674.0,7,2,2,3.8,-0.75,False,Тульская,675.0,8,0,2,3.0,-0.62,False
+41,"3rd Paveletsky Drive, 6кА","Parks, rail and industrial land",4.8,55.711464,37.639999,Тульская,1114.0,5,0,0,2.0,-0.92,False,Тульская,1115.0,8,1,0,2.8,-0.83,False
+42,"Yuzhniy Administrative Okrug, Danilovskiy District",Residential belt,5.2,55.709749,37.648812,Автозаводская,553.0,55,1,8,5.6,1.98,False,Автозаводская,548.0,8,0,9,3.5,1.38,False
+43,Masterkova Street,Transit hubs,5.6,55.708034,37.657623,Автозаводская,59.0,368,55,57,31.1,1.14,True,Автозаводская,59.0,124,26,28,19.9,0.51,True
+44,Kiyevsky Overpass,"Parks, rail and industrial land",5.4,55.735456,37.541208,Студенческая,588.0,0,0,0,1.3,-0.79,False,Студенческая,589.0,1,0,0,1.6,-0.91,False
+45,"Berezhkovskaya Embankment, 20с52","Parks, rail and industrial land",5.0,55.733748,37.550032,Студенческая,584.0,0,1,1,1.5,-0.3,False,Студенческая,583.0,6,0,4,2.6,0.69,False
+46,"Tsentralniy Administrative Okrug, Khamovniki District",Residential belt,4.6,55.732039,37.558856,Спортивная,988.0,5,0,5,2.4,1.37,False,Спортивная,987.0,9,3,3,3.9,0.24,False
+47,Bolshaya Pirogovskaya Street,Residential belt,4.3,55.730329,37.567678,Спортивная,718.0,6,3,5,3.7,1.55,False,Спортивная,716.0,11,8,8,6.1,1.09,False
+48,Trubetskoys' Estate in Khamovniki Children Park,Central neighbourhoods,4.0,55.728619,37.5765,Фрунзенская,288.0,33,13,19,13.6,0.05,True,Фрунзенская,292.0,20,9,15,9.4,1.1,True
+49,"Tsentralniy Administrative Okrug, Khamovniki District, 465-y kvartal",Residential belt,3.7,55.726908,37.58532,Фрунзенская,304.0,23,9,11,11.5,0.01,True,Фрунзенская,299.0,19,9,9,9.2,-0.09,True
+50,Pushkinskaya Embankment,"Parks, rail and industrial land",3.6,55.725197,37.59414,Фрунзенская,887.0,0,0,5,1.5,1.87,False,Фрунзенская,883.0,1,0,7,1.7,3.88,False
+51,Leninsky Avenue,Residential belt,3.6,55.723485,37.602958,Шаболовская,613.0,12,4,3,6.8,-0.9,False,Шаболовская,613.0,11,7,2,7.1,-0.89,False
+52,"Konny Lane, 12",Central neighbourhoods,3.6,55.721772,37.611776,Шаболовская,405.0,25,21,14,13.8,0.04,True,Шаболовская,405.0,35,5,17,12.8,0.59,True
+53,"Pavla Andreyeva Street, 23с2",Residential belt,3.7,55.720059,37.620592,Шаболовская,796.0,36,13,5,11.6,-0.89,False,Шаболовская,795.0,32,17,6,11.0,-0.84,False
+54,"3rd Pavlovsky Lane, 14",Residential belt,4.0,55.718345,37.629408,Серпуховская,980.0,55,4,6,10.0,-0.39,False,Серпуховская,970.0,17,3,8,7.0,0.01,False
+55,"Dubininskaya Street, 63с16","Parks, rail and industrial land",4.3,55.716631,37.638223,Тульская,1258.0,2,1,0,1.9,-1.06,False,Тульская,1260.0,5,0,1,2.0,-0.79,False
+56,Paveletskaya Embankment,Residential belt,4.6,55.714916,37.647037,Автозаводская,957.0,25,6,6,5.9,-0.14,False,Автозаводская,949.0,5,0,3,2.3,0.04,False
+57,Lipki Children's Park,Residential belt,5.0,55.7132,37.65585,Автозаводская,521.0,41,6,6,8.3,0.43,False,Автозаводская,513.0,26,4,4,6.9,-0.45,False
+58,"Velozavodskaya Street, 6А",Residential belt,5.4,55.711484,37.664661,Автозаводская,528.0,13,5,5,4.9,-0.23,False,Автозаводская,527.0,20,4,2,5.3,-0.91,False
+59,"Kutuzovsky Avenue, 32к2","Parks, rail and industrial land",5.8,55.74233,37.530591,Кутузовская,295.0,1,0,0,1.7,-0.63,False,Кутузовская,249.0,8,4,15,4.2,3.53,False
+60,"Kutuzovsky Avenue, 35",Residential belt,5.3,55.740622,37.539417,Кутузовская,321.0,19,10,2,6.8,-1.07,True,Кутузовская,309.0,37,17,1,9.5,-1.67,True
+61,Kiyevskaya Street,Residential belt,4.9,55.738914,37.548243,Студенческая,4.0,10,2,5,5.7,-0.47,False,Студенческая,6.0,18,7,4,10.2,-1.33,True
+62,"Berezhkovskaya Embankment, 16с20","Parks, rail and industrial land",4.4,55.737205,37.557068,Студенческая,582.0,1,0,0,1.7,-1.17,False,Студенческая,580.0,0,0,0,1.3,-0.88,False
+63,Savvinskaya Embankment,Residential belt,4.0,55.735495,37.565891,Киевская,832.0,10,3,7,5.3,0.78,False,Киевская,833.0,11,1,11,4.3,2.11,False
+64,Devichye Pole Public Garden,Residential belt,3.7,55.733785,37.574714,Фрунзенская,797.0,2,3,2,2.9,0.16,False,Фрунзенская,799.0,2,2,4,2.7,1.34,False
+65,"Yazykovsky Lane, 7",Residential belt,3.4,55.732074,37.583536,Фрунзенская,549.0,3,2,1,4.2,-0.57,False,Фрунзенская,547.0,7,5,2,5.3,-0.46,False
+66,"Frunzenskaya Embankment, 16к1",Central neighbourhoods,3.2,55.730363,37.592357,Парк культуры,528.0,18,13,10,12.1,-0.25,False,Парк Культуры,535.0,31,14,6,11.6,-0.59,False
+67,Gorky Central Park of Culture and Leisure,"Parks, rail and industrial land",3.1,55.728651,37.601176,Октябрьская,617.0,0,0,1,1.8,-0.27,False,Октябрьская,616.0,3,0,9,2.4,3.83,False
+68,"Leninsky Avenue, 1/2к1",Transit hubs,3.1,55.726938,37.609995,Октябрьская,253.0,18,11,13,14.5,-0.37,True,Октябрьская,272.0,27,11,10,16.7,-0.62,True
+69,"4th Dobryninsky Lane, 1/9с22А",Residential belt,3.2,55.725225,37.618813,Серпуховская,422.0,3,4,2,6.2,-1.17,False,Серпуховская,420.0,7,4,1,5.5,-1.06,False
+70,"Bolshaya Serpukhovskaya Street, 31к9",Central neighbourhoods,3.4,55.723511,37.62763,Серпуховская,396.0,20,15,9,13.1,-0.59,True,Серпуховская,385.0,36,16,6,15.0,-1.03,True
+71,"Dubininskaya Street, 55к1с2",Central neighbourhoods,3.7,55.721797,37.636446,Серпуховская,881.0,24,4,10,6.8,0.64,False,Серпуховская,869.0,16,4,8,5.8,0.4,False
+72,"Derbenevskaya Street, 20с48","Parks, rail and industrial land",4.0,55.720082,37.645261,Павелецкая,1143.0,7,1,5,3.4,0.99,False,Павелецкая,1114.0,11,0,4,3.5,0.09,False
+73,Simonovskaya Embankment,"Parks, rail and industrial land",4.4,55.718367,37.654075,Автозаводская,1107.0,1,0,0,1.6,-0.81,False,Автозаводская,1099.0,10,3,3,3.7,0.06,False
+74,"Yuzhniy Administrative Okrug, Danilovskiy District",Residential belt,4.9,55.71665,37.662889,Дубровка,848.0,21,6,1,6.2,-1.33,False,Дубровка,846.0,23,3,3,5.7,-0.82,False
+75,"Yugo-Vostochniy Administrative Okrug, Yuzhnoportoviy District",Residential belt,5.3,55.714934,37.671701,Дубровка,342.0,14,4,3,5.3,-0.53,False,Дубровка,336.0,14,3,5,5.2,-0.34,False
+76,Sharikopodshipnikovsky Overpass,Residential belt,5.8,55.713216,37.680512,Дубровка,263.0,3,2,2,3.0,-0.27,False,Дубровка,275.0,3,0,2,2.0,-0.12,False
+77,"Tsentralniy Administrative Okrug, Presnenskiy District","Parks, rail and industrial land",5.9,55.747496,37.528799,Деловой центр,182.0,0,0,0,1.3,1.15,False,Москва-Сити,176.0,2,0,2,1.8,1.22,False
+78,Testovskaya Street,Residential belt,5.3,55.745788,37.537626,Международная,359.0,23,21,37,7.7,5.99,True,Москва-Сити,261.0,35,12,34,11.1,4.14,True
+79,Kutuzovsky Avenue,Residential belt,4.8,55.74408,37.546453,Выставочная,473.0,32,6,5,7.8,-0.72,True,Деловой центр,542.0,40,15,9,10.1,-0.51,False
+80,"Mozhaysky Val Street, 10","Parks, rail and industrial land",4.3,55.742371,37.555279,Киевская,578.0,10,1,3,4.5,-0.66,False,Киевская,579.0,14,4,5,5.8,-0.22,False
+81,"Zapadniy Administrative Okrug, Dorogomilovo District","Parks, rail and industrial land",3.9,55.740662,37.564104,Киевская,252.0,7,1,8,4.6,0.94,False,Киевская,254.0,16,3,9,6.4,0.07,False
+82,"2nd Vrazhsky Lane, 3с2",Residential belt,3.5,55.738951,37.572928,Киевская,631.0,3,5,4,4.6,-0.16,False,Киевская,627.0,10,5,7,5.7,0.31,False
+83,Devichyego Polya Drive,Residential belt,3.1,55.737241,37.581751,Парк культуры,747.0,9,5,5,6.0,0.3,False,Парк Культуры,724.0,21,10,16,10.4,1.2,False
+84,"Zubovsky Boulevard, 17с3",Transit hubs,2.8,55.735529,37.590573,Парк культуры,164.0,27,11,26,18.7,0.66,True,Парк Культуры,138.0,49,19,27,25.4,0.22,True
+85,Krymsky Bridge,Residential belt,2.6,55.733817,37.599394,Парк культуры,375.0,1,1,2,4.5,-0.75,False,Парк Культуры,380.0,7,0,8,4.2,1.06,False
+86,"Krymsky Val Street, 8к2",Residential belt,2.5,55.732105,37.608214,Октябрьская,290.0,22,4,9,13.6,-0.72,True,Октябрьская,292.0,19,5,16,11.9,0.57,True
+87,"Zhitnaya Street, 12",Central neighbourhoods,2.6,55.730392,37.617034,Октябрьская,275.0,5,4,10,9.6,0.01,False,Октябрьская,269.0,13,8,11,11.5,-0.11,True
+88,"Bolshaya Serpukhovskaya Street, 5",Transit hubs,2.8,55.728678,37.625852,Серпуховская,198.0,73,30,33,33.8,0.13,True,Добрынинская,191.0,67,31,33,35.2,0.1,True
+89,"Bolshaya Pionerskaya Street, 27-29с1",Central neighbourhoods,3.1,55.726963,37.634669,Павелецкая,399.0,15,7,6,9.9,-0.68,True,Павелецкая,421.0,25,9,8,11.4,-0.49,True
+90,"Letnikovskaya Street, 8с1",Residential belt,3.5,55.725249,37.643486,Павелецкая,575.0,3,3,8,4.8,0.94,False,Павелецкая,537.0,10,0,7,4.6,1.22,False
+91,"Derbenevskaya Embankment, 7с13",Residential belt,3.9,55.723533,37.652301,Павелецкая,1089.0,5,7,18,4.7,3.61,False,Павелецкая,1036.0,8,5,14,5.1,2.05,False
+92,"Simonovsky Val Street, 16к2",Residential belt,4.3,55.721817,37.661115,Дубровка,1048.0,11,5,2,4.6,-0.91,False,Дубровка,1044.0,12,4,2,4.3,-0.83,False
+93,"Sharikopodshipnikovskaya Street, 4к20",Residential belt,4.8,55.7201,37.669929,Дубровка,470.0,8,5,2,5.3,-0.88,False,Дубровка,466.0,14,3,3,4.9,-0.81,False
+94,"Sharikopodshipnikovskaya Street, 11с1",Transit hubs,5.3,55.718383,37.678742,Дубровка,118.0,1316,13,16,25.7,-0.94,True,Дубровка,120.0,23,7,4,7.9,-0.69,False
+95,Third Ring Road,"Parks, rail and industrial land",5.9,55.716665,37.687553,Угрешская,489.0,1,0,0,1.5,-0.71,False,Угрешская,491.0,3,1,1,2.0,-0.4,False
+96,1st Krasnogvardeysky Drive,Transit hubs,5.4,55.750955,37.535835,Деловой центр,240.0,52,12,26,8.7,4.13,True,Деловой центр,249.0,31,4,40,8.8,5.94,True
+97,"Krasnopresnenskaya Embankment, 14с18",Transit hubs,4.8,55.749246,37.544663,Выставочная,105.0,201,16,71,19.9,3.38,True,Деловой центр,100.0,35,3,9,8.1,0.72,True
+98,"Kutuzovsky Avenue, 16",Residential belt,4.3,55.747537,37.55349,Выставочная,601.0,22,4,5,7.1,-0.24,False,Деловой центр,641.0,19,1,4,5.5,-0.3,False
+99,Bolshaya Dorogomilovskaya Street,Transit hubs,3.8,55.745828,37.562317,Киевская,342.0,370,21,40,28.8,-0.1,True,Киевская,332.0,98,14,25,18.3,0.7,True
+100,Berezhkovskaya Embankment,Residential belt,3.3,55.744118,37.571142,Киевская,228.0,1,2,0,4.5,-1.02,False,Киевская,227.0,52,3,13,14.2,0.39,True
+101,"Zemledelchesky Lane, 20А",Residential belt,2.9,55.742407,37.579966,Смоленская,651.0,23,9,6,11.8,-0.68,False,Смоленская,652.0,28,14,6,11.3,-0.96,False
+102,"Kropotkinsky Lane, 20с1",Central neighbourhoods,2.5,55.740696,37.588789,Парк культуры,644.0,20,15,7,13.2,-0.72,False,Парк Культуры,639.0,38,18,11,14.4,-0.64,False
+103,Korobeynikov Lane,Central neighbourhoods,2.2,55.738984,37.597612,Парк культуры,362.0,11,9,10,12.5,-0.24,True,Парк Культуры,362.0,23,15,10,15.5,-0.42,True
+104,Krymskaya Embankment,"Parks, rail and industrial land",2.1,55.737271,37.606433,Парк культуры,731.0,4,1,7,5.1,0.36,False,Парк Культуры,735.0,5,2,9,4.6,1.72,False
+105,"2nd Khvostov Lane, 12",Transit hubs,2.1,55.735558,37.615254,Полянка,253.0,44,24,19,31.0,-0.85,True,Полянка,258.0,49,17,17,21.4,-0.55,True
+106,"Bolshaya Ordynka Street, 56/10",Central neighbourhoods,2.2,55.733844,37.624073,Полянка,476.0,17,13,23,16.2,0.7,True,Полянка,475.0,27,17,22,14.2,0.79,True
+107,6th Monetchikovsky Lane,Transit hubs,2.5,55.73213,37.632892,Павелецкая,194.0,86,31,25,42.3,-0.85,True,Павелецкая,208.0,55,21,17,25.5,-0.32,True
+108,Kozhevnicheskaya Street,Transit hubs,2.9,55.730415,37.64171,Павелецкая,197.0,137,14,29,35.1,-0.25,True,Павелецкая,150.0,90,18,36,30.0,0.46,True
+109,"Tsentralniy Administrative Okrug, Zamoskvorechye District",Central neighbourhoods,3.3,55.728699,37.650526,Павелецкая,744.0,41,11,7,13.3,-0.58,False,Павелецкая,681.0,15,5,6,7.7,-0.07,False
+110,"Krutitskaya Street, 17с6",Residential belt,3.8,55.726983,37.659342,Пролетарская,574.0,1,3,3,3.5,-0.68,False,Пролетарская,569.0,2,0,3,2.1,-0.35,False
+111,"Melnikova Street, 23","Parks, rail and industrial land",4.3,55.725267,37.668157,Пролетарская,699.0,12,7,1,4.3,-1.11,False,Пролетарская,696.0,22,9,0,6.0,-1.64,False
+112,"Novoostapovskaya Street, 5с2",Residential belt,4.8,55.723549,37.676971,Волгоградский проспект,560.0,9,1,2,4.0,-0.6,False,Волгоградский проспект,565.0,10,2,0,4.2,-1.56,False
+113,"Sharikopodshipnikovskaya Street, 13с47-48",Residential belt,5.4,55.721831,37.685783,Волгоградский проспект,334.0,19,0,2,3.7,-0.51,False,Волгоградский проспект,330.0,0,0,1,1.1,0.18,False
+114,"Antonova-Ovseyenko Street, 15с4","Parks, rail and industrial land",5.5,55.756121,37.534043,Шелепиха,561.0,7,2,0,3.2,-1.29,False,Москва-Сити,397.0,2,0,0,1.8,-1.31,False
+115,"Tsentralniy Administrative Okrug, Presnenskiy District, City Park Residential Complex","Parks, rail and industrial land",4.9,55.754412,37.542873,Выставочная,464.0,1,0,1,2.0,-0.21,False,Деловой центр,481.0,4,1,2,2.7,-0.28,False
+116,Krasnaya Presnya Park,"Parks, rail and industrial land",4.4,55.752704,37.551701,Выставочная,631.0,0,0,4,1.3,1.66,False,Деловой центр,640.0,0,0,4,1.1,2.62,False
+117,"Kutuzovsky Avenue, 12с1",Central neighbourhoods,3.8,55.750994,37.560529,Киевская,852.0,11,6,17,6.1,3.22,False,Киевская,840.0,11,0,2,4.2,-0.46,False
+118,"Kutuzovsky Avenue, 5к3",Residential belt,3.3,55.749284,37.569355,Киевская,566.0,19,7,3,9.5,-0.66,False,Киевская,563.0,16,5,3,7.3,-0.35,False
+119,"Smolenskaya Embankment, 2к2",Central neighbourhoods,2.8,55.747573,37.578181,Смоленская,282.0,52,15,19,21.3,-0.14,True,Смоленская,274.0,44,13,22,21.5,0.1,True
+120,"Denezhny Lane, 24с2",Central neighbourhoods,2.3,55.745862,37.587005,Смоленская,307.0,29,13,15,18.0,-0.27,True,Смоленская,305.0,29,19,14,17.3,-0.47,True
+121,"Khruschyovsky Lane, 5с2",Residential belt,1.9,55.74415,37.595829,Кропоткинская,371.0,5,6,8,10.0,-0.25,True,Кропоткинская,372.0,15,8,6,13.2,-0.62,True
+122,"3rd Obydensky Lane, 1с5",Central neighbourhoods,1.6,55.742437,37.604652,Кропоткинская,343.0,8,5,14,12.8,0.55,True,Кропоткинская,340.0,18,12,15,12.4,0.22,True
+123,"Bolshaya Yakimanka Street, 2-4",Central neighbourhoods,1.5,55.740724,37.613474,Полянка,543.0,43,8,28,22.6,0.49,False,Полянка,543.0,32,8,24,17.3,0.93,False
+124,"Pyzhovsky Lane, 5с1",Central neighbourhoods,1.6,55.739011,37.622294,Третьяковская,280.0,11,8,10,15.8,-0.67,True,Третьяковская,287.0,24,9,19,15.8,0.4,True
+125,Novokuznetskaya Street,Central neighbourhoods,1.9,55.737296,37.631114,Третьяковская,511.0,44,21,11,24.4,-0.95,False,Третьяковская,518.0,51,24,19,22.3,-0.43,False
+126,Ozerkovskaya Embankment,Central neighbourhoods,2.3,55.735581,37.639933,Павелецкая,503.0,7,12,15,11.9,0.76,False,Павелецкая,512.0,24,17,29,14.8,1.79,False
+127,"Tsentralniy Administrative Okrug, Taganskiy District",Central neighbourhoods,2.8,55.733866,37.648751,Таганская,669.0,7,5,6,7.6,-0.14,False,Таганская,657.0,8,5,4,5.8,-0.28,False
+128,"Krestyanskaya Square, 10с28",Residential belt,3.3,55.73215,37.657568,Пролетарская,411.0,6,6,1,7.8,-1.27,True,Пролетарская,408.0,10,10,2,7.2,-1.19,True
+129,"Krutitsky Val Street, 3с1",Transit hubs,3.8,55.730433,37.666384,Пролетарская,134.0,53,30,9,24.6,-1.15,True,Пролетарская,131.0,75,24,9,25.5,-1.25,True
+130,Sosinskaya Street,Residential belt,4.4,55.728716,37.675199,Пролетарская,587.0,39,5,3,5.9,-0.72,False,Крестьянская Застава,582.0,37,3,4,6.3,-0.68,False
+131,"Talalikhina Street, 41с13",Residential belt,4.9,55.726998,37.684013,Волгоградский проспект,160.0,10,1,0,5.1,-1.19,False,Волгоградский проспект,163.0,6,4,2,4.5,-0.95,False
+132,"Yugo-Vostochniy Administrative Okrug, Nizhegorodskiy District",Residential belt,5.5,55.725279,37.692827,Волгоградский проспект,324.0,9,0,4,3.2,0.12,False,Волгоградский проспект,286.0,11,0,4,4.0,-0.52,False
+133,"Tsentralniy Administrative Okrug, Presnenskiy District","Parks, rail and industrial land",5.7,55.761287,37.532251,Шелепиха,688.0,4,0,0,1.9,-1.04,False,Шелепиха,656.0,0,0,1,1.0,-0.06,False
+134,"Krasnogvardeysky Boulevard, 5к2",Residential belt,5.1,55.759579,37.541082,Выставочная,1044.0,15,2,1,3.4,-0.55,False,Москва-Сити,942.0,13,2,1,3.8,-1.04,False
+135,Sergeya Makeyeva Street,Residential belt,4.5,55.75787,37.549912,Выставочная,965.0,25,18,15,7.8,1.26,False,Деловой центр,979.0,35,19,13,11.1,0.8,False
+136,1905 Goda Street,Central neighbourhoods,3.9,55.75616,37.55874,Улица 1905 года,887.0,44,10,32,10.0,4.07,False,Улица 1905 года,886.0,22,10,20,8.1,2.69,False
+137,Krasnopresnenskaya Embankment,Residential belt,3.4,55.75445,37.567568,Краснопресненская,877.0,7,5,23,5.8,4.91,False,Краснопресненская,875.0,24,5,16,7.6,1.62,False
+138,Novy Arbat Street,Residential belt,2.8,55.75274,37.576395,Смоленская,535.0,26,9,5,12.3,-1.05,False,Смоленская,543.0,11,4,1,6.3,-1.29,False
+139,"Maly Kakovinsky Lane, 8",Central neighbourhoods,2.3,55.751028,37.585221,Смоленская,290.0,71,27,54,29.9,2.05,True,Смоленская,302.0,64,22,32,27.2,0.18,True
+140,"Starokonyushenny Lane, 41с2",Central neighbourhoods,1.8,55.749316,37.594046,Арбатская,559.0,49,25,30,25.7,0.52,False,Арбатская,563.0,60,27,23,25.8,-0.25,False
+141,"Maly Znamensky Lane, 3/5с1",Central neighbourhoods,1.3,55.747604,37.60287,Кропоткинская,252.0,7,5,8,15.9,-0.89,True,Кропоткинская,249.0,10,6,14,12.1,0.4,True
+142,Bersenevskaya Embankment,Residential belt,1.1,55.745891,37.611693,Кропоткинская,396.0,5,2,9,10.6,-0.34,False,Кропоткинская,402.0,13,5,9,10.2,-0.23,True
+143,"Kadashyovskaya Embankment, 14к3",Central neighbourhoods,1.1,55.744177,37.620515,Третьяковская,504.0,4,3,6,9.5,-0.64,False,Третьяковская,497.0,13,5,10,10.4,-0.03,True
+144,"Pyatnitsky Lane, 10с1",Transit hubs,1.3,55.742463,37.629336,Новокузнецкая,19.0,129,54,63,71.3,-0.08,True,Новокузнецкая,18.0,132,59,50,59.9,-0.35,True
+145,Ozerkovskaya Embankment,Central neighbourhoods,1.8,55.740748,37.638157,Новокузнецкая,586.0,11,7,10,11.4,-0.31,False,Новокузнецкая,585.0,17,9,8,14.3,-0.7,False
+146,Goncharnaya Embankment,Residential belt,2.3,55.739033,37.646976,Таганская,377.0,14,12,2,14.9,-1.27,True,Таганская,378.0,29,19,7,16.3,-1.08,True
+147,Mayakovskogo Lane,Central neighbourhoods,2.8,55.737316,37.655794,Таганская,280.0,38,19,13,21.9,-0.87,True,Таганская,274.0,54,45,21,30.3,-0.73,True
+148,"Marksistskaya Street, 34к7",Central neighbourhoods,3.4,55.7356,37.664611,Крестьянская застава,369.0,59,23,13,19.6,-0.5,True,Пролетарская,365.0,44,22,14,18.0,-0.41,True
+149,"Stroykovskaya Street, 10",Residential belt,3.9,55.733882,37.673428,Пролетарская,366.0,20,14,1,9.8,-1.53,True,Крестьянская Застава,368.0,28,11,7,10.8,-0.79,True
+150,"Sibirsky Drive, 2с9",Residential belt,4.5,55.732165,37.682243,Волгоградский проспект,742.0,11,0,3,3.5,-0.15,False,Волгоградский проспект,744.0,11,0,4,4.3,-0.42,False
+151,Kalitnikovskoye Cemetery,"Parks, rail and industrial land",5.1,55.730446,37.691058,Волгоградский проспект,650.0,1,0,0,1.8,-1.19,False,Волгоградский проспект,647.0,6,0,0,2.7,-1.24,False
+152,"Yugo-Vostochniy Administrative Okrug, Nizhegorodskiy District","Parks, rail and industrial land",5.7,55.728727,37.699871,Волгоградский проспект,885.0,1,0,0,1.4,-1.03,False,Калитники,587.0,0,0,0,1.2,-1.07,False
+153,"Strelbischensky Lane, 25Ас2",Residential belt,5.3,55.764745,37.539291,Беговая,1018.0,2,2,0,1.8,-0.83,False,Беговая,852.0,3,1,0,2.0,-1.21,False
+154,"Tsentralniy Administrative Okrug, Presnenskiy District",Residential belt,4.7,55.763036,37.548122,Улица 1905 года,813.0,5,2,13,3.1,3.66,False,Улица 1905 года,813.0,5,2,8,3.5,1.6,False
+155,"Tsentralniy Administrative Okrug, Presnenskiy District, Residential Complex Lucky",Central neighbourhoods,4.1,55.761327,37.556952,Улица 1905 года,434.0,12,9,10,7.2,0.53,True,Улица 1905 года,435.0,28,9,21,8.7,2.61,True
+156,"Sredny Tryokhgorny Lane, 7",Central neighbourhoods,3.6,55.759617,37.565781,Улица 1905 года,527.0,29,6,2,9.0,-0.71,False,Улица 1905 года,525.0,20,9,1,9.3,-0.93,False
+157,"Kapranova Lane, 4",Residential belt,3.0,55.757906,37.574609,Краснопресненская,303.0,6,5,4,8.1,-0.59,True,Краснопресненская,301.0,14,10,3,9.6,-1.26,True
+158,"Novinsky Boulevard, 21",Central neighbourhoods,2.4,55.756195,37.583436,Баррикадная,517.0,45,18,22,19.4,0.42,False,Баррикадная,513.0,25,13,9,14.1,-0.57,False
+159,"Malaya Molchanovka Street, 8",Central neighbourhoods,1.8,55.754483,37.592263,Арбатская,630.0,34,16,25,19.3,-0.21,False,Арбатская,633.0,35,9,20,18.0,-0.34,False
+160,Vozdvizhenka Street,Transit hubs,1.3,55.75277,37.601088,Арбатская,73.0,50,15,37,39.6,-0.21,True,Арбатская,73.0,63,20,44,37.1,0.09,True
+161,Mokhovaya Street,Transit hubs,0.8,55.751057,37.609912,Боровицкая,79.0,9,5,12,22.8,-0.53,True,Библиотека имени Ленина,72.0,8,1,9,12.4,-0.32,False
+162,"Tsentralniy Administrative Okrug, Tverskoy District","Parks, rail and industrial land",0.5,55.749344,37.618736,Александровский сад,488.0,0,0,1,4.9,-1.18,False,Библиотека имени Ленина,493.0,2,0,2,4.1,-0.63,False
+163,"Sadovnicheskaya Street, 8",Central neighbourhoods,0.8,55.747629,37.627558,Новокузнецкая,590.0,10,7,23,16.3,0.47,False,Новокузнецкая,580.0,14,7,17,13.8,0.79,False
+164,"Sadovnicheskaya Street, 29",Residential belt,1.3,55.745915,37.63638,Новокузнецкая,603.0,0,1,4,4.1,-0.1,False,Новокузнецкая,598.0,6,4,4,7.2,-0.65,False
+165,1st Kotelnichesky Lane,Residential belt,1.8,55.744199,37.6452,Таганская,547.0,6,7,7,9.9,-0.79,False,Марксистская,548.0,10,4,5,7.7,-0.77,False
+166,Verkhnyaya Radischevskaya Street,Transit hubs,2.4,55.742483,37.65402,Таганская,29.0,105,24,38,37.9,-0.06,True,Марксистская,26.0,81,32,45,33.1,0.52,True
+167,N. Pryamikov Children's Park,Central neighbourhoods,3.0,55.740766,37.662838,Марксистская,387.0,92,26,21,28.8,-0.53,True,Марксистская,381.0,73,33,20,26.1,-0.55,True
+168,"Taganskaya Street, 58с12",Central neighbourhoods,3.6,55.739049,37.671656,Пролетарская,769.0,43,20,11,13.1,-0.33,False,Крестьянская Застава,772.0,52,15,5,15.0,-1.18,False
+169,Bolshaya Kalitnikovskaya Street,Residential belt,4.1,55.737331,37.680473,Пролетарская,947.0,11,9,1,4.2,-1.11,False,Крестьянская Застава,950.0,13,8,3,4.9,-0.95,False
+170,"Bolshaya Kalitnikovskaya Street, 42","Parks, rail and industrial land",4.7,55.735613,37.689288,Волгоградский проспект,1137.0,6,4,3,2.4,-0.01,False,Калитники,800.0,10,3,3,3.9,-0.62,False
+171,"Skotoprogonnaya Street, 21-23с5",Residential belt,5.3,55.733894,37.698103,Волгоградский проспект,1219.0,20,6,0,4.6,-1.33,False,Калитники,236.0,8,0,0,4.7,-1.53,False
+172,"3rd Khoroshyovsky Drive, вл3Ас87","Parks, rail and industrial land",5.6,55.769911,37.537499,Беговая,589.0,1,0,0,1.4,-1.13,False,Беговая,358.0,0,0,0,0.9,-0.84,False
+173,Vagankovskoye Cemetery,"Parks, rail and industrial land",5.0,55.768203,37.546332,Беговая,561.0,0,0,0,1.3,-1.0,False,Беговая,554.0,0,0,0,1.0,-0.92,False
+174,"Sergeya Makeyeva Street, 12",Residential belt,4.4,55.766493,37.555163,Улица 1905 года,326.0,86,12,5,15.8,-1.18,True,Улица 1905 года,322.0,13,5,7,6.2,-0.38,True
+175,Presnensky Val Street,Transit hubs,3.8,55.764783,37.563993,Улица 1905 года,134.0,50,20,23,20.2,-0.03,True,Улица 1905 года,124.0,64,21,15,21.0,-0.31,True
+176,"Volkov Lane, 7-9с3",Residential belt,3.2,55.763072,37.572823,Краснопресненская,403.0,33,19,17,16.8,0.14,True,Краснопресненская,407.0,45,20,17,18.1,-0.06,True
+177,"Barrikadnaya Street, 8с4",Central neighbourhoods,2.6,55.761361,37.581651,Баррикадная,71.0,11,9,25,12.9,1.21,True,Баррикадная,67.0,22,5,18,13.7,0.66,True
+178,Granatny Lane,Residential belt,2.1,55.759649,37.590479,Баррикадная,577.0,16,6,10,12.9,-0.08,False,Баррикадная,574.0,26,11,10,14.3,-0.15,False
+179,"Tverskoy Boulevard, 2",Central neighbourhoods,1.5,55.757937,37.599305,Арбатская,659.0,27,20,39,20.1,1.64,False,Арбатская,658.0,44,18,40,17.7,2.2,False
+180,"Bolshaya Nikitskaya Street, 10",Central neighbourhoods,0.9,55.756224,37.608131,Охотный ряд,410.0,12,9,27,16.5,1.17,True,Охотный ряд,400.0,19,10,27,18.2,0.73,True
+181,"Manezhnaya Street, 2-10соор2",Transit hubs,0.3,55.75451,37.616956,Охотный ряд,184.0,321,5,40,80.2,-0.88,True,Театральная,181.0,161,5,26,37.8,-0.6,True
+182,"Varvarka Street, 3",Residential belt,0.3,55.752796,37.625779,Площадь Революции,430.0,4,1,3,10.9,-1.22,False,Китай-город,455.0,28,4,10,15.3,-0.45,True
+183,"Kitaygorodsky Drive, 7с4",Residential belt,0.9,55.751081,37.634602,Китай-город,234.0,0,0,8,4.9,0.32,False,Китай-город,223.0,1,0,4,4.7,-0.1,False
+184,Yauzskiye Vorota Square,Residential belt,1.5,55.749366,37.643424,Китай-город,700.0,5,6,6,7.5,-0.11,False,Китай-город,698.0,20,5,8,10.5,-0.56,False
+185,"Nikoloyamskaya Street, 15",Central neighbourhoods,2.1,55.74765,37.652245,Таганская,578.0,8,5,13,8.8,1.03,False,Марксистская,577.0,20,6,14,10.0,0.78,False
+186,"Stanislavskogo Street, 21с19",Central neighbourhoods,2.6,55.745933,37.661065,Марксистская,603.0,8,6,6,8.3,-0.33,False,Марксистская,604.0,19,14,8,12.3,-0.46,False
+187,"Bibliotechnaya Street, 2",Residential belt,3.2,55.744216,37.669884,Площадь Ильича,624.0,3,5,5,5.3,-0.4,False,Римская,617.0,21,8,8,11.0,-0.65,False
+188,"Rogozhsky Val Street, 9/2с2",Central neighbourhoods,3.8,55.742498,37.678702,Площадь Ильича,439.0,85,16,8,17.7,-1.01,True,Римская,440.0,35,13,4,11.9,-1.33,True
+189,Rabochaya Street,"Parks, rail and industrial land",4.4,55.74078,37.687519,Площадь Ильича,743.0,2,1,0,2.0,-1.14,False,Римская,470.0,11,1,0,3.5,-1.6,False
+190,"Rabochaya Street, 84с4","Parks, rail and industrial land",5.0,55.739061,37.696335,Площадь Ильича,1253.0,7,5,1,3.0,-0.6,False,Калитники,635.0,11,2,0,3.8,-1.53,False
+191,Podyomnaya Street,Residential belt,5.6,55.737341,37.70515,Нижегородская,1567.0,17,3,2,3.3,-0.34,False,Калитники,390.0,14,3,2,4.9,-0.91,False
+192,"Khoroshyovskoye Highway, вл1",Transit hubs,5.3,55.773369,37.544541,Беговая,4.0,68,13,8,15.5,-0.89,True,Беговая,4.0,30,2,4,10.4,-1.31,True
+193,"1905 Goda Street, 29","Parks, rail and industrial land",4.7,55.77166,37.553374,Беговая,316.0,0,0,0,1.7,-1.18,False,Беговая,311.0,0,0,0,1.2,-0.94,False
+194,Khodynskaya Street,Residential belt,4.1,55.76995,37.562205,Улица 1905 года,488.0,0,3,0,2.1,-1.21,False,Улица 1905 года,483.0,7,4,3,4.3,-0.13,False
+195,"Malaya Gruzinskaya Street, 29с3",Residential belt,3.6,55.768239,37.571036,Улица 1905 года,720.0,12,13,4,9.3,-0.9,False,Улица 1905 года,710.0,17,11,8,9.0,-0.21,False
+196,"Bolshaya Gruzinskaya Street, 22",Residential belt,3.0,55.766528,37.579866,Баррикадная,653.0,7,10,2,8.7,-1.26,False,Баррикадная,651.0,19,9,6,11.3,-0.96,False
+197,"Sadovaya-Kudrinskaya Street, 19с1",Central neighbourhoods,2.4,55.764816,37.588695,Баррикадная,641.0,17,17,19,14.8,0.96,False,Баррикадная,636.0,30,29,23,15.0,0.91,False
+198,"Bolshoy Kozikhinsky Lane, 10",Central neighbourhoods,1.8,55.763103,37.597523,Пушкинская,471.0,51,36,54,30.4,1.54,True,Тверская,468.0,85,31,45,30.8,1.24,True
+199,Leontyevsky Lane,Central neighbourhoods,1.3,55.76139,37.60635,Пушкинская,319.0,24,8,29,18.9,0.59,True,Тверская,324.0,49,11,26,22.1,-0.03,True
+200,"Bolshaya Dmitrovka Street, 5/6с7",Transit hubs,0.8,55.759677,37.615175,Охотный ряд,177.0,57,10,49,35.7,0.71,True,Охотный ряд,175.0,74,15,56,45.1,0.7,True
+201,"Nikolskaya Street, 10",Transit hubs,0.5,55.757963,37.624,Лубянка,165.0,163,17,79,69.3,0.16,True,Лубянка,162.0,92,13,47,46.8,-0.12,True
+202,"Lubyansky Drive, 15с2",Transit hubs,0.8,55.756248,37.632824,Китай-город,104.0,27,18,54,37.5,0.92,True,Китай-город,102.0,62,23,28,41.4,-0.51,True
+203,"Podkopayevsky Lane, 4А",Central neighbourhoods,1.3,55.754532,37.641648,Китай-город,399.0,20,7,23,17.2,0.06,True,Китай-город,400.0,44,19,34,20.7,0.8,True
+204,"Vorontsovo Pole Street, 6-8с3",Residential belt,1.8,55.752816,37.65047,Чкаловская,596.0,8,4,6,9.6,-0.8,False,Чкаловская,604.0,9,5,10,7.8,0.57,False
+205,"Zemlyanoy Val Street, 57с6",Residential belt,2.4,55.7511,37.659291,Чкаловская,546.0,0,2,1,3.5,-1.32,False,Чкаловская,545.0,17,4,5,9.6,-0.78,False
+206,Kostomarovskaya Embankment,Residential belt,3.0,55.749383,37.668111,Площадь Ильича,759.0,4,1,1,4.2,-0.49,False,Римская,750.0,5,0,3,3.5,0.03,False
+207,"Gzhelsky Lane, 14",Transit hubs,3.6,55.747665,37.67693,Площадь Ильича,189.0,48,18,10,24.0,-0.92,True,Римская,182.0,24,10,11,14.1,-0.32,True
+208,"Sredny Mezhdunarodny Lane, 8с2",Residential belt,4.1,55.745946,37.685749,Площадь Ильича,286.0,15,1,3,6.3,-0.66,True,Римская,148.0,16,4,3,7.7,-0.67,False
+209,"Yugo-Vostochniy Administrative Okrug, Lefortovo District","Parks, rail and industrial land",4.7,55.744227,37.694566,Площадь Ильича,870.0,0,0,0,1.1,-0.75,False,Римская,457.0,0,2,0,1.4,-1.03,False
+210,Rogozhskoye Cemetery,"Parks, rail and industrial land",5.3,55.742508,37.703382,Авиамоторная,1279.0,1,1,0,1.5,-0.93,False,Калитники,916.0,4,2,2,2.7,-0.58,False
+211,"Khoroshyovskoye Highway, 40Ас8","Parks, rail and industrial land",5.7,55.778535,37.54275,Беговая,519.0,0,0,0,1.1,-1.08,False,Беговая,516.0,7,0,2,2.3,-0.36,False
+212,"Polikarpova Street, 9",Residential belt,5.1,55.776826,37.551584,Беговая,313.0,10,5,0,4.9,-1.34,False,Беговая,308.0,9,8,1,4.5,-1.32,False
+213,"Severniy Administrative Okrug, Begovoy District","Parks, rail and industrial land",4.5,55.775116,37.560417,Беговая,712.0,1,0,0,1.7,-1.26,False,Беговая,705.0,1,0,0,1.5,-1.01,False
+214,"Presnensky Val Street, 27с38",Residential belt,3.9,55.773405,37.569249,Белорусская,869.0,5,5,3,4.7,-0.5,False,Белорусская,799.0,6,4,1,4.2,-1.08,False
+215,"Sredny Kondratyevsky Lane, 10",Residential belt,3.4,55.771694,37.57808,Белорусская,496.0,16,11,11,10.7,0.06,True,Белорусская,499.0,21,9,14,9.9,0.15,True
+216,"Vasilyevskaya Street, 2к2",Central neighbourhoods,2.8,55.769982,37.58691,Маяковская,496.0,90,25,16,25.3,-0.47,True,Маяковская,497.0,93,26,19,26.5,-0.6,True
+217,"Tverskaya Street, 29к2",Transit hubs,2.3,55.76827,37.595739,Маяковская,121.0,26,9,39,19.2,1.34,True,Маяковская,117.0,36,13,31,23.4,0.47,True
+218,"Nastasyinsky Lane, 4к4",Transit hubs,1.8,55.766557,37.604568,Пушкинская,66.0,26,8,48,24.9,1.62,True,Тверская,65.0,55,21,47,37.8,0.54,True
+219,"Petrovsky Lane, 6с2",Central neighbourhoods,1.3,55.764843,37.613395,Чеховская,331.0,51,14,36,27.0,0.88,True,Пушкинская,323.0,97,33,38,39.2,-0.28,True
+220,"Rozhdestvenka Street, 11с2",Central neighbourhoods,1.1,55.763129,37.622221,Кузнецкий мост,208.0,135,23,56,50.6,0.26,True,Кузнецкий Мост,211.0,102,24,42,39.4,0.14,True
+221,"Milyutinsky Lane, 3с2",Transit hubs,1.1,55.761415,37.631047,Лубянка,233.0,28,8,26,28.6,0.14,True,Лубянка,226.0,42,11,39,26.5,0.87,True
+222,"Devyatkin Lane, 1",Central neighbourhoods,1.3,55.759699,37.639871,Китай-город,568.0,31,14,32,21.7,0.91,False,Китай-город,564.0,64,22,38,30.8,0.27,False
+223,"Kazarmenny Lane, 3",Central neighbourhoods,1.8,55.757983,37.648694,Чкаловская,635.0,32,11,33,17.4,1.23,False,Курская,643.0,51,21,37,18.3,1.93,False
+224,Zemlyanoy Val Street,Transit hubs,2.3,55.756267,37.657517,Чкаловская,52.0,263,20,50,53.3,0.08,True,Чкаловская,60.0,122,34,30,50.8,-0.95,True
+225,"Nizhnyaya Syromyatnicheskaya Street, 1/4",Residential belt,2.8,55.754549,37.666338,Курская,442.0,6,4,10,7.9,0.65,False,Курская,406.0,40,8,15,13.2,0.2,True
+226,"Yugo-Vostochniy Administrative Okrug, Lefortovo District","Parks, rail and industrial land",3.4,55.752832,37.675159,Римская,712.0,2,0,6,2.9,0.83,False,Площадь Ильича,711.0,19,4,3,7.0,-1.19,False
+227,"Zolotorozhsky Val Street, 22",Residential belt,3.9,55.751113,37.683978,Римская,471.0,3,0,0,3.3,-1.05,False,Площадь Ильича,467.0,10,0,1,3.8,-1.18,False
+228,"Zolotorozhsky Val Street, 11с24","Parks, rail and industrial land",4.5,55.749394,37.692797,Римская,789.0,1,0,1,1.5,-0.32,False,Римская,442.0,5,1,5,2.6,1.92,False
+229,"Shepelyuginskaya Street, 4",Residential belt,5.1,55.747675,37.701615,Авиамоторная,1022.0,6,1,2,2.5,-0.58,False,Римская,853.0,25,3,4,5.4,-0.48,False
+230,"Yugo-Vostochniy Administrative Okrug, Lefortovo District",Residential belt,5.7,55.745955,37.710431,Авиамоторная,705.0,101,7,6,9.5,-0.89,False,Авиамоторная,701.0,50,4,7,7.2,-0.54,False
+231,"Severniy Administrative Okrug, Begovoy District","Parks, rail and industrial land",5.5,55.781993,37.549794,Беговая,849.0,0,0,0,0.8,-0.87,False,Беговая,847.0,0,0,1,0.9,0.47,False
+232,Begovaya Street,Residential belt,4.9,55.780283,37.558629,Беговая,887.0,18,15,7,5.7,0.48,False,Беговая,881.0,25,5,3,5.9,-0.47,False
+233,"Severniy Administrative Okrug, Begovoy District","Parks, rail and industrial land",4.4,55.778572,37.567462,Белорусская,926.0,2,0,1,1.9,-0.61,False,Белорусская,817.0,4,0,2,2.3,-0.35,False
+234,"Severniy Administrative Okrug, Begovoy District",Residential belt,3.8,55.776861,37.576294,Белорусская,361.0,11,9,3,7.9,-0.79,True,Белорусская,247.0,18,8,2,10.0,-0.73,True
+235,1st Brestskaya Street,Transit hubs,3.3,55.775149,37.585126,Белорусская,151.0,43,13,36,22.3,1.38,True,Белорусская,146.0,99,29,56,37.4,1.2,True
+236,2nd Tverskoy-Yamskoy Lane,Transit hubs,2.8,55.773437,37.593956,Маяковская,258.0,41,30,19,28.5,-0.4,True,Маяковская,256.0,74,53,18,27.6,-0.58,True
+237,"Sadovaya-Triumfalnaya Street, 18-20",Central neighbourhoods,2.3,55.771724,37.602786,Маяковская,429.0,12,8,15,11.2,0.64,True,Маяковская,422.0,33,26,26,15.7,1.18,True
+238,Petrovka Street,Central neighbourhoods,1.9,55.77001,37.611614,Чеховская,491.0,4,6,16,8.3,1.18,True,Пушкинская,488.0,18,8,19,12.6,0.53,True
+239,1st Kolobovsky Lane,Central neighbourhoods,1.6,55.768296,37.620442,Трубная,102.0,83,15,53,34.6,0.31,True,Трубная,111.0,53,17,35,27.8,0.3,True
+240,Rozhdestvensky Boulevard,Central neighbourhoods,1.5,55.766581,37.629268,Сретенский бульвар,452.0,23,16,29,19.7,1.14,True,Тургеневская,444.0,46,28,29,27.6,0.07,True
+241,Chistoprudny Boulevard,Transit hubs,1.6,55.764866,37.638094,Чистые пруды,15.0,21,9,31,29.0,-0.15,True,Чистые пруды,16.0,53,23,31,40.6,-0.51,True
+242,"Chaplygina Street, 10",Central neighbourhoods,1.9,55.76315,37.646919,Чистые пруды,558.0,10,17,8,13.7,-0.56,False,Чистые пруды,558.0,31,24,18,22.2,-0.41,False
+243,Maly Kazyonny Lane,Central neighbourhoods,2.3,55.761433,37.655742,Курская,374.0,28,21,17,19.5,-0.06,True,Курская,371.0,56,40,22,24.3,-0.04,True
+244,"Nizhny Susalny Lane, 5с16",Residential belt,2.8,55.759716,37.664565,Курская,308.0,8,0,17,5.6,2.35,False,Курская,124.0,31,14,15,18.7,-0.59,True
+245,May 1 Park,"Parks, rail and industrial land",3.3,55.757998,37.673387,Курская,830.0,2,1,1,3.3,-0.91,False,Курская,651.0,7,0,9,3.8,1.98,False
+246,"Volochayevskaya Street, 12А",Residential belt,3.8,55.75628,37.682208,Римская,1006.0,18,11,2,7.5,-1.17,False,Площадь Ильича,1002.0,10,1,3,3.9,-0.39,False
+247,"Zolotorozhsky Val Street, 11с46","Parks, rail and industrial land",4.4,55.754561,37.691028,Римская,1034.0,0,0,1,1.3,-0.35,False,Римская,928.0,2,0,0,1.7,-1.18,False
+248,"Yugo-Vostochniy Administrative Okrug, Lefortovo District","Parks, rail and industrial land",4.9,55.752842,37.699847,Авиамоторная,1045.0,1,1,1,1.8,-0.62,False,Авиамоторная,1006.0,17,1,9,4.3,1.23,False
+249,"Zavoda Serp I Molot Drive, 5с2",Residential belt,5.5,55.751121,37.708665,Авиамоторная,488.0,13,2,4,4.4,-0.08,False,Авиамоторная,480.0,40,26,14,11.7,0.48,True
+250,"1st Botkinsky Drive, 7с2",Residential belt,5.4,55.785449,37.55684,Динамо,428.0,18,8,7,5.2,0.45,False,Динамо,427.0,17,7,7,5.9,0.51,False
+251,"Begovaya Alley, 3Ас2",Residential belt,4.8,55.783739,37.565674,Динамо,686.0,17,12,4,6.6,-0.46,False,Динамо,681.0,13,4,8,4.5,1.16,False
+252,Pravdy Street,Residential belt,4.3,55.782027,37.574508,Белорусская,689.0,15,11,10,6.3,0.79,False,Белорусская,658.0,19,5,9,6.1,1.03,False
+253,1st Yamskogo Polya Street,Central neighbourhoods,3.8,55.780316,37.583341,Белорусская,315.0,26,16,24,11.1,1.74,True,Белорусская,320.0,26,11,27,9.3,2.64,True
+254,"Miusskaya Square, 5",Central neighbourhoods,3.3,55.778603,37.592172,Белорусская,394.0,6,3,41,6.0,10.6,False,Белорусская,391.0,38,11,75,12.1,9.15,True
+255,"Dolgorukovskaya Street, 29",Transit hubs,2.9,55.77689,37.601003,Новослободская,282.0,23,12,10,16.7,-0.33,True,Новослободская,291.0,52,29,17,25.1,-0.24,True
+256,"Delegatskaya Street, 3",Central neighbourhoods,2.5,55.775177,37.609833,Достоевская,710.0,8,9,6,8.7,-0.61,False,Достоевская,709.0,24,13,16,12.3,0.39,False
+257,Sadovaya-Samotyochnaya Street,Central neighbourhoods,2.2,55.773463,37.618662,Цветной бульвар,231.0,44,11,27,21.7,0.38,True,Цветной бульвар,234.0,49,27,35,24.4,0.32,True
+258,"Bolshoy Sukharevsky Lane, 11с1",Central neighbourhoods,2.1,55.771748,37.62749,Сухаревская,293.0,53,31,14,29.7,-0.78,True,Сухаревская,294.0,65,28,19,29.9,-0.64,True
+259,"Dayev Lane, 8",Central neighbourhoods,2.1,55.770033,37.636316,Сухаревская,331.0,27,21,22,21.2,-0.46,True,Сухаревская,325.0,50,50,26,27.4,-0.33,True
+260,Myasnitsky Drive,Central neighbourhoods,2.2,55.768317,37.645142,Красные ворота,181.0,12,5,17,14.2,0.21,True,Красные Ворота,183.0,29,18,20,17.4,0.03,True
+261,"Sadovaya-Chernogryazskaya Street, 5/9",Central neighbourhoods,2.5,55.7666,37.653967,Красные ворота,413.0,10,7,14,10.4,0.68,True,Красные Ворота,418.0,28,18,10,13.6,-0.23,True
+262,"Gorokhovsky Lane, 4к6",Residential belt,2.9,55.764883,37.662792,Курская,728.0,4,3,6,4.9,0.15,False,Курская,545.0,19,15,5,12.2,-0.91,False
+263,"Kazakova Street, 18-20с1",Residential belt,3.3,55.763165,37.671615,Курская,886.0,4,0,2,2.9,-0.42,False,Курская,709.0,4,0,1,3.4,-1.1,False
+264,"Akademika Tupoleva Embankment, 15к29",Residential belt,3.8,55.761447,37.680437,Бауманская,1219.0,7,2,5,3.7,0.31,False,Курская,1120.0,6,2,9,4.5,1.65,False
+265,"Krasnokazarmennaya Street, 2с8",Residential belt,4.3,55.759728,37.689258,Римская,1484.0,2,4,3,2.4,0.62,False,Лефортово,1114.0,9,2,1,3.9,-0.97,False
+266,"Krasnokazarmennaya Street, 9",Residential belt,4.8,55.758009,37.698078,Авиамоторная,1347.0,2,1,3,1.8,0.39,False,Лефортово,834.0,9,2,3,3.8,-0.41,False
+267,"Krasnokazarmennaya Street, 15с1","Parks, rail and industrial land",5.4,55.756288,37.706898,Авиамоторная,777.0,0,1,2,1.3,0.71,False,Авиамоторная,591.0,8,3,4,3.4,0.68,False
+268,Leningradsky Avenue (local lane),Transit hubs,5.9,55.790616,37.55505,Петровский парк,53.0,17,7,7,6.7,0.2,True,Петровский парк,64.0,15,3,8,6.1,0.19,False
+269,Petrovsky Park,"Parks, rail and industrial land",5.3,55.788905,37.563886,Динамо,248.0,2,0,2,2.2,0.08,False,Динамо,244.0,7,3,13,4.7,2.34,False
+270,"Raskovoy Street, 16",Residential belt,4.8,55.787194,37.572721,Динамо,826.0,21,6,3,5.1,-0.57,False,Динамо,822.0,24,5,5,5.8,0.22,False
+271,"Pravdy Street, 8к9",Residential belt,4.3,55.785482,37.581555,Белорусская,881.0,5,3,9,3.6,2.1,False,Белорусская,877.0,8,1,9,3.5,1.84,False
+272,"Novolesnaya Street, 18к2",Residential belt,3.9,55.78377,37.590388,Менделеевская,558.0,12,6,4,7.3,-0.05,False,Менделеевская,569.0,12,7,1,6.1,-0.3,False
+273,"Novoslobodskaya Street, 16",Transit hubs,3.5,55.782057,37.59922,Менделеевская,17.0,79,18,48,23.5,2.3,True,Менделеевская,16.0,93,45,56,27.0,2.42,True
+274,"Seleznyovskaya Street, 28с1",Central neighbourhoods,3.1,55.780344,37.608051,Достоевская,358.0,10,12,13,10.7,-0.14,True,Достоевская,351.0,25,24,11,14.0,-0.41,True
+275,3rd Samotyochny Lane,Residential belt,2.8,55.77863,37.616881,Достоевская,345.0,6,2,4,7.7,-0.88,False,Достоевская,340.0,20,6,4,10.7,-1.18,True
+276,"Vasnetsova Lane, 11с1",Residential belt,2.6,55.776915,37.625711,Проспект Мира,573.0,10,9,11,11.0,-0.08,False,Проспект Мира,577.0,17,9,10,10.9,-0.29,False
+277,"Bolshaya Sukharevskaya Square, 3с10",Central neighbourhoods,2.5,55.7752,37.634539,Сухаревская,268.0,22,19,19,19.8,-0.24,True,Сухаревская,268.0,19,12,11,13.5,-0.13,True
+278,"Skornyazhny Lane, 3с2",Central neighbourhoods,2.6,55.773484,37.643366,Красные ворота,603.0,7,3,7,7.4,-0.03,False,Комсомольская,593.0,14,6,6,9.7,-0.4,False
+279,"Kalanchyovskaya Street, 6/2",Central neighbourhoods,2.8,55.771767,37.652192,Красные ворота,251.0,19,7,15,15.3,0.16,True,Красные Ворота,238.0,30,15,27,15.7,1.45,True
+280,"Novaya Basmannaya Street, 23с1",Central neighbourhoods,3.1,55.77005,37.661018,Комсомольская,564.0,5,8,9,6.7,0.19,False,Комсомольская,336.0,22,17,12,11.6,0.24,True
+281,"Tokmakov Lane, 5с1",Central neighbourhoods,3.5,55.768332,37.669842,Бауманская,718.0,14,11,4,8.7,-0.79,False,Бауманская,716.0,17,4,6,7.0,-0.1,False
+282,"Gardnerovsky Lane, 3с2",Residential belt,3.9,55.766614,37.678666,Бауманская,639.0,9,7,4,6.7,-0.59,False,Бауманская,638.0,19,8,10,7.6,0.58,False
+283,Lefortovskiye Ponds,"Parks, rail and industrial land",4.3,55.764895,37.687488,Бауманская,983.0,0,0,0,1.1,-1.01,False,Бауманская,981.0,0,0,3,1.2,0.79,False
+284,"Yugo-Vostochniy Administrative Okrug, Lefortovo District","Parks, rail and industrial land",4.8,55.763176,37.69631,Бауманская,1486.0,1,0,0,1.1,-0.84,False,Лефортово,558.0,0,0,0,1.2,-1.29,False
+285,"Lefortovsky Val Street, 5к2","Parks, rail and industrial land",5.3,55.761455,37.70513,Авиамоторная,1264.0,7,2,1,2.1,-0.26,False,Лефортово,332.0,12,4,1,4.9,-1.04,False
+286,"Aviamotornaya Street, 4с1",Residential belt,5.9,55.759735,37.71395,Авиамоторная,849.0,22,11,2,5.5,-0.82,False,Сортировочная,539.0,20,6,2,6.0,-0.85,False
+287,"Verkhnyaya Maslovka Street, 15",Residential belt,5.8,55.794072,37.562098,Петровский парк,261.0,29,3,10,4.9,1.99,False,Петровский парк,268.0,38,8,10,7.7,0.51,True
+288,"Petrovsko-Razumovsky Drive, 4А",Residential belt,5.3,55.792361,37.570934,Петровский парк,763.0,18,4,6,3.9,-0.04,False,Петровский парк,771.0,26,7,6,5.6,-0.02,False
+289,"Raskovoy Street, 34к21",Residential belt,4.9,55.790649,37.579769,Савеловская,418.0,21,2,10,4.7,1.18,False,Савёловская,421.0,20,3,9,6.0,0.43,False
+290,"Butyrsky Val Street, 68/70с2",Residential belt,4.4,55.788937,37.588604,Савёловская,528.0,12,4,10,5.8,1.14,False,Савёловская,533.0,21,7,7,7.6,0.1,False
+291,Tikhvinsky Lane,Residential belt,4.0,55.787224,37.597437,Менделеевская,600.0,20,16,7,9.4,-0.31,False,Менделеевская,598.0,41,25,6,13.6,-0.95,False
+292,"Borby Square, 15",Residential belt,3.7,55.78551,37.606269,Менделеевская,602.0,5,3,2,5.2,-0.68,False,Менделеевская,601.0,8,3,3,5.3,-0.9,False
+293,Sovetskoy Armii Street,Residential belt,3.4,55.783796,37.615101,Достоевская,247.0,4,2,4,6.7,-0.66,False,Достоевская,253.0,10,2,6,6.8,-0.21,False
+294,Olimpiysky Avenue,Residential belt,3.2,55.782082,37.623931,Проспект Мира,588.0,5,4,2,6.1,-0.6,False,Проспект Мира,581.0,6,1,1,4.4,-0.5,False
+295,"Mira Avenue, 31",Transit hubs,3.1,55.780366,37.632761,Проспект Мира,86.0,63,17,18,26.1,-0.43,True,Проспект Мира,90.0,62,13,19,24.0,-0.44,True
+296,"Astrakhansky Lane, 10/36",Residential belt,3.1,55.778651,37.641589,Проспект Мира,516.0,16,11,5,11.9,-0.9,False,Проспект Мира,513.0,26,14,5,11.8,-1.26,False
+297,"Kalanchyovskaya Street, 12/12с5",Residential belt,3.2,55.776934,37.650417,Комсомольская,334.0,1,0,4,3.0,0.66,False,Комсомольская,235.0,21,4,8,12.1,-0.62,True
+298,"Krasnoprudnaya Street, 6",Transit hubs,3.4,55.775217,37.659244,Комсомольская,167.0,130,4,8,26.2,-1.15,True,Комсомольская,164.0,70,2,21,17.2,0.52,True
+299,"Novoryazanskaya Street, 29с3",Residential belt,3.7,55.773499,37.668069,Бауманская,684.0,6,2,2,5.1,-0.83,False,Комсомольская,573.0,22,6,9,9.2,0.6,False
+300,"Pleteshkovsky Lane, 3Ас1А",Transit hubs,4.0,55.771781,37.676894,Бауманская,135.0,85,26,20,26.1,-0.23,True,Бауманская,133.0,85,34,26,22.5,0.62,True
+301,Malaya Pochtovaya Street,Central neighbourhoods,4.4,55.770062,37.685718,Бауманская,486.0,13,4,7,5.8,0.34,False,Бауманская,483.0,19,10,15,7.7,1.49,True
+302,"Gospitalnaya Street, 3","Parks, rail and industrial land",4.9,55.768343,37.69454,Бауманская,1065.0,0,0,0,1.2,-0.99,False,Лефортово,769.0,0,0,1,1.2,-0.46,False
+303,Soldatsky Lane,"Parks, rail and industrial land",5.3,55.766623,37.703362,Бауманская,1648.0,18,5,2,3.1,-0.5,False,Лефортово,228.0,28,17,2,10.8,-1.56,True
+304,"Storozhevaya Street, 24Ас2","Parks, rail and industrial land",5.8,55.764902,37.712183,Авиамоторная,1434.0,4,0,0,1.2,-0.91,False,Лефортово,408.0,8,2,0,3.4,-1.48,False
+305,"Bashilovskaya Street, 10с3",Residential belt,5.4,55.795816,37.577983,Савеловская,476.0,138,11,20,8.1,2.21,True,Савёловская,486.0,40,14,14,8.2,0.75,True
+306,"Butyrskaya Street, 2с3",Transit hubs,5.0,55.794104,37.586819,Савеловская,18.0,153,15,16,19.2,0.28,True,Савёловская,23.0,51,5,8,10.7,-0.25,True
+307,Savyolovsky Drive,Central neighbourhoods,4.6,55.792391,37.595654,Савёловская,376.0,223,34,9,25.4,-0.87,True,Савёловская,381.0,28,11,1,8.1,-1.55,True
+308,"Novosuschyovskaya Street, 24с2",Residential belt,4.3,55.790677,37.604487,Марьина роща,786.0,12,8,9,6.1,0.85,False,Марьина Роща,782.0,17,15,10,8.1,0.39,False
+309,"Oktyabrskaya Street, 33",Residential belt,4.0,55.788963,37.61332,Марьина роща,538.0,15,11,8,9.0,0.05,False,Марьина Роща,534.0,38,21,9,12.7,-0.3,False
+310,Olimpiysky Avenue,Residential belt,3.7,55.787249,37.622152,Марьина роща,774.0,7,6,6,5.7,-0.37,False,Марьина Роща,772.0,10,4,4,5.4,-0.79,False
+311,"Gilyarovskogo Street, 47с5",Residential belt,3.6,55.785533,37.630982,Проспект Мира,425.0,25,17,9,13.5,-0.75,True,Проспект Мира,434.0,41,20,11,14.7,-0.55,True
+312,"Skryabinsky Lane, 12/14с2",Residential belt,3.6,55.783817,37.639812,Проспект Мира,455.0,28,14,5,13.6,-1.14,True,Проспект Мира,456.0,44,25,6,15.1,-1.09,True
+313,"Tsentralniy Administrative Okrug, Krasnoselskiy District","Parks, rail and industrial land",3.6,55.782101,37.648641,Комсомольская,730.0,1,0,0,2.3,-1.17,False,Комсомольская,690.0,0,0,0,1.5,-1.25,False
+314,"Krasnoprudnaya Street, 9/7","Parks, rail and industrial land",3.7,55.780384,37.657469,Комсомольская,322.0,5,1,2,3.9,-0.71,False,Комсомольская,343.0,5,0,2,3.2,-0.88,False
+315,"Krasnoprudnaya Street, 24с1",Transit hubs,4.0,55.778666,37.666296,Красносельская,147.0,32,13,10,13.9,-0.32,True,Красносельская,147.0,41,20,8,16.7,-1.03,True
+316,"Baumanskaya Street, 5с1",Central neighbourhoods,4.3,55.776948,37.675122,Бауманская,560.0,16,3,38,6.2,8.75,False,Бауманская,561.0,36,20,24,11.1,2.23,False
+317,Spartakovsky Lane,Central neighbourhoods,4.6,55.775229,37.683947,Бауманская,437.0,35,11,8,10.0,-0.27,True,Бауманская,436.0,36,7,10,9.1,0.11,True
+318,"Bolshaya Pochtovaya Street, 18/20к16","Parks, rail and industrial land",5.0,55.77351,37.692771,Бауманская,863.0,2,2,0,2.4,-1.16,False,Бауманская,861.0,13,5,3,4.8,-0.62,False
+319,"Novaya Doroga Street, 5","Parks, rail and industrial land",5.4,55.77179,37.701594,Электрозаводская,1155.0,2,3,1,2.1,-0.76,False,Лефортово,794.0,2,0,1,1.8,-0.55,False
+320,"Butyrskaya Street, 42",Residential belt,5.6,55.799271,37.585034,Савеловская,586.0,20,4,8,4.7,1.7,False,Савёловская,587.0,27,4,12,5.0,2.33,False
+321,"Skladochnaya Street, 1Дс2",Residential belt,5.2,55.797558,37.59387,Савёловская,466.0,322,6,14,15.3,0.15,True,Савёловская,459.0,57,1,15,6.5,2.0,False
+322,"Streletskaya Street, 8",Residential belt,4.8,55.795844,37.602705,Савёловская,809.0,10,3,5,4.3,0.15,False,Савёловская,813.0,9,2,3,4.1,-0.24,False
+323,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District, zhiloy kompleks Dzhaz",Transit hubs,4.5,55.79413,37.611539,Марьина роща,282.0,37,16,9,13.2,-0.59,True,Марьина Роща,280.0,33,18,12,12.3,0.08,True
+324,Festivalny Park,Residential belt,4.3,55.792416,37.620372,Марьина роща,253.0,19,7,3,9.6,-1.09,True,Марьина Роща,248.0,25,2,1,7.9,-1.58,True
+325,Verzemneka Street,Residential belt,4.2,55.7907,37.629204,Рижская,465.0,13,13,6,8.6,-0.62,True,Рижская,224.0,24,10,5,12.8,-1.16,True
+326,"Srednyaya Pereyaslavskaya Street, 13с2",Central neighbourhoods,4.1,55.788984,37.638035,Рижская,399.0,21,15,7,11.0,-0.59,True,Рижская,328.0,32,13,8,11.8,-0.63,True
+327,Komsomolskoy Ploschadi Drive,"Parks, rail and industrial land",4.1,55.787268,37.646865,Рижская,888.0,0,0,0,1.4,-0.9,False,Рижская,853.0,0,0,0,1.2,-0.84,False
+328,"5th Krasnoselsky Lane, 5",Residential belt,4.2,55.785551,37.655694,Красносельская,899.0,5,0,3,2.9,-0.11,False,Красносельская,897.0,15,7,10,6.2,0.82,False
+329,"Tsentralniy Administrative Okrug, Krasnoselskiy District",Residential belt,4.3,55.783833,37.664522,Красносельская,440.0,83,9,13,13.5,0.09,True,Красносельская,439.0,14,7,3,7.3,-1.05,True
+330,"Rusakovskaya Street, 8с3",Residential belt,4.5,55.782115,37.67335,Красносельская,514.0,7,7,2,5.5,-0.94,False,Митьково,347.0,16,6,0,7.2,-1.82,True
+331,"Spartakovskaya Square, 1Асоор6","Parks, rail and industrial land",4.8,55.780396,37.682176,Бауманская,912.0,3,0,1,2.2,-1.03,False,Митьково,735.0,2,2,0,2.5,-1.34,False
+332,Bakuninskaya Street,Residential belt,5.2,55.778677,37.691001,Электрозаводская,964.0,7,1,6,2.6,1.33,False,Электрозаводская,851.0,21,7,7,6.2,0.13,False
+333,"Rubtsovskaya Embankment, 3с1",Residential belt,5.6,55.776957,37.699826,Электрозаводская,652.0,3,1,4,2.2,0.34,False,Электрозаводская,514.0,9,2,2,4.0,-0.44,False
+334,"Novodmitrovskaya Street, 2к7","Parks, rail and industrial land",5.8,55.802725,37.592086,Дмитровская,880.0,12,1,6,2.5,1.72,False,Дмитровская,880.0,17,10,12,4.0,3.08,False
+335,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District, zhiloy kompleks Sheremetyevskiy","Parks, rail and industrial land",5.4,55.801011,37.600922,Савёловская,1035.0,0,0,0,0.8,-0.55,False,Савёловская,1033.0,12,0,1,2.4,-0.66,False
+336,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District",Residential belt,5.1,55.799297,37.609757,Марьина роща,511.0,14,7,4,5.6,-0.15,False,Марьина Роща,514.0,13,3,6,5.6,-0.13,False
+337,4th Maryinoy Roschi Drive,Transit hubs,4.9,55.797583,37.618591,Марьина роща,114.0,139,12,4,18.2,-1.4,True,Марьина Роща,41.0,57,9,7,15.9,-1.13,True
+338,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District","Parks, rail and industrial land",4.7,55.795867,37.627425,Рижская,644.0,1,0,0,2.0,-1.18,False,Рижская,522.0,0,0,0,1.4,-1.22,False
+339,"Tsentralniy Administrative Okrug, Meschanskiy District",Residential belt,4.6,55.794151,37.636257,Рижская,171.0,22,2,2,8.2,-1.21,True,Рижская,170.0,13,0,0,5.6,-1.58,False
+340,"Severo-Vostochniy Administrative Okrug, Alekseyevskiy District","Parks, rail and industrial land",4.6,55.792435,37.645089,Рижская,571.0,0,0,0,1.4,-1.09,False,Рижская,412.0,1,0,0,1.8,-1.21,False
+341,"1st Rybinskaya Street, 3с1","Parks, rail and industrial land",4.6,55.790718,37.653919,Рижская,1140.0,1,0,2,1.5,0.31,False,Рижская,997.0,8,2,1,3.6,-1.0,False
+342,"3rd Rybinskaya Street, 30",Residential belt,4.7,55.789,37.662749,Красносельская,1025.0,8,1,0,3.3,-1.16,False,Митьково,830.0,12,3,2,4.6,-0.6,False
+343,Shumkina Street,Residential belt,4.9,55.787282,37.671577,Сокольники,544.0,21,11,3,7.2,-0.6,False,Митьково,282.0,19,4,1,7.5,-1.45,True
+344,"2nd Sokolnicheskaya Street, 1",Residential belt,5.1,55.785563,37.680405,Сокольники,412.0,17,11,9,7.5,-0.22,True,Митьково,395.0,24,2,7,6.8,-0.26,False
+345,Gastello Street,Residential belt,5.4,55.783844,37.689231,Сокольники,843.0,7,6,1,4.0,-1.05,False,Сокольники,828.0,6,0,3,2.4,0.54,False
+346,"Bolshaya Pochtovaya Street, 40с7",Residential belt,5.8,55.782124,37.698057,Электрозаводская,450.0,8,1,3,3.0,0.01,False,Электрозаводская,393.0,28,9,15,7.1,1.86,False
+347,"Annenskaya Street, 21","Parks, rail and industrial land",5.7,55.804464,37.607975,Марьина роща,991.0,2,1,0,1.7,-1.22,False,Марьина Роща,755.0,5,0,0,2.2,-1.41,False
+348,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District",Residential belt,5.5,55.80275,37.616811,Марьина роща,624.0,73,8,5,7.9,-0.57,False,Марьина Роща,206.0,47,7,3,10.7,-1.19,True
+349,"Severo-Vostochniy Administrative Okrug, Maryina Roscha District","Parks, rail and industrial land",5.3,55.801034,37.625645,Марьина роща,696.0,0,0,1,0.9,-0.49,False,Марьина Роща,448.0,0,0,0,0.9,-1.03,False
+350,"Severo-Vostochniy Administrative Okrug, Ostankinskiy District","Parks, rail and industrial land",5.1,55.799319,37.634479,Рижская,751.0,12,7,3,5.0,-0.58,False,Рижская,709.0,18,2,2,4.5,-0.84,False
+351,"2nd Mytishinskaya Street, 2с6","Parks, rail and industrial land",5.1,55.797602,37.643312,Рижская,722.0,0,0,0,1.1,-1.01,False,Рижская,546.0,0,0,0,1.1,-0.96,False
+352,"1st Luchevoy Glade, 15с8","Parks, rail and industrial land",5.1,55.795885,37.652144,Рижская,1080.0,1,1,0,1.4,-1.08,False,Рижская,883.0,11,0,0,2.8,-1.4,False
+353,Sokolniki Park,"Parks, rail and industrial land",5.1,55.794168,37.660974,Сокольники,1285.0,4,2,3,2.3,0.26,False,Сокольники,1143.0,6,2,3,2.7,-0.03,False
+354,Sokolniki Park,Residential belt,5.3,55.792449,37.669804,Сокольники,705.0,2,8,3,3.3,-0.11,False,Сокольники,557.0,17,8,2,6.7,-0.86,False
+355,Sokolnicheskaya Square,Transit hubs,5.5,55.790731,37.678633,Сокольники,173.0,265,35,20,30.7,-0.6,True,Сокольники,30.0,95,24,18,21.2,-0.38,True
+356,"Barbolina Street, 3к13",Residential belt,5.7,55.789011,37.687461,Сокольники,475.0,5,3,0,3.1,-1.24,False,Сокольники,413.0,9,2,0,4.1,-1.48,False
+357,"Murmansky Drive, 14к2","Parks, rail and industrial land",5.9,55.806201,37.623866,Алексеевская,935.0,2,0,0,1.5,-1.08,False,Марьина Роща,655.0,4,0,2,2.1,-0.2,False
+358,"Bolshaya Maryinskaya Street, 7к2",Residential belt,5.7,55.804486,37.632701,Алексеевская,513.0,9,6,0,4.2,-1.19,False,Алексеевская,512.0,13,3,1,4.2,-1.03,False
+359,"Grafsky Lane, 14к1","Parks, rail and industrial land",5.6,55.802769,37.641535,Алексеевская,582.0,2,1,2,2.2,0.03,False,Алексеевская,582.0,5,1,4,2.7,0.16,False
+360,"Severo-Vostochniy Administrative Okrug, Alekseyevskiy District","Parks, rail and industrial land",5.6,55.801052,37.650368,Алексеевская,1049.0,1,0,0,1.1,-1.02,False,Алексеевская,1050.0,6,0,0,2.1,-1.17,False
+361,Sokolniki Park,"Parks, rail and industrial land",5.6,55.799335,37.6592,Алексеевская,1597.0,0,0,0,0.7,-0.79,False,Рижская,1441.0,0,0,0,0.9,-0.92,False
+362,2nd Luchevoy Glade,"Parks, rail and industrial land",5.7,55.797617,37.668031,Сокольники,1177.0,1,0,2,1.0,1.0,False,Сокольники,994.0,2,0,2,1.3,0.23,False
+363,6th Luchevoy Glade,"Parks, rail and industrial land",5.9,55.795898,37.676861,Сокольники,756.0,0,0,4,1.1,2.62,False,Сокольники,579.0,7,0,6,2.7,2.2,False

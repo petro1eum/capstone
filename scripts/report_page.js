@@ -262,7 +262,8 @@
   function renderCard(cell) {
     card.replaceChildren();
     html("h3", null, cell.address, card);
-    const where = [DATA.types[cell.type], `${cell.metro}, ${format(cell.metro_m)} м`, `${format(cell.center_km, 1)} км от центра`];
+    const now = cell.y2026;
+    const where = [DATA.types[cell.type], `${now.metro}, ${format(now.metro_m)} м`, `${format(cell.center_km, 1)} км от центра`];
     html("p", "where", where.join(" · "), card);
     if (cell.rank2026 || cell.rank2019) {
       const badges = html("div", "badges", null, card);
@@ -278,8 +279,8 @@
       const numbers = cell[`y${year}`];
       row(`Кафе и рестораны, ${year}`, `${format(numbers.competitors)} / ${format(numbers.expected, 1)}`);
       row(`Оценка ${year}`, `${signed(numbers.score)}${numbers.eligible ? "" : " · вне фильтров"}`);
+      row(`Магазины / услуги, ${year}`, `${format(numbers.shops)} / ${format(numbers.services)}`);
     }
-    row("Магазины / услуги", `${format(cell.shops)} / ${format(cell.services)}`);
     html("p", "card-note", "Кафе и рестораны: факт в радиусе 300 м / ожидание модели.", card);
   }
 

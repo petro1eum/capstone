@@ -42,6 +42,11 @@ places found under-served in 2019 fill up since?
 | Fitness | data.mos.ru, 2019 | 385 facilities | gyms within 300 m |
 | Universities and colleges | [OpenStreetMap](https://www.openstreetmap.org/copyright), 28 September 2026 | 283 | universities within 300 m |
 | Cafés, restaurants, fast food, bars | OpenStreetMap, 28 September 2026 | 6,729 | the check against 2026 and the 2026 shortlist |
+| Entrances of metro, MCC and MCD stations | OpenStreetMap, 28 September 2026 | 427 | 2026: entrances within 300 m, distance to the nearest |
+| Bus and tram stops | OpenStreetMap, 28 September 2026 | 2,261 | 2026: stops within 300 m |
+| Shops | OpenStreetMap, 28 September 2026 | 11,437 | 2026: shops within 300 m |
+| Consumer services | OpenStreetMap, 28 September 2026 | 3,767 | 2026: services within 300 m |
+| Gyms | OpenStreetMap, 28 September 2026 | 212 | 2026: fitness centres within 300 m |
 
 The grid and the Moscow Open Data layers were collected in 2019
 ([notebook 01](../notebooks/01_data_collection_moscow_open_data.ipynb)). The catering and shopping
@@ -50,7 +55,10 @@ Following the 2019 definition, the **competitors are the *кафе* and *рес�
 catering register**; fast food, bars, canteens and buffets are described but not counted. The 2019
 education register lists mostly schools of the city education department (534 of 620) and no
 federal universities, so universities and colleges come from OpenStreetMap. The cinema register (14 municipal cinemas) is
-too sparse to use. Details and the data fixes are in [`data/README.md`](../data/README.md).
+too sparse to use. For 2026 the footfall generators come from the same OpenStreetMap snapshot as the
+cafés, with the tags chosen to match the registers of 2019 (the OpenStreetMap layers cover 7 km
+around Red Square); parking keeps the 2019 layer, because OpenStreetMap rarely records the capacity
+of street parking. Details and the data fixes are in [`data/README.md`](../data/README.md).
 
 ## 3. Methodology
 
@@ -82,7 +90,8 @@ too sparse to use. Details and the data fixes are in [`data/README.md`](../data/
    test controls for regression to the mean with a least-squares fit of the log change on the 2019
    count and the 2019 expectation (block bootstrap, 1,000 resamples), and for the shocks of
    2020-2026 with the distance to Red Square and the type of place.
-9. **The 2026 shortlist.** The same pipeline with the cafés and restaurants of 2026 as competitors.
+9. **The 2026 shortlist.** The same pipeline with the cafés and restaurants of 2026 as competitors
+   and the footfall generators of 2026, both from OpenStreetMap.
 
 ## 4. Results
 
@@ -219,32 +228,43 @@ years moved the market the same way.
 
 ### The 2026 shortlist
 
-With the competitors of 2026 the model explains 58% of the deviance (OpenStreetMap is a noisier
-source than the register) and 117 cells are eligible again. The last column gives the count of the
-2019 register for comparison.
+With the competitors and the footfall generators of 2026 the model explains 67% of the deviance, as
+much as the 2019 model did in 2019; with the footfall layers of 2019 standing in for 2026 it was 58%.
+126 cells are eligible. The footfall generators within 6 km of Red Square:
+
+| Layer | 2019 | 2026 |
+|---|---:|---:|
+| Metro entrances (2026: metro, MCC and MCD) | 289 | 349 |
+| Bus and tram stops | 1,654 | 1,772 |
+| Shops | 12,695 | 9,686 |
+| Consumer services | 3,031 | 3,328 |
+| Gyms (2019: municipal sports centres) | 43 | 178 |
+
+The last column of the shortlist gives the count of the 2019 register for comparison.
 
 ![Opportunity map 2026](figures/fig10_opportunity_map_2026.png)
 
-| # | Nearest metro | Address of the cell centre | Metro exit, m | From Red Square, km | Cafés and restaurants, 2026 | Expected | Score | In the 2019 register |
+| # | Nearest station | Address of the cell centre | Station entrance, m | From Red Square, km | Cafés and restaurants, 2026 | Expected | Score | In the 2019 register |
 |---:|---|---|---:|---:|---:|---:|---:|---:|
-| 1 | Savyolovskaya | [Sushchyovsky Val Street, 9](https://www.openstreetmap.org/?mlat=55.792391&mlon=37.595654#map=17/55.792391/37.595654) | 376 | 4.6 | 1 | 17.4 | −1.56 | 9 |
-| 2 | Rizhskaya | [Prospekt Mira, 88](https://www.openstreetmap.org/?mlat=55.794151&mlon=37.636257#map=17/55.794151/37.636257) | 171 | 4.6 | 0 | 9.4 | −1.55 | 2 |
-| 3 | Maryina Roshcha | [Sushchyovsky Val Street, 56](https://www.openstreetmap.org/?mlat=55.792416&mlon=37.620372#map=17/55.792416/37.620372) | 253 | 4.3 | 1 | 10.7 | −1.48 | 3 |
-| 4 | Kutuzovskaya | [Kutuzovsky Avenue, 35](https://www.openstreetmap.org/?mlat=55.740622&mlon=37.539417#map=17/55.740622/37.539417) | 321 | 5.3 | 1 | 7.5 | −1.36 | 2 |
-| 5 | Begovaya | [Khoroshyovskoye Highway, 1](https://www.openstreetmap.org/?mlat=55.773369&mlon=37.544541#map=17/55.773369/37.544541) | 4 | 5.3 | 4 | 13.6 | −1.35 | 8 |
-| 6 | Ploshchad Ilyicha | [Rogozhsky Val Street, 9/2](https://www.openstreetmap.org/?mlat=55.742498&mlon=37.678702#map=17/55.742498/37.678702) | 439 | 3.8 | 4 | 15.7 | −1.29 | 8 |
-| 7 | Krasnopresnenskaya | [Druzhinnikovskaya Street, 11A](https://www.openstreetmap.org/?mlat=55.757906&mlon=37.574609#map=17/55.757906/37.574609) | 303 | 3.0 | 3 | 11.1 | −1.26 | 4 |
-| 8 | Dubrovka | [Sharikopodshipnikovskaya Street, 13](https://www.openstreetmap.org/?mlat=55.718383&mlon=37.678742#map=17/55.718383/37.678742) | 118 | 5.3 | 4 | 16.3 | −1.26 | 16 |
-| 9 | Proletarskaya | [Krestyanskaya Square, 10](https://www.openstreetmap.org/?mlat=55.73215&mlon=37.657568#map=17/55.73215/37.657568) | 411 | 3.3 | 2 | 9.5 | −1.17 | 1 |
-| 10 | Krasnoselskaya | [Verkhnyaya Krasnoselskaya Street, 15b](https://www.openstreetmap.org/?mlat=55.783833&mlon=37.664522#map=17/55.783833/37.664522) | 440 | 4.3 | 3 | 11.6 | −1.13 | 13 |
+| 1 | Mitkovo | [Rusakovskaya Street, 8](https://www.openstreetmap.org/?mlat=55.782115&mlon=37.67335#map=17/55.782115/37.67335) | 347 | 4.5 | 0 | 7.2 | −1.82 | 2 |
+| 2 | Kutuzovskaya | [Kutuzovsky Avenue, 35](https://www.openstreetmap.org/?mlat=55.740622&mlon=37.539417#map=17/55.740622/37.539417) | 309 | 5.3 | 1 | 9.5 | −1.67 | 2 |
+| 3 | Maryina Roshcha | [Sushchyovsky Val Street, 56](https://www.openstreetmap.org/?mlat=55.792416&mlon=37.620372#map=17/55.792416/37.620372) | 248 | 4.3 | 1 | 7.9 | −1.58 | 3 |
+| 4 | Lefortovo | [Soldatsky Lane, 8](https://www.openstreetmap.org/?mlat=55.766623&mlon=37.703362#map=17/55.766623/37.703362) | 228 | 5.3 | 2 | 10.8 | −1.56 | 2 |
+| 5 | Savyolovskaya | [Sushchyovsky Val Street, 9](https://www.openstreetmap.org/?mlat=55.792391&mlon=37.595654#map=17/55.792391/37.595654) | 381 | 4.6 | 1 | 8.1 | −1.55 | 9 |
+| 6 | Mitkovo | [Shumkina Street, 20](https://www.openstreetmap.org/?mlat=55.787282&mlon=37.671577#map=17/55.787282/37.671577) | 282 | 4.9 | 1 | 7.5 | −1.45 | 3 |
+| 7 | Rimskaya | [Rogozhsky Val Street, 9/2](https://www.openstreetmap.org/?mlat=55.742498&mlon=37.678702#map=17/55.742498/37.678702) | 440 | 3.8 | 4 | 11.9 | −1.33 | 8 |
+| 8 | Studencheskaya | [Kiyevskaya Street, 20](https://www.openstreetmap.org/?mlat=55.738914&mlon=37.548243#map=17/55.738914/37.548243) | 6 | 4.9 | 4 | 10.2 | −1.33 | 5 |
+| 9 | Begovaya | [Khoroshyovskoye Highway, 1](https://www.openstreetmap.org/?mlat=55.773369&mlon=37.544541#map=17/55.773369/37.544541) | 4 | 5.3 | 4 | 10.4 | −1.31 | 8 |
+| 10 | Krasnopresnenskaya | [Druzhinnikovskaya Street, 11A](https://www.openstreetmap.org/?mlat=55.757906&mlon=37.574609#map=17/55.757906/37.574609) | 301 | 3.0 | 3 | 9.6 | −1.26 | 4 |
 
 All cells with their features and both years' scores: [`cell_scores.csv`](cell_scores.csv); the
 shortlists: [`shortlist_2019.csv`](shortlist_2019.csv) and [`shortlist_2026.csv`](shortlist_2026.csv).
 
-**Robustness.** #1 Savyolovskaya, #3 Maryina Roshcha, #5 Begovaya, #6 Ploshchad Ilyicha and
-#7 Krasnopresnenskaya are eligible with every catchment, rank in the top 12 with each of them, stay
-in the top 10 when fast food counts as competition too, and were under-served in the 2019 register
-as well.
+**Robustness.** #2 Kutuzovskaya, #3 Maryina Roshcha and #5 Savyolovskaya are eligible with every
+catchment, rank in the top 12 with each of them, stay in the top 10 when fast food counts as
+competition too, were under-served in the 2019 register as well, and are in the top 10 also with
+the footfall layers of 2019. Six of the ten were in the top 10 with the 2019 layers; none of the
+2019 shortlist is on the 2026 one.
 
 ## 5. Discussion
 
@@ -260,18 +280,20 @@ many cafés as its footfall generators suggest, or more. The only such cell on t
 Goncharnaya Embankment by Taganskaya, has gained five venues since. The 2026 candidates are
 3.0-5.3 km from Red Square, around the Third Ring Road, within 440 m of a metro exit.
 
-**Check the counts before the visit.** OpenStreetMap misses venues, most often inside markets and
-malls, so where it counts far fewer cafés and restaurants than the 2019 register did, part of the
-gap may be missing data:
+**New stations, new gaps.** #1 and #6 lie by Mitkovo, a station of the MCD, and #4 by Lefortovo, a
+station of the Big Circle Line opened in 2023; in 2019 the nearest metro exit of #4 was 1.6 km away.
+The model expects cafés there because of the new footfall, and few have opened yet. These gaps are
+the youngest on the list and the least tested: none of the three is eligible with the 400 m
+catchment.
 
-- #1 Savyolovskaya: 9 venues in the register, all in the Savyolovsky market complex
-  (Sushchyovsky Val, 5), and 1 in OpenStreetMap. It stays a candidate because it was under-served in
-  2019 too, with 9 venues where 25 were expected.
-- #8 Dubrovka: 16 in the register and 4 in OpenStreetMap, which tags 10 venues around the market as
-  fast food; the cell leaves the top 10 once fast food counts.
-- #10 Krasnoselskaya: 13 in the register, 11 of them at one address, Verkhnyaya Krasnoselskaya 3A
-  (a food court, judging by the names), and 3 in OpenStreetMap. The cell had as many venues as
-  expected in 2019, which makes it the weakest entry.
+**Markets drop out.** The register counted the 1,316 stalls of the Dubrovka market as shops;
+OpenStreetMap maps 23 shops there. The Rizhskaya cell drops below the filters too, with fewer shops
+and services mapped around it. Both are gaps in the data, not in the market.
+
+**Check the counts before the visit.** OpenStreetMap misses venues, most often inside markets and
+malls. At #5 Savyolovskaya the register listed 9 venues, all in the Savyolovsky market complex
+(Sushchyovsky Val, 5), and OpenStreetMap lists 1. The cell stays a candidate because it was
+under-served in 2019 too, with 9 venues where 25 were expected.
 
 **What the model does not see.** The cells with the largest surplus of competitors in 2019 are the
 Depo food mall on Lesnaya Street near Belorusskaya (41 venues where 6 are expected; the register
@@ -283,13 +305,13 @@ place look under-served when its demand comes from something the data does not h
 
 **Limitations.**
 
-- The 2019 analysis uses one vintage throughout, apart from the universities from OpenStreetMap.
-  The 2026 shortlist combines the competitors of 2026 with the footfall layers of 2019: stations
-  opened since (the rest of the Big Circle Line, the MCD lines) are missing, and shops and services
-  have surely changed.
-- The demand behind the model is that of 2019. Since then the pandemic, remote work, the war and
-  sanctions, the exit of foreign chains and the fall of foreign tourism changed where people work,
-  shop and spend. The competitors of 2026 reflect the new market, the footfall generators do not.
+- Each year uses one vintage: the registers of 2019 for 2019 and OpenStreetMap for 2026, apart from
+  the universities (OpenStreetMap in both) and parking (the 2019 layer in both). OpenStreetMap maps
+  shops and services less completely than the registers did and hardly maps market stalls, and its
+  gyms are commercial fitness centres, while the 2019 layer held municipal sports centres.
+- The layers count shops, services and station entrances, not people. The pandemic, remote work,
+  the war and sanctions, the exit of foreign chains and the fall of foreign tourism changed how many
+  people pass them, and that the data does not show.
 - The check against 2026 compares two different sources. Their totals around the grid agree, but
   OpenStreetMap misses venues in markets and malls and tags some coffee counters as fast food, so a
   single cell can change for reasons that have nothing to do with the market.
@@ -299,8 +321,8 @@ place look under-served when its demand comes from something the data does not h
   Square stands in for tourists and offices.
 
 **Next steps.** Visit the shortlisted places at peak hours, check vacant premises and asking rents,
-add office and footfall data (business centres, mobile-operator counts), refresh the 2019 layers,
-and rebuild the shortlist every year or two.
+add office and footfall data (business centres, mobile-operator counts), and rebuild the shortlist
+every year or two.
 
 ## 6. Conclusion
 
@@ -315,9 +337,10 @@ expected.
 Seven years later the places the model found under-served in 2019 had 69% more cafés and
 restaurants, the saturated ones 11% fewer. The direction agrees with the model, but those were years
 of pandemic, war and sanctions that moved cafés from hubs to residential streets on their own, so
-the check supports the method without proving it. Run with the competitors of 2026, the same method
-points to Savyolovskaya, Maryina Roshcha, Begovaya, Ploshchad Ilyicha and Krasnopresnenskaya as the
-strongest candidates today.
+the check supports the method without proving it. Run with the competitors and the footfall
+generators of 2026, the same method explains the market of 2026 as well (67% of the deviance) and
+points to Kutuzovskaya, Maryina Roshcha and Savyolovskaya as the strongest candidates today, with new
+gaps next to the stations opened since 2019.
 
 The analysis narrows the search from the whole centre to about ten places. The final choice needs
 what open data cannot give: a walk around at rush hour, the rent and the concept.
