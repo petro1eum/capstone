@@ -1,7 +1,5 @@
 # Where to open a café in central Moscow
 
-[![tests](https://github.com/petro1eum/capstone/actions/workflows/tests.yml/badge.svg)](https://github.com/petro1eum/capstone/actions/workflows/tests.yml)
-
 Capstone project of the IBM Data Science Professional Certificate (Coursera, *Applied Data Science
 Capstone*), started in 2019 and finished in 2026. [По-русски ниже](#по-русски).
 
