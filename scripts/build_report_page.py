@@ -120,11 +120,15 @@ def score_class(score):
     return f"d{sum(score > edge for edge in edges)}"
 
 
-def table(header, rows, css_class="compact"):
-    """A table from a header of (title, numeric) pairs and rows of ready <td> strings."""
+def table(header, rows, css_class="compact", caption=None):
+    """A table from a header of (title, numeric) pairs and rows of ready <td> strings.
+
+    The caption says what the numbers are; it sits above the table, outside its scroll box.
+    """
     head = "".join(f'<th class="num">{title}</th>' if numeric else f"<th>{title}</th>" for title, numeric in header)
+    caption = f'<p class="table-caption">{caption}</p>' if caption else ""
     return (
-        f'<div class="table-wrap"><table class="{css_class}"><thead><tr>{head}</tr></thead>'
+        f'{caption}<div class="table-wrap"><table class="{css_class}"><thead><tr>{head}</tr></thead>'
         f"<tbody>{''.join(rows)}</tbody></table></div>"
     )
 
@@ -315,9 +319,14 @@ def change_pct(ratio):
 
 def shortlist_2026_table(rows):
     header = [
-        ("№", True), ("Где", False), ("Метро, до входа", False), ("До центра", True), ("Кафе рядом", True),
-        ("Обычно", True), ("В 2019", True), ("", False),
+        ("№", True), ("Где", False), ("Ближайшее метро", False), ("До центра", True), ("Кафе рядом сейчас", True),
+        ("Обычно для такого места", True), ("Было в 2019", True), ("", False),
     ]
+    caption = (
+        "<strong>Кафе рядом сейчас:</strong> сколько кафе и ресторанов в 300&nbsp;м, около пяти минут пешком. "
+        "<strong>Обычно для такого места:</strong> сколько их бывает на участках с таким же числом метро, "
+        "магазинов и услуг. <strong>Было в 2019:</strong> сколько кафе было здесь семь лет назад."
+    )
     body = []
     for row in rows:
         cell = row["cell"]
@@ -340,34 +349,48 @@ def shortlist_2026_table(rows):
             + td(f'<span class="chips">{"".join(chips)}</span>')
             + "</tr>"
         )
-    return table(header, body, "shortlist")
+    return table(header, body, "shortlist", caption)
 
 
 def shortlist_2019_table(scores):
     header = [
-        ("№", True), ("Где", False), ("Метро, до входа", False), ("Кафе в 2019", True), ("Обычно в 2019", True),
-        ("Кафе в 2026", True),
+        ("№", True), ("Где", False), ("Ближайшее метро", False), ("Было кафе в 2019", True),
+        ("Обычно для такого места", True), ("Стало в 2026", True), ("Изменение", True),
     ]
+    shortlist = scores[scores["rank_2019"].notna()].sort_values("rank_2019")
+    first = shortlist.iloc[0]
+    caption = (
+        "В 2019 году модель выбрала эти десять участков: кафе там было заметно меньше, чем обычно бывает "
+        f"в похожих местах. Например, по адресу {escape(first['address'])} было "
+        f"{int(first['competitors_2019'])} кафе там, где обычно {usual(first, 2019)}. Последние столбцы "
+        "показывают, сколько кафе здесь сейчас и на сколько их стало больше или меньше."
+    )
     body = []
-    for cell_id, cell in scores[scores["rank_2019"].notna()].sort_values("rank_2019").iterrows():
+    for cell_id, cell in shortlist.iterrows():
         rank = int(cell["rank_2019"])
         before, after = int(cell["competitors_2019"]), int(cell["competitors_2026"])
-        change = "±0" if after == before else num(after - before, sign=True)
+        change = "0" if after == before else num(after - before, sign=True)
         body.append(
             f'<tr data-cell="{cell_id}" tabindex="0" aria-label="Показать место № {rank} списка 2019 года на карте">'
             + td(rank, numeric=True)
             + td(escape(cell["address"]), css_class="address")
             + td(station(cell, 2019))
-            + td(before, numeric=True, css_class="key")
+            + td(before, numeric=True)
             + td(usual(cell, 2019), numeric=True)
-            + td(f'{after} <span class="delta">{change}</span>', numeric=True)
+            + td(after, numeric=True)
+            + td(change, numeric=True, css_class="key")
             + "</tr>"
         )
-    return table(header, body, "shortlist history")
+    return table(header, body, "shortlist history", caption)
 
 
 def saturated_table(summary, scores):
-    header = [("Где", False), ("Метро", False), ("Кафе рядом", True), ("Обычно", True), ("Больше обычного", True)]
+    header = [("Где", False), ("Ближайшее метро", False), ("Было кафе", True), ("Обычно для такого места", True),
+              ("Больше обычного", True)]
+    caption = (
+        "Участки, где кафе в 2019 году было больше всего сверх обычного: сколько было кафе в 300&nbsp;м, "
+        "сколько обычно бывает в похожих местах и во сколько раз больше."
+    )
     body = []
     for entry in summary["most_saturated"]:
         cell = scores.loc[entry["cell_id"]]
@@ -381,7 +404,7 @@ def saturated_table(summary, scores):
             + td(f"в&nbsp;{num(ratio, 1)} раза", numeric=True)
             + "</tr>"
         )
-    return table(header, body)
+    return table(header, body, caption=caption)
 
 
 def quintile_chart(look_forward):
@@ -407,8 +430,9 @@ def quintile_chart(look_forward):
 
 
 def by_type_table(look_forward):
-    header = [("Тип района", False), ("Участков", True), ("Кафе в 2019", True), ("Кафе в 2026", True),
+    header = [("Тип района", False), ("Участков", True), ("Было кафе в 2019", True), ("Стало в 2026", True),
               ("Изменение", True)]
+    caption = "Сколько кафе и ресторанов было и стало на всех участках каждого типа вместе."
     body = []
     for i, name in enumerate(TYPES_RU):
         row = look_forward["by_type"][name]
@@ -419,7 +443,7 @@ def by_type_table(look_forward):
             + td(change_pct(row["change"]), numeric=True, css_class="key")
             + "</tr>"
         )
-    return table(header, body)
+    return table(header, body, caption=caption)
 
 
 def effects_chart(summary):
@@ -498,8 +522,11 @@ def typology_table(summary):
             + td(f"{num(profile['center_distance'] / 1000, 1)}&nbsp;км", numeric=True)
             + "</tr>"
         )
-    note = '<p class="table-note">Типичный участок каждого типа (медиана), всё в 300&nbsp;м, данные 2019 года.</p>'
-    return table(header, body) + note
+    caption = (
+        "Типичный участок каждого типа (медиана): сколько в 300&nbsp;м кафе, выходов метро, магазинов "
+        "и услуг и как далеко метро и Красная площадь. Данные 2019 года."
+    )
+    return table(header, body, caption=caption)
 
 
 def data_table(osm_date):
@@ -520,7 +547,7 @@ def data_table(osm_date):
                       ("Бытовые услуги", "services"), ("Фитнес-клубы", "fitness")]:
         layers.append((name, f"OpenStreetMap, {osm_date}", lambda key=key: demand[key]))
     body = [f"<tr>{td(name)}{td(source)}{td(num(len(loader())), numeric=True)}</tr>" for name, source, loader in layers]
-    return table([("Слой", False), ("Источник", False), ("Записей", True)], body)
+    return table([("Слой", False), ("Источник", False), ("Объектов", True)], body)
 
 
 # ---------------------------------------------------------------- page

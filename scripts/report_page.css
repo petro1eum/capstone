@@ -254,6 +254,7 @@ tr.best td { font-weight: 600; }
 .chip-notes .chip { margin-right: 6px; }
 td.key { font-weight: 600; color: var(--ink); }
 .table-note { margin: 6px 0 0; font-size: 0.8125rem; color: var(--muted); }
+.table-caption { margin: 0 0 4px; max-width: 72ch; font-size: 0.875rem; line-height: 1.5; color: var(--ink-2); }
 .glossary { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 24px; }
 .glossary div { display: contents; }
 .glossary dt { font-weight: 600; }
