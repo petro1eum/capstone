@@ -6,6 +6,7 @@ computed in UTM zone 33 (`geo.GRID_CRS`), which distorts distances in Moscow, so
 coordinates are re-projected to `geo.MOSCOW_CRS` instead.
 """
 
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -14,26 +15,22 @@ from .names import normalize_chain_name
 
 ROOT = Path(__file__).resolve().parents[2]
 MOS_DIR = ROOT / "data" / "mos_open_data"
+REGISTER_DIR = ROOT / "data" / "dropbox_2019"
 OSM_DIR = ROOT / "data" / "osm"
 
-# Subsets of the data.mos.ru shopping register (60,320 shops) saved during the 2019 work;
-# together they cover clothing, food, general goods, supermarkets and the branded part of
-# flowers and specialised stores. df_brandedsup2 is a subset of df_supermarkets.
-SHOP_FILES = (
-    "df_brandshops.csv",
-    "df_notbrandedclouth.csv",
-    "df_brandproductshops.csv",
-    "df_notbrandproductshops.csv",
-    "df_brandedgoods.csv",
-    "df_notbrandedgoods.csv",
-    "df_supermarkets.csv",
-    "df_brandedsup2.csv",
-    "df_brandedflowers.csv",
-    "df_network.csv",
-    "df_otherbrandedfood.csv",
-)
-
-# Types of the data.mos.ru catering register kept in notebook 01 as direct competitors.
+# Types of the data.mos.ru catering register. Notebook 01 kept кафе and ресторан as the
+# direct competitors; the other quick-service and drinking places are described separately.
+CATERING_TYPES = {
+    "кафе": "cafe",
+    "ресторан": "restaurant",
+    "предприятие быстрого обслуживания": "fast_food",
+    "закусочная": "fast_food",
+    "бар": "bar",
+    "столовая": "other",
+    "буфет": "other",
+    "кафетерий": "other",
+    "магазин (отдел кулинарии)": "other",
+}
 COMPETITOR_AMENITIES = ("cafe", "restaurant")
 
 
@@ -76,14 +73,8 @@ def load_parking():
 
 
 def load_shops():
-    """Shops from the saved subsets of the shopping register, one row per shop (data.mos.ru, 2019).
-
-    The `Unnamed: 0` column is the row number in the full register (its saved index), so it
-    identifies a shop across the overlapping subsets.
-    """
-    frames = [pd.read_csv(MOS_DIR / filename, index_col="Unnamed: 0") for filename in SHOP_FILES]
-    df = pd.concat(frames)
-    df = df[~df.index.duplicated()].sort_index()
+    """The shopping register of data.mos.ru, all 60,320 shops (2019)."""
+    df = pd.read_csv(REGISTER_DIR / "df_shops4.csv.gz", index_col=0)
     return pd.DataFrame(
         {
             "name": df["Name"],
@@ -113,7 +104,30 @@ def load_fitness():
 
 
 def load_catering():
-    """Cafés, restaurants, fast food and bars from the OpenStreetMap snapshot in data/osm/.
+    """The catering register of data.mos.ru, 15,366 venues with type, seats and chain flag (2019).
+
+    `amenity` puts the register types into the categories of `CATERING_TYPES`; `chain` is the
+    name normalised with the chain rules.
+    """
+    df = pd.DataFrame(json.loads((REGISTER_DIR / "restaurantsUTF.txt").read_text(encoding="utf-8-sig")))
+    amenity = df["TypeObject"].map(CATERING_TYPES)
+    return pd.DataFrame(
+        {
+            "name": df["Name"],
+            "type": df["TypeObject"],
+            "amenity": amenity,
+            "is_competitor": amenity.isin(COMPETITOR_AMENITIES),
+            "is_chain": df["IsNetObject"].eq("да"),
+            "chain": df["Name"].map(normalize_chain_name),
+            "seats": pd.to_numeric(df["SeatsCount"], errors="coerce"),
+            "lat": pd.to_numeric(df["Latitude_WGS84"]),
+            "lon": pd.to_numeric(df["Longitude_WGS84"]),
+        }
+    )
+
+
+def load_osm_catering():
+    """Cafés, restaurants, fast food and bars from the OpenStreetMap snapshot in data/osm/ (2026).
 
     `chain` is the brand tag or, failing that, the name, normalised with the chain rules.
     """

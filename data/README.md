@@ -31,8 +31,8 @@ WGS84 coordinates to UTM zone 37 (EPSG:32637).
 
 The shop files are subsets of the 60,320-shop register; their `Unnamed: 0` column is the row
 number in that register, which identifies a shop across the overlapping subsets. Together they
-hold 22,109 shops. The full register (`df_shops4.csv`) and the catering register (`df_cafe.csv`)
-were never committed, and the Dropbox copies of the raw downloads are gone.
+hold 22,109 shops. The analysis now uses the full register from `dropbox_2019/` instead; a test
+checks that every subset row points at the shop of the same name there.
 
 Fixed in 2026:
 
@@ -40,6 +40,20 @@ Fixed in 2026:
   the column was recomputed from the stop coordinates.
 - `df_othernotbrandedfood.csv` held exactly the rows of `df_notbrandedgoods.csv` under a food
   name and was removed.
+
+## `dropbox_2019/`: the raw registers of 2019
+
+The downloads that notebook 01 kept in the project's Dropbox, restored in September 2026 from a
+local backup of that Dropbox (the commit message of `78118cf` lists the source paths, dates and
+SHA-256 checksums). The large files are gzipped.
+
+| File | Records | Content |
+|---|---:|---|
+| `restaurantsUTF.txt` | 15,366 | The catering register of data.mos.ru as JSON (UTF-8 with BOM): name, type (`TypeObject`), seats (`SeatsCount`), chain flag (`IsNetObject`), address, WGS84 coordinates |
+| `df_cafe.csv` | 3,892 | The *кафе* and *ресторан* of the register within 6 km of Red Square, as selected in 2019 (distances in UTM zone 33) |
+| `df_shops4.csv.gz` | 60,320 | The shopping register with type, chain flag and coordinates |
+| `ShoppingUTF.json.gz` | 60,320 | The same register as downloaded, JSON |
+| `EducationUTF.txt.gz` | 620 | Organisations of the city education department, mostly schools (534); not used |
 
 ## `osm/`: OpenStreetMap snapshot
 
@@ -51,8 +65,11 @@ ways and relations (buildings, campuses) are represented by their centre.
 |---|---|
 | `osm_catering.csv` | `amenity` = cafe, restaurant, fast_food, bar, pub, biergarten, food_court, ice_cream |
 | `osm_education.csv` | `amenity` = university, college |
+| `osm_basemap.geojson` | The Moskva and Yauza rivers and the Boulevard, Garden and Third ring roads, for the report page |
+| `osm_cell_addresses_ru.csv` | The nearest address point (street and house number) to each grid cell centre, within 250 m |
 
-Columns: `osm_type`, `osm_id`, `amenity`, `name`, `brand`, `cuisine`, `lat`, `lon`.
+Columns of the two CSV layers: `osm_type`, `osm_id`, `amenity`, `name`, `brand`, `cuisine`, `lat`,
+`lon`.
 
 OpenStreetMap data © OpenStreetMap contributors, available under the
 [Open Database License](https://opendatacommons.org/licenses/odbl/).

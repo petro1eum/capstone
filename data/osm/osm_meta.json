@@ -14,5 +14,15 @@
     "timestamp_osm_base": "2026-09-28T20:10:50Z",
     "records": 283,
     "query": "[out:json][timeout:180];nwr[\"amenity\"~\"^(university|college)$\"](55.69077,37.50963,55.81653,37.73311);out center tags;"
+  },
+  "basemap": {
+    "timestamp_osm_base": "2026-09-28T21:11:02Z",
+    "records": 691,
+    "query": "[out:json][timeout:120];(way[\"waterway\"=\"river\"][\"name\"~\"^(Москва|Яуза)$\"](55.69077,37.50963,55.81653,37.73311);relation[\"type\"=\"route\"][\"route\"=\"road\"][\"name\"~\"^(Бульварное кольцо|Садовое кольцо|Третье транспортное кольцо)$\"](55.69077,37.50963,55.81653,37.73311););out geom;"
+  },
+  "addresses": {
+    "retrieved": "2026-09-28",
+    "records": 363,
+    "query": "[out:csv(::lat,::lon,\"addr:street\",\"addr:housenumber\";false;\"\\t\")][timeout:180];nwr[\"addr:street\"][\"addr:housenumber\"](55.69077,37.50963,55.81653,37.73311);out center;"
   }
 }

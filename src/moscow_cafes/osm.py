@@ -15,6 +15,9 @@ USER_AGENT = "moscow-cafe-capstone/1.0 (+https://github.com/petro1eum/capstone)"
 
 CATERING_AMENITIES = ("cafe", "restaurant", "fast_food", "bar", "pub", "biergarten", "food_court", "ice_cream")
 EDUCATION_AMENITIES = ("university", "college")
+# Landmarks drawn under the grid on the report page.
+BASEMAP_RIVERS = ("Москва", "Яуза")
+BASEMAP_RINGS = ("Бульварное кольцо", "Садовое кольцо", "Третье транспортное кольцо")
 
 TAG_COLUMNS = ("amenity", "name", "brand", "cuisine")
 
@@ -41,8 +44,29 @@ def build_query(amenities, bbox, timeout_s=180):
     )
 
 
-def run_query(query, endpoints=OVERPASS_ENDPOINTS, attempts=3):
-    """POST `query` to the first endpoint that answers; returns the decoded JSON payload."""
+def build_basemap_query(bbox, timeout_s=120):
+    """Overpass QL for the rivers and the ring roads inside `bbox`, with their geometry."""
+    south, west, north, east = bbox
+    box = f"({south},{west},{north},{east})"
+    return (
+        f"[out:json][timeout:{timeout_s}];("
+        f'way["waterway"="river"]["name"~"^({"|".join(BASEMAP_RIVERS)})$"]{box};'
+        f'relation["type"="route"]["route"="road"]["name"~"^({"|".join(BASEMAP_RINGS)})$"]{box};'
+        ");out geom;"
+    )
+
+
+def build_address_query(bbox, timeout_s=180):
+    """Overpass QL listing every object with a street address inside `bbox` as tab-separated text."""
+    south, west, north, east = bbox
+    return (
+        f'[out:csv(::lat,::lon,"addr:street","addr:housenumber";false;"\\t")][timeout:{timeout_s}];'
+        f'nwr["addr:street"]["addr:housenumber"]({south},{west},{north},{east});out center;'
+    )
+
+
+def run_query(query, endpoints=OVERPASS_ENDPOINTS, attempts=3, as_json=True):
+    """POST `query` to the first endpoint that answers; returns the decoded JSON payload (or the text)."""
     headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
     errors = []
     for endpoint in endpoints:
@@ -50,7 +74,7 @@ def run_query(query, endpoints=OVERPASS_ENDPOINTS, attempts=3):
             try:
                 response = requests.post(endpoint, data={"data": query}, headers=headers, timeout=300)
                 response.raise_for_status()
-                return response.json()
+                return response.json() if as_json else response.content.decode("utf-8")  # CSV comes without a charset
             except (requests.RequestException, ValueError) as exc:
                 errors.append(f"{endpoint}: {exc}")
                 time.sleep(10 * (attempt + 1))
@@ -70,3 +94,27 @@ def elements_to_frame(payload):
         row.update({"lat": point["lat"], "lon": point["lon"]})
         rows.append(row)
     return pd.DataFrame(rows, columns=["osm_type", "osm_id", *TAG_COLUMNS, "lat", "lon"])
+
+
+def lines_to_geojson(payload):
+    """River ways and the member ways of ring-road relations as GeoJSON line features."""
+    features = []
+    for element in payload["elements"]:
+        if element["type"] == "way":
+            kind, parts = "river", [element.get("geometry", [])]
+        else:
+            kind, parts = "ring", [member.get("geometry", []) for member in element["members"]]
+        name = element.get("tags", {}).get("name")
+        for part in parts:
+            if len(part) < 2:
+                continue
+            coordinates = [[round(point["lon"], 6), round(point["lat"], 6)] for point in part]
+            features.append(
+                {
+                    "type": "Feature",
+                    "properties": {"name": name, "kind": kind},
+                    "geometry": {"type": "LineString", "coordinates": coordinates},
+                }
+            )
+    return {"type": "FeatureCollection", "features": features}
+
