@@ -58,3 +58,10 @@ def test_competitors_are_cafes_and_restaurants():
     for catering in (data.load_catering(), data.load_osm_catering()):
         assert set(catering.loc[catering["is_competitor"], "amenity"]) == {"cafe", "restaurant"}
         assert catering["chain"].notna().sum() >= catering["name"].notna().sum()
+
+
+def test_osm_demand_layers_match_the_arguments_of_build_features():
+    layers = data.load_osm_demand()
+    assert set(layers) == {"metro", "bus", "shops", "services", "fitness"}
+    assert all(len(frame) > 100 and frame[["lat", "lon"]].notna().all().all() for frame in layers.values())
+    assert layers["metro"]["station"].notna().all()

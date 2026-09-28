@@ -24,5 +24,18 @@
     "retrieved": "2026-09-28",
     "records": 363,
     "query": "[out:csv(::lat,::lon,\"addr:street\",\"addr:housenumber\";false;\"\\t\")][timeout:180];nwr[\"addr:street\"][\"addr:housenumber\"](55.69077,37.50963,55.81653,37.73311);out center;"
+  },
+  "demand": {
+    "retrieved": "2026-09-28",
+    "records": 18261,
+    "by_layer": {
+      "shop": 11437,
+      "service": 3767,
+      "stop": 2261,
+      "rail_entrance": 427,
+      "fitness": 212,
+      "station": 157
+    },
+    "query": "[out:csv(::type,::id,::lat,::lon,\"railway\",\"highway\",\"shop\",\"craft\",\"leisure\",\"amenity\",\"station\",\"name\";true;\"\\t\")][timeout:600];(node[\"railway\"~\"^(subway_entrance|train_station_entrance)$\"](55.69077,37.50963,55.81653,37.73311);nwr[\"railway\"~\"^(station|halt)$\"](55.69077,37.50963,55.81653,37.73311);node[\"highway\"=\"bus_stop\"](55.69077,37.50963,55.81653,37.73311);node[\"railway\"=\"tram_stop\"](55.69077,37.50963,55.81653,37.73311);nwr[\"shop\"](55.69077,37.50963,55.81653,37.73311);nwr[\"craft\"](55.69077,37.50963,55.81653,37.73311);nwr[\"leisure\"~\"^(fitness_centre|sauna)$\"](55.69077,37.50963,55.81653,37.73311);nwr[\"amenity\"=\"public_bath\"](55.69077,37.50963,55.81653,37.73311););out center;"
   }
 }

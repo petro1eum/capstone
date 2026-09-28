@@ -1,9 +1,13 @@
+import pandas as pd
 import pytest
 
 from moscow_cafes.osm import (
+    DEMAND_TAGS,
     bbox_around,
     build_address_query,
+    build_demand_query,
     build_query,
+    classify_demand,
     elements_to_frame,
     lines_to_geojson,
 )
@@ -55,3 +59,31 @@ def test_lines_to_geojson_splits_ring_relations_into_member_ways():
     assert [f["properties"]["kind"] for f in features] == ["river", "ring"]
     assert features[1]["properties"]["name"] == "Садовое кольцо"
     assert features[0]["geometry"]["coordinates"][0] == [37.6, 55.7]
+
+
+def test_demand_query_lists_the_tags_it_classifies():
+    query = build_demand_query((55.69, 37.51, 55.82, 37.73))
+    assert all(f'"{tag}"' in query for tag in DEMAND_TAGS)
+    assert 'nwr["shop"](55.69,37.51,55.82,37.73);' in query
+
+
+def test_classify_demand_follows_the_2019_registers():
+    rows = [
+        ({"railway": "subway_entrance"}, "rail_entrance"),
+        ({"railway": "train_station_entrance"}, "rail_entrance"),
+        ({"railway": "halt", "name": "Калитники"}, "station"),
+        ({"highway": "bus_stop"}, "stop"),
+        ({"railway": "tram_stop"}, "stop"),
+        ({"shop": "hairdresser"}, "service"),
+        ({"craft": "shoemaker"}, "service"),
+        ({"leisure": "sauna"}, "service"),
+        ({"shop": "clothes"}, "shop"),
+        ({"shop": "outpost"}, "shop"),
+        ({"shop": "vacant"}, None),
+        ({"shop": "car_repair"}, None),
+        ({"craft": "pottery"}, None),
+        ({"leisure": "fitness_centre"}, "fitness"),
+        ({"leisure": "sports_centre"}, None),
+    ]
+    frame = pd.DataFrame([tags for tags, _ in rows], columns=list(DEMAND_TAGS))
+    assert classify_demand(frame).fillna("none").tolist() == [layer or "none" for _, layer in rows]

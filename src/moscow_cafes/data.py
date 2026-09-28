@@ -9,8 +9,10 @@ coordinates are re-projected to `geo.MOSCOW_CRS` instead.
 import json
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
+from .geo import nearest, xy_array
 from .names import normalize_chain_name
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -140,3 +142,38 @@ def load_osm_catering():
 def load_education():
     """Universities and colleges from the OpenStreetMap snapshot in data/osm/."""
     return pd.read_csv(OSM_DIR / "osm_education.csv")
+
+
+def load_osm_demand():
+    """The footfall layers of 2026 from the OpenStreetMap snapshot in data/osm/.
+
+    Keyed like the arguments of `features.build_features`: metro (entrances of metro, MCC and MCD
+    stations), bus (bus, trolleybus and tram stops), shops, services and fitness (gyms). OpenStreetMap
+    rarely records the capacity of street parking, so the analysis keeps the parking layer of 2019.
+
+    An entrance takes the name of the nearest metro station within 500 m, or else of the nearest
+    railway station, the way the signs in the street name it.
+    """
+    df = pd.read_csv(OSM_DIR / "osm_demand.csv")
+    layers = dict(tuple(df.groupby("layer")))
+    entrances = layers["rail_entrance"]
+    stations = layers["station"].dropna(subset=["name"])
+    subway = stations[stations["station"].eq("subway")]
+    to_subway, subway_position = nearest(xy_array(entrances), xy_array(subway))
+    _, station_position = nearest(xy_array(entrances), xy_array(stations))
+    station = np.where(
+        to_subway <= 500, subway["name"].to_numpy()[subway_position], stations["name"].to_numpy()[station_position]
+    )
+
+    def points(frame, **columns):
+        return pd.DataFrame({**columns, "lat": frame["lat"].to_numpy(), "lon": frame["lon"].to_numpy()})
+
+    return {
+        "metro": points(entrances, station=station, name=entrances["name"].to_numpy()),
+        "bus": points(layers["stop"], name=layers["stop"]["name"].to_numpy()),
+        "shops": points(layers["shop"], name=layers["shop"]["name"].to_numpy(), type=layers["shop"]["kind"].to_numpy()),
+        "services": points(
+            layers["service"], name=layers["service"]["name"].to_numpy(), type=layers["service"]["kind"].to_numpy()
+        ),
+        "fitness": points(layers["fitness"], name=layers["fitness"]["name"].to_numpy()),
+    }

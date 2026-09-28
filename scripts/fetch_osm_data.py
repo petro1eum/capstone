@@ -8,8 +8,10 @@ Re-running this script replaces the snapshot with the current state of OpenStree
     python scripts/fetch_osm_data.py                      # every layer
     python scripts/fetch_osm_data.py basemap addresses    # only the layers of the report page
 
-Layers: catering, education (analysis inputs); basemap (rivers and ring roads) and
-addresses (the nearest Russian street address of every grid cell) for the report page.
+Layers: catering, education and demand (the footfall layers of 2026: entrances of metro, MCC
+and MCD stations, stops, shops, consumer services and gyms) for the analysis; basemap (rivers
+and ring roads) and addresses (the nearest Russian street address of every grid cell) for the
+report page.
 """
 
 import io
@@ -27,11 +29,14 @@ from moscow_cafes.data import load_candidates  # noqa: E402
 from moscow_cafes.geo import RED_SQUARE, distance_from, nearest, xy_array  # noqa: E402
 from moscow_cafes.osm import (  # noqa: E402
     CATERING_AMENITIES,
+    DEMAND_TAGS,
     EDUCATION_AMENITIES,
     bbox_around,
     build_address_query,
     build_basemap_query,
+    build_demand_query,
     build_query,
+    classify_demand,
     elements_to_frame,
     lines_to_geojson,
     run_query,
@@ -40,7 +45,7 @@ from moscow_cafes.osm import (  # noqa: E402
 # The candidate grid reaches 6 km from Red Square and each cell looks 300 m around itself.
 RADIUS_M = 7000
 AMENITY_LAYERS = {"catering": CATERING_AMENITIES, "education": EDUCATION_AMENITIES}
-LAYERS = (*AMENITY_LAYERS, "basemap", "addresses")
+LAYERS = (*AMENITY_LAYERS, "demand", "basemap", "addresses")
 
 
 def main(layers):
@@ -73,6 +78,16 @@ def main(layers):
                 "records": len(geojson["features"]),
                 "query": query,
             }
+        elif layer == "demand":
+            query = build_demand_query(bbox)
+            frame = demand_frame(run_query(query, as_json=False))
+            frame.to_csv(out_dir / "osm_demand.csv", index=False)
+            meta[layer] = {
+                "retrieved": date.today().isoformat(),
+                "records": len(frame),
+                "by_layer": frame["layer"].value_counts().to_dict(),
+                "query": query,
+            }
         elif layer == "addresses":
             query = build_address_query(bbox)
             addresses = nearest_addresses(run_query(query, as_json=False))
@@ -86,6 +101,21 @@ def main(layers):
             raise SystemExit(f"Unknown layer {layer!r}; choose from {', '.join(LAYERS)}")
         meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"{layer}: {meta[layer]['records']} records")
+
+
+def demand_frame(text):
+    """The objects of a demand query within RADIUS_M of Red Square, one row each, with their layer."""
+    columns = ["osm_type", "osm_id", "lat", "lon", *DEMAND_TAGS]
+    frame = pd.read_csv(io.StringIO(text), sep="\t", header=0, names=columns, dtype=str)
+    frame[["lat", "lon"]] = frame[["lat", "lon"]].astype(float)
+    frame["layer"] = classify_demand(frame)
+    frame = frame[frame["layer"].notna() & (distance_from(frame, *RED_SQUARE) <= RADIUS_M)]
+    kind = frame["railway"].where(frame["layer"].isin(["rail_entrance", "station"]))
+    for tag in ["highway", "shop", "craft", "leisure", "amenity"]:
+        kind = kind.fillna(frame[tag])
+    frame = frame.assign(kind=kind, osm_id=frame["osm_id"].astype(int))
+    columns = ["osm_type", "osm_id", "layer", "kind", "station", "name", "lat", "lon"]
+    return frame[columns].sort_values(["layer", "osm_type", "osm_id"])
 
 
 def nearest_addresses(text, max_distance_m=250):
