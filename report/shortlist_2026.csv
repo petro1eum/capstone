@@ -1,0 +1,11 @@
+cell_id,rank,address,type,nearest_metro,metro_m,center_km,competitors,expected,score,shops,services,lat,lon
+307,1,Savyolovsky Drive,Central neighbourhoods,Савёловская,376.0,4.6,1,17.4,-1.56,223,34,55.792391,37.595654
+339,2,"Tsentralniy Administrative Okrug, Meschanskiy District",Residential belt,Рижская,171.0,4.6,0,9.4,-1.55,22,2,55.794151,37.636257
+324,3,Festivalny Park,Residential belt,Марьина роща,253.0,4.3,1,10.7,-1.48,19,7,55.792416,37.620372
+60,4,"Kutuzovsky Avenue, 35",Residential belt,Кутузовская,321.0,5.3,1,7.5,-1.36,19,10,55.740622,37.539417
+192,5,"Khoroshyovskoye Highway, вл1",Transit hubs,Беговая,4.0,5.3,4,13.6,-1.35,68,13,55.773369,37.544541
+188,6,"Rogozhsky Val Street, 9/2с2",Central neighbourhoods,Площадь Ильича,439.0,3.8,4,15.7,-1.29,85,16,55.742498,37.678702
+157,7,"Kapranova Lane, 4",Residential belt,Краснопресненская,303.0,3.0,3,11.1,-1.26,6,5,55.757906,37.574609
+94,8,"Sharikopodshipnikovskaya Street, 11с1",Transit hubs,Дубровка,118.0,5.3,4,16.3,-1.26,1316,13,55.718383,37.678742
+128,9,"Krestyanskaya Square, 10с28",Residential belt,Пролетарская,411.0,3.3,2,9.5,-1.17,6,6,55.73215,37.657568
+329,10,"Tsentralniy Administrative Okrug, Krasnoselskiy District",Residential belt,Красносельская,440.0,4.3,3,11.6,-1.13,83,9,55.783833,37.664522

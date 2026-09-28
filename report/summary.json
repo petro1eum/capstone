@@ -1,0 +1,509 @@
+{
+ "osm_date": "2026-09-28",
+ "catering_within_6km": {
+  "кафе": 2747,
+  "ресторан": 1209,
+  "столовая": 547,
+  "бар": 450,
+  "предприятие быстрого обслуживания": 377,
+  "буфет": 201,
+  "кафетерий": 130,
+  "закусочная": 71,
+  "магазин (отдел кулинарии)": 52
+ },
+ "competitors_within_6km": 3956,
+ "competitor_seats": 233174,
+ "chain_share": 0.2211830131445905,
+ "top_chains": {
+  "Шоколадница": 90,
+  "Прайм стар": 52,
+  "Starbucks": 40,
+  "Хлеб насущный": 27,
+  "Кофе Хауз": 25,
+  "KFC": 23,
+  "Чайхона №1": 22,
+  "Хинкальная": 18,
+  "Il Patio": 18,
+  "Му-Му": 15,
+  "Кулинарная лавка братьев Караваевых": 15,
+  "Burger King": 15,
+  "Кофемания": 13,
+  "Якитория": 12,
+  "Макдоналдс": 12
+ },
+ "spearman": {
+  "center_distance": -0.555013464,
+  "metro_distance": -0.5255296302,
+  "fitness": -0.0645858063,
+  "education": 0.1998318868,
+  "bus_stops": 0.3334936861,
+  "metro_exits": 0.4016017594,
+  "parking_spaces": 0.4669120066,
+  "services": 0.7251913813,
+  "shops": 0.7260062355
+ },
+ "typology": {
+  "Transit hubs": {
+   "cells": 45,
+   "competitors": 26.0,
+   "metro_exits": 4.0,
+   "shops": 60.0,
+   "services": 15.0,
+   "metro_distance": 137.6191714935,
+   "center_distance": 3301.0190994507
+  },
+  "Central neighbourhoods": {
+   "cells": 76,
+   "competitors": 15.0,
+   "metro_exits": 0.0,
+   "shops": 21.5,
+   "services": 11.5,
+   "metro_distance": 438.1432270201,
+   "center_distance": 2502.5580828379
+  },
+  "Residential belt": {
+   "cells": 157,
+   "competitors": 4.0,
+   "metro_exits": 0.0,
+   "shops": 12.0,
+   "services": 5.0,
+   "metro_distance": 572.762869279,
+   "center_distance": 4314.845036963
+  },
+  "Parks, rail and industrial land": {
+   "cells": 86,
+   "competitors": 0.0,
+   "metro_exits": 0.0,
+   "shops": 1.0,
+   "services": 0.0,
+   "metro_distance": 772.5881958728,
+   "center_distance": 5081.6591928189
+  }
+ },
+ "silhouette_k4": 0.1717536626600163,
+ "model_d2": {
+  "Poisson GLM, log distances": 0.6170010112,
+  "Poisson GLM, linear distances": 0.6699235295,
+  "Gradient boosting, Poisson loss": 0.6251856298,
+  "Average of the GLM and boosting": 0.6690455921
+ },
+ "random_cv_d2": 0.6636069619146077,
+ "alpha": 1.0,
+ "effects": {
+  "center_distance_km": {
+   "change": "Red Square: 1 km farther",
+   "effect, %": -21.9359264644,
+   "95% low": -28.2330757468,
+   "95% high": -17.2477183278
+  },
+  "fitness": {
+   "change": "Gyms: twice as many",
+   "effect, %": -5.9326404398,
+   "95% low": -26.3605032722,
+   "95% high": 17.4766485239
+  },
+  "metro_distance_km": {
+   "change": "Metro exit: 100 m farther",
+   "effect, %": -4.50405862,
+   "95% low": -6.9304068305,
+   "95% high": -1.9542459706
+  },
+  "education": {
+   "change": "Universities and colleges: twice as many",
+   "effect, %": -3.3541363388,
+   "95% low": -11.8818992543,
+   "95% high": 6.9969291027
+  },
+  "bus_stops": {
+   "change": "Bus and tram stops: twice as many",
+   "effect, %": -0.6715979368,
+   "95% low": -9.2362116026,
+   "95% high": 9.4784589914
+  },
+  "parking_spaces": {
+   "change": "Parking spaces: twice as many",
+   "effect, %": 3.1106713237,
+   "95% low": -1.3200338773,
+   "95% high": 7.7134346248
+  },
+  "metro_exits": {
+   "change": "Metro exits: twice as many",
+   "effect, %": 8.0423958523,
+   "95% low": 0.3033127778,
+   "95% high": 15.9586671426
+  },
+  "services": {
+   "change": "Consumer services: twice as many",
+   "effect, %": 18.3773538999,
+   "95% low": 9.2235083914,
+   "95% high": 29.5089790431
+  },
+  "shops": {
+   "change": "Shops: twice as many",
+   "effect, %": 25.6507120298,
+   "95% low": 21.1156737764,
+   "95% high": 30.4156185508
+  }
+ },
+ "dispersion": 5.451956596540796,
+ "theta": 3.9993284004245826,
+ "eligible_cells": 117,
+ "single_radius_ranks": {
+  "149": {
+   "rank at 250 m": 1.0,
+   "rank at 300 m": 2.0,
+   "rank at 400 m": 2.0
+  },
+  "337": {
+   "rank at 250 m": 7.0,
+   "rank at 300 m": 5.0,
+   "rank at 400 m": 3.0
+  },
+  "146": {
+   "rank at 250 m": 8.0,
+   "rank at 300 m": 1.0,
+   "rank at 400 m": 18.0
+  },
+  "128": {
+   "rank at 250 m": null,
+   "rank at 300 m": 4.0,
+   "rank at 400 m": 22.0
+  },
+  "2": {
+   "rank at 250 m": 4.0,
+   "rank at 300 m": 3.0,
+   "rank at 400 m": null
+  },
+  "339": {
+   "rank at 250 m": 5.0,
+   "rank at 300 m": 8.0,
+   "rank at 400 m": null
+  },
+  "38": {
+   "rank at 250 m": 17.0,
+   "rank at 300 m": 10.0,
+   "rank at 400 m": 6.0
+  },
+  "174": {
+   "rank at 250 m": 19.0,
+   "rank at 300 m": 9.0,
+   "rank at 400 m": 8.0
+  },
+  "129": {
+   "rank at 250 m": 10.0,
+   "rank at 300 m": 12.0,
+   "rank at 400 m": 16.0
+  },
+  "298": {
+   "rank at 250 m": 3.0,
+   "rank at 300 m": 7.0,
+   "rank at 400 m": 29.0
+  }
+ },
+ "kept_with_fast_food": [
+  1,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "look_forward": {
+  "venues_2019": 3659,
+  "venues_2026": 3691,
+  "by_quintile": [
+   {
+    "quintile": "1: most under-served",
+    "cells": 74,
+    "venues_2019": 130,
+    "venues_2026": 220,
+    "change": 1.6923076923
+   },
+   {
+    "quintile": "2",
+    "cells": 73,
+    "venues_2019": 337,
+    "venues_2026": 431,
+    "change": 1.2789317507
+   },
+   {
+    "quintile": "3",
+    "cells": 74,
+    "venues_2019": 635,
+    "venues_2026": 686,
+    "change": 1.0803149606
+   },
+   {
+    "quintile": "4",
+    "cells": 70,
+    "venues_2019": 1046,
+    "venues_2026": 1004,
+    "change": 0.9598470363
+   },
+   {
+    "quintile": "5: most saturated",
+    "cells": 73,
+    "venues_2019": 1511,
+    "venues_2026": 1350,
+    "change": 0.8934480477
+   }
+  ],
+  "slope": 0.14235158660962985,
+  "slope_low": 0.015555959302225916,
+  "slope_high": 0.24705042262825072,
+  "distance_slope": 0.05963634835324205,
+  "distance_slope_low": -0.07598597282984174,
+  "distance_slope_high": 0.1762799343256993,
+  "outer_cells": 268,
+  "outer_change": [
+   1.619047619047619,
+   1.367741935483871,
+   1.1073825503355705,
+   1.089820359281437,
+   0.8300970873786407
+  ],
+  "by_type": {
+   "Transit hubs": {
+    "cells": 45,
+    "venues_2019": 1284,
+    "venues_2026": 1126,
+    "change": 0.8769470405
+   },
+   "Central neighbourhoods": {
+    "cells": 76,
+    "venues_2019": 1430,
+    "venues_2026": 1428,
+    "change": 0.9986013986
+   },
+   "Residential belt": {
+    "cells": 157,
+    "venues_2019": 847,
+    "venues_2026": 936,
+    "change": 1.1050767414
+   },
+   "Parks, rail and industrial land": {
+    "cells": 86,
+    "venues_2019": 98,
+    "venues_2026": 201,
+    "change": 2.0510204082
+   }
+  },
+  "shortlist": [
+   {
+    "cell_id": 149,
+    "rank": 1,
+    "address": "Stroykovskaya Street, 10",
+    "nearest_metro": "Пролетарская",
+    "competitors": 1,
+    "in_2026": 7
+   },
+   {
+    "cell_id": 337,
+    "rank": 2,
+    "address": "4th Maryinoy Roschi Drive",
+    "nearest_metro": "Марьина роща",
+    "competitors": 4,
+    "in_2026": 7
+   },
+   {
+    "cell_id": 146,
+    "rank": 3,
+    "address": "Goncharnaya Embankment",
+    "nearest_metro": "Таганская",
+    "competitors": 2,
+    "in_2026": 7
+   },
+   {
+    "cell_id": 128,
+    "rank": 4,
+    "address": "Krestyanskaya Square, 10с28",
+    "nearest_metro": "Пролетарская",
+    "competitors": 1,
+    "in_2026": 2
+   },
+   {
+    "cell_id": 2,
+    "rank": 5,
+    "address": "Leninsky Avenue, 39с1",
+    "nearest_metro": "Ленинский проспект",
+    "competitors": 1,
+    "in_2026": 5
+   },
+   {
+    "cell_id": 339,
+    "rank": 6,
+    "address": "Tsentralniy Administrative Okrug, Meschanskiy District",
+    "nearest_metro": "Рижская",
+    "competitors": 2,
+    "in_2026": 0
+   },
+   {
+    "cell_id": 38,
+    "rank": 7,
+    "address": "Khavskaya Street",
+    "nearest_metro": "Шаболовская",
+    "competitors": 3,
+    "in_2026": 4
+   },
+   {
+    "cell_id": 174,
+    "rank": 8,
+    "address": "Sergeya Makeyeva Street, 12",
+    "nearest_metro": "Улица 1905 года",
+    "competitors": 5,
+    "in_2026": 7
+   },
+   {
+    "cell_id": 129,
+    "rank": 9,
+    "address": "Krutitsky Val Street, 3с1",
+    "nearest_metro": "Пролетарская",
+    "competitors": 9,
+    "in_2026": 9
+   },
+   {
+    "cell_id": 298,
+    "rank": 10,
+    "address": "Krasnoprudnaya Street, 6",
+    "nearest_metro": "Комсомольская",
+    "competitors": 8,
+    "in_2026": 21
+   }
+  ]
+ },
+ "most_saturated": [
+  {
+   "cell_id": 254,
+   "address": "Miusskaya Square, 5",
+   "nearest_metro": "Белорусская",
+   "type": "Central neighbourhoods",
+   "competitors": 41,
+   "expected": 6.0,
+   "score": 10.6
+  },
+  {
+   "cell_id": 316,
+   "address": "Baumanskaya Street, 5с1",
+   "nearest_metro": "Бауманская",
+   "type": "Central neighbourhoods",
+   "competitors": 38,
+   "expected": 6.2,
+   "score": 8.75
+  },
+  {
+   "cell_id": 78,
+   "address": "Testovskaya Street",
+   "nearest_metro": "Международная",
+   "type": "Residential belt",
+   "competitors": 37,
+   "expected": 7.7,
+   "score": 5.99
+  },
+  {
+   "cell_id": 137,
+   "address": "Krasnopresnenskaya Embankment",
+   "nearest_metro": "Краснопресненская",
+   "type": "Residential belt",
+   "competitors": 23,
+   "expected": 5.8,
+   "score": 4.91
+  },
+  {
+   "cell_id": 96,
+   "address": "1st Krasnogvardeysky Drive",
+   "nearest_metro": "Деловой центр",
+   "type": "Transit hubs",
+   "competitors": 26,
+   "expected": 8.7,
+   "score": 4.13
+  },
+  {
+   "cell_id": 136,
+   "address": "1905 Goda Street",
+   "nearest_metro": "Улица 1905 года",
+   "type": "Central neighbourhoods",
+   "competitors": 32,
+   "expected": 10.0,
+   "score": 4.07
+  }
+ ],
+ "now": {
+  "osm_catering_within_6km": {
+   "cafe": 2459,
+   "restaurant": 1474,
+   "fast_food": 1353,
+   "bar": 607,
+   "pub": 130,
+   "ice_cream": 60,
+   "food_court": 38
+  },
+  "competitors_within_6km": 3933,
+  "d2": 0.583480755322446,
+  "theta": 3.5497718700542333,
+  "eligible_cells": 117,
+  "single_radius_ranks": {
+   "307": {
+    "rank at 250 m": 3.0,
+    "rank at 300 m": 1.0,
+    "rank at 400 m": 2.0
+   },
+   "339": {
+    "rank at 250 m": 1.0,
+    "rank at 300 m": 2.0,
+    "rank at 400 m": null
+   },
+   "324": {
+    "rank at 250 m": 6.0,
+    "rank at 300 m": 3.0,
+    "rank at 400 m": 1.0
+   },
+   "60": {
+    "rank at 250 m": 8.0,
+    "rank at 300 m": 4.0,
+    "rank at 400 m": null
+   },
+   "192": {
+    "rank at 250 m": 5.0,
+    "rank at 300 m": 11.0,
+    "rank at 400 m": 3.0
+   },
+   "188": {
+    "rank at 250 m": 9.0,
+    "rank at 300 m": 7.0,
+    "rank at 400 m": 4.0
+   },
+   "157": {
+    "rank at 250 m": 7.0,
+    "rank at 300 m": 10.0,
+    "rank at 400 m": 7.0
+   },
+   "94": {
+    "rank at 250 m": 2.0,
+    "rank at 300 m": 5.0,
+    "rank at 400 m": 12.0
+   },
+   "128": {
+    "rank at 250 m": null,
+    "rank at 300 m": 6.0,
+    "rank at 400 m": 8.0
+   },
+   "329": {
+    "rank at 250 m": 14.0,
+    "rank at 300 m": 9.0,
+    "rank at 400 m": 9.0
+   }
+  },
+  "kept_with_fast_food": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   9,
+   10
+  ]
+ }
+}
