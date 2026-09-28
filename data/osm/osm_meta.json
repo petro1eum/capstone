@@ -1,0 +1,18 @@
+{
+  "source": "OpenStreetMap contributors, ODbL 1.0",
+  "center": [
+    55.7536532,
+    37.6213676671642
+  ],
+  "radius_m": 7000,
+  "catering": {
+    "timestamp_osm_base": "2026-09-28T20:08:51Z",
+    "records": 6729,
+    "query": "[out:json][timeout:180];nwr[\"amenity\"~\"^(cafe|restaurant|fast_food|bar|pub|biergarten|food_court|ice_cream)$\"](55.69077,37.50963,55.81653,37.73311);out center tags;"
+  },
+  "education": {
+    "timestamp_osm_base": "2026-09-28T20:10:50Z",
+    "records": 283,
+    "query": "[out:json][timeout:180];nwr[\"amenity\"~\"^(university|college)$\"](55.69077,37.50963,55.81653,37.73311);out center tags;"
+  }
+}
