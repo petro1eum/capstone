@@ -75,9 +75,14 @@
   Object.values(DATA.rings).forEach((lines) =>
     lines.forEach((line) => svg("polyline", { class: "ring", points: line.map(point).join(" ") }, context)),
   );
-  const stationDots = DATA.stations.map((station) =>
-    svg("circle", { class: "station", cx: station.x, cy: -station.y, r: 0.05 }, stationLayer),
-  );
+  const stationGroups = {};
+  const stationDots = [];
+  for (const year of ["2019", "2026"]) {
+    stationGroups[year] = svg("g", { class: `stations-${year}` }, stationLayer);
+    DATA.stations[year].forEach((station) => {
+      stationDots.push(svg("circle", { class: "station", cx: station.x, cy: -station.y, r: 0.05 }, stationGroups[year]));
+    });
+  }
   const hexes = cells.map((cell, index) =>
     svg("polygon", { class: "hex", points: cell.hex.map(point).join(" "), "data-index": index }, hexLayer),
   );
@@ -141,23 +146,24 @@
   const COUNT_LABELS = ["0", "1–2", "3–5", "6–10", "11–20", "21–40", "41+"];
   const scoreClass = (score) => `d${SCORE_EDGES.filter((edge) => score > edge).length}`;
   const VERDICTS = [
-    "кафе сильно не хватает",
-    "кафе не хватает",
-    "кафе немного меньше обычного",
-    "кафе столько, сколько обычно",
-    "кафе немного больше обычного",
-    "кафе больше обычного",
-    "кафе намного больше обычного",
+    "заведений намного меньше прогноза",
+    "заведений меньше прогноза",
+    "заведений немного меньше прогноза",
+    "число заведений около прогноза",
+    "заведений немного больше прогноза",
+    "заведений больше прогноза",
+    "заведений намного больше прогноза",
   ];
   const verdict = (score) => VERDICTS[SCORE_EDGES.filter((edge) => score > edge).length];
   const countClass = (count) => `q${COUNT_EDGES.filter((edge) => count >= edge).length}`;
   const LAYERS = {
     score2026: { year: "2026", fill: (cell) => scoreClass(cell.y2026.score) },
     score2019: { year: "2019", fill: (cell) => scoreClass(cell.y2019.score) },
-    type: { year: "2026", fill: (cell) => `t${cell.type}` },
+    type: { year: "2019", fill: (cell) => `t${cell.type}` },
     competitors: { year: "2026", fill: (cell) => countClass(cell.y2026.competitors) },
   };
   let layer = "score2026";
+  let selectedId = DATA.start;
   const legend = document.getElementById("legend");
 
   function ramp(prefix, labels) {
@@ -172,9 +178,9 @@
   function renderLegend() {
     legend.replaceChildren();
     if (layer === "score2026" || layer === "score2019") {
-      html("div", "legend-title", `Кафе здесь по сравнению с похожими местами, ${LAYERS[layer].year}`, legend);
-      legend.appendChild(ramp("d", ["не хватает", "как обычно", "избыток"]));
-      html("p", "legend-note", "Похожие места: участки с таким же числом выходов метро, магазинов и услуг.", legend);
+      html("div", "legend-title", `Отклонение счётчика от прогноза, ${LAYERS[layer].year}`, legend);
+      legend.appendChild(ramp("d", ["ниже", "около нуля", "выше"]));
+      html("p", "legend-note", "Масштабированный остаток модели; это не оценка спроса.", legend);
     } else if (layer === "type") {
       html("div", "legend-title", "Тип района", legend);
       const list = html("ul", "legend-list", null, legend);
@@ -184,7 +190,7 @@
         html("span", null, `${name} (${format(cells.filter((cell) => cell.type === index).length)})`, item);
       });
     } else {
-      html("div", "legend-title", "Кафе и рестораны в 5 минутах ходьбы, 2026", legend);
+      html("div", "legend-title", "Заведения в 300 м по прямой, OSM 2026", legend);
       legend.appendChild(ramp("q", COUNT_LABELS));
     }
     const keys = html("ul", "legend-list keys", null, legend);
@@ -200,7 +206,7 @@
     html("span", null, "Бульварное, Садовое кольца и ТТК", ringKey);
     const stationKey = html("li", null, null, keys);
     html("span", "key-dot", null, stationKey);
-    html("span", null, "станция метро", stationKey);
+    html("span", null, `станция / средняя точка входов, ${year}`, stationKey);
   }
 
   function setLayer(name) {
@@ -212,7 +218,9 @@
       tab.setAttribute("aria-selected", String(active));
       tab.tabIndex = active ? 0 : -1;
     });
+    Object.entries(stationGroups).forEach(([year, group]) => group.toggleAttribute("hidden", year !== LAYERS[name].year));
     renderLegend();
+    renderCard(byId.get(selectedId));
   }
 
   const tabs = Array.from(document.querySelectorAll(".tab"));
@@ -230,7 +238,7 @@
   // ---------- tooltip and cell card ----------
   function yearLines(cell, year) {
     const numbers = cell[`y${year}`];
-    return [`${year}: ${format(numbers.competitors)} кафе рядом, обычно ${format(numbers.expected)}`, verdict(numbers.score)];
+    return [`${year}: ${format(numbers.competitors)} записей, прогноз ${format(numbers.expected, 1)}`, verdict(numbers.score)];
   }
 
   function showCellTip(event, cell) {
@@ -264,8 +272,10 @@
   function renderCard(cell) {
     card.replaceChildren();
     html("h3", null, cell.address, card);
-    const now = cell.y2026;
-    const past = cell.y2019;
+    const year = LAYERS[layer].year;
+    const otherYear = year === "2026" ? "2019" : "2026";
+    const now = cell[`y${year}`];
+    const past = cell[`y${otherYear}`];
     const where = [
       `${now.metro}, ${format(now.metro_m)} м до входа`,
       `${format(cell.center_km, 1)} км от Красной площади`,
@@ -277,22 +287,26 @@
       if (cell.rank2026) html("span", "badge badge-strong", `№ ${cell.rank2026} в списке 2026 года`, badges);
       if (cell.rank2019) html("span", "badge", `№ ${cell.rank2019} в списке 2019 года`, badges);
     }
-    html("p", "verdict", now.eligible ? verdict(now.score) : `${verdict(now.score)}, но участок не подходит для списка: далеко от метро, мало магазинов или мало людей`, card);
+    html("p", "verdict", now.eligible ? verdict(now.score) : `${verdict(now.score)}, участок не прошёл правило отбора по признакам или устойчивости`, card);
     const list = html("dl", null, null, card);
     const row = (term, value) => {
       html("dt", null, term, list);
       html("dd", null, value, list);
     };
-    row("Кафе рядом сейчас", format(now.competitors));
-    row("Обычно для такого места", format(now.expected));
-    row("В 2019 году было", `${format(past.competitors)}, обычно ${format(past.expected)}`);
+    row(year === "2026" ? "Заведений в OSM 2026" : "Заведений в реестре 2019", format(now.competitors));
+    row(`Прогноз ${year}`, format(now.expected, 1));
+    row("Разброс прогноза (10–90%)", `${format(now.expected_p10, 1)}–${format(now.expected_p90, 1)}`);
+    row("Допуск в разбиениях", `${format(100 * now.eligibility_frequency)}%`);
+    row("В десятке разбиений", `${format(100 * now.top10_frequency)}%`);
+    row(otherYear === "2019" ? "Реестр 2019" : "OSM 2026", `${format(past.competitors)}, прогноз ${format(past.expected, 1)}`);
     row("Магазины и услуги рядом", `${format(now.shops)} и ${format(now.services)}`);
-    html("p", "card-note", "Рядом: в 300 м, около пяти минут пешком. Обычно: столько кафе бывает на участках с таким же окружением.", card);
+    html("p", "card-note", "Радиус 300 м по прямой. Прогноз — условное среднее число записей; диапазон показывает чувствительность к разбиению данных.", card);
   }
 
   function select(id, { scroll = false } = {}) {
     const cell = byId.get(id);
     if (!cell) return;
+    selectedId = id;
     selectedOutline.setAttribute("points", cell.hex.map(point).join(" "));
     markers.forEach(({ cell: markerCell, group }) => group.classList.toggle("is-selected", markerCell.id === id));
     document.querySelectorAll("tr[data-cell]").forEach((tr) => tr.classList.toggle("is-selected", Number(tr.dataset.cell) === id));
@@ -304,11 +318,13 @@
     const id = Number(tr.dataset.cell);
     tr.addEventListener("click", (event) => {
       if (event.target.closest("a")) return;
+      setLayer(`score${tr.dataset.year}`);
       select(id, { scroll: true });
     });
     tr.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
+        setLayer(`score${tr.dataset.year}`);
         select(id, { scroll: true });
       }
     });
@@ -348,9 +364,9 @@
     const top = Math.min(maxValue, domain * domain);
     svg("line", { class: "diagonal", x1: sx(0), y1: sy(0), x2: sx(top), y2: sy(top) }, scatter);
     const xTitle = svg("text", { class: "axis-title", x: (margin.left + width - margin.right) / 2, y: height - 8, "text-anchor": "middle" }, scatter);
-    xTitle.textContent = "Обычно для такого места";
+    xTitle.textContent = "Прогноз счётчика";
     const yTitle = svg("text", { class: "axis-title", x: 12, y: margin.top + 4, "text-anchor": "start" }, scatter);
-    yTitle.textContent = "Есть кафе";
+    yTitle.textContent = "Реестр 2019";
     const ordered = [...cells].sort((a, b) => Boolean(a.rank2019) - Boolean(b.rank2019));
     scatterPoints = ordered.map((cell) => {
       const x = sx(cell.y2019.expected);
@@ -382,7 +398,7 @@
     focusRing.setAttribute("cx", best.x);
     focusRing.setAttribute("cy", best.y);
     const numbers = best.cell.y2019;
-    const lines = [`2019: ${format(numbers.competitors)} кафе рядом, обычно ${format(numbers.expected)}`];
+    const lines = [`2019: ${format(numbers.competitors)} записей, прогноз ${format(numbers.expected, 1)}`];
     if (best.cell.rank2019) lines.push(`№ ${best.cell.rank2019} в списке 2019 года`);
     fillTip(scatterTip, best.cell.address, lines);
     placeTip(scatterTip, scatterBox, event.clientX, event.clientY);

@@ -1,346 +1,190 @@
-# Where to open a café in central Moscow?
-
-*Applied Data Science Capstone (IBM / Coursera): the Battle of the Neighbourhoods, Moscow edition.*
-The analysis behind this report is
-[`notebooks/03_cafe_location_analysis.ipynb`](../notebooks/03_cafe_location_analysis.ipynb);
-a Russian version is in [`REPORT.ru.md`](REPORT.ru.md).
-
-![Opportunity map 2026: red cells have fewer cafés and restaurants than their surroundings would support; numbers mark the 2026 shortlist](figures/map_screenshot.jpg)
-
-*Opportunity map for 2026; the [interactive version](cafe_opportunity_map.html), with the 2019
-layers too, opens in a browser once downloaded. Map tiles © OpenStreetMap contributors.*
-
-## 1. Introduction: the business problem
-
-Central Moscow is one of the densest café markets in Europe: within 6 km of Red Square the city
-register listed almost 4,000 cafés and restaurants in 2019. Opening one more café there is mostly a
-bet on the location. A good site sits on a steady flow of people (commuters coming out of the
-metro, shoppers, visitors of hairdressers and repair shops, students) but is not already crowded
-with competitors that absorb that flow.
-
-**Stakeholder.** An entrepreneur or a franchise developer who plans a new café (coffee, pastries,
-light meals) in central Moscow and needs a short list of places worth a field visit and a rent
-search.
-
-**Question.** Which locations within 6 km of Red Square have the footfall generators that usually
-support many cafés, yet host noticeably fewer cafés and restaurants than comparable places?
-
-The project was started in 2019 and finished in 2026, which allows one more question: did the
-places found under-served in 2019 fill up since?
-
-## 2. Data
-
-| Layer | Source | Records | Used as |
-|---|---|---:|---|
-| Candidate locations | Hexagonal grid within 6 km of Red Square, 600 m step | 364 | units of analysis |
-| Catering register | [data.mos.ru](https://data.mos.ru), 2019: type, seats, chain flag | 15,366 | competitors: *кафе* and *ресторан* |
-| Metro entrances and exits | data.mos.ru, 2019 | 1,067 | exits within 300 m, distance to the nearest exit |
-| Surface transport stops | data.mos.ru, 2019 | 11,507 | stops within 300 m |
-| Paid street parking | data.mos.ru, 2019 | 9,254 zones | parking spaces within 300 m |
-| Shopping register | data.mos.ru, 2019 | 60,320 | shops within 300 m |
-| Consumer services | data.mos.ru, 2019 | 14,540 | services within 300 m |
-| Fitness | data.mos.ru, 2019 | 385 facilities | gyms within 300 m |
-| Universities and colleges | [OpenStreetMap](https://www.openstreetmap.org/copyright), 28 September 2026 | 283 | universities within 300 m |
-| Cafés, restaurants, fast food, bars | OpenStreetMap, 28 September 2026 | 6,729 | the check against 2026 and the 2026 shortlist |
-| Entrances of metro, MCC and MCD stations | OpenStreetMap, 28 September 2026 | 427 | 2026: entrances within 300 m, distance to the nearest |
-| Bus and tram stops | OpenStreetMap, 28 September 2026 | 2,261 | 2026: stops within 300 m |
-| Shops | OpenStreetMap, 28 September 2026 | 11,437 | 2026: shops within 300 m |
-| Consumer services | OpenStreetMap, 28 September 2026 | 3,767 | 2026: services within 300 m |
-| Gyms | OpenStreetMap, 28 September 2026 | 212 | 2026: fitness centres within 300 m |
-
-The grid and the Moscow Open Data layers were collected in 2019
-([notebook 01](../notebooks/01_data_collection_moscow_open_data.ipynb)). The catering and shopping
-registers were restored in 2026 from a backup of the project's Dropbox (`data/dropbox_2019/`).
-Following the 2019 definition, the **competitors are the *кафе* and *ресторан* types of the
-catering register**; fast food, bars, canteens and buffets are described but not counted. The 2019
-education register lists mostly schools of the city education department (534 of 620) and no
-federal universities, so universities and colleges come from OpenStreetMap. The cinema register (14 municipal cinemas) is
-too sparse to use. For 2026 the footfall generators come from the same OpenStreetMap snapshot as the
-cafés, with the tags chosen to match the registers of 2019 (the OpenStreetMap layers cover 7 km
-around Red Square); parking keeps the 2019 layer, because OpenStreetMap rarely records the capacity
-of street parking. Details and the data fixes are in [`data/README.md`](../data/README.md).
-
-## 3. Methodology
-
-1. **Projection.** All coordinates are projected to UTM zone 37N (EPSG:32637). The 2019 notebook
-   used zone 33, whose central meridian is 22.6° west of Moscow; it overstated distances by 2.4%.
-2. **Features.** For each candidate cell, the number of objects of every layer within 300 m (about
-   four minutes on foot), the parking capacity within 300 m, and the distances to the nearest metro
-   exit and to Red Square.
-3. **Exploratory analysis.** Catering composition, chains, and Spearman correlations between
-   competitor density and each footfall generator.
-4. **Neighbourhood typology.** k-means on standardised features (log counts, distances in km),
-   k = 4 chosen from the inertia curve and interpretability.
-5. **Demand model.** A Poisson GLM predicts the number of competitors from the footfall generators
-   only: `log(1 + count)` features capped at the 99th percentile, and linear distances. Gradient
-   boosting with a Poisson loss serves as a flexible benchmark. Models are compared with **spatial
-   cross-validation**: cells are grouped into 2 × 2 km blocks and the 38 blocks are dealt at random
-   into 6 folds, so no cell is predicted by a model that saw its neighbours. The GLM's out-of-fold
-   prediction is the expected number of competitors; its effects get 95% intervals from a block
-   bootstrap (300 resamples).
-6. **Opportunity score.** The standardised gap between the actual and the expected number of
-   competitors, with a negative binomial variance (`expected + expected² / θ`) because the counts
-   are overdispersed. The pipeline is run with 250, 300 and 400 m catchments and the three gaps are
-   averaged, so the result does not hinge on one catchment size.
-7. **Shortlist.** Eligible cells have, for at least two of the three catchments, a metro exit within
-   500 m, at least 10 shops and services around them and at least the median expected demand. They
-   are ranked by the opportunity score, most under-served first.
-8. **Check against 2026.** OpenStreetMap shows where cafés and restaurants are in 2026. If the
-   expectation captures demand, the cells under-served in 2019 should have gained venues since. The
-   test controls for regression to the mean with a least-squares fit of the log change on the 2019
-   count and the 2019 expectation (block bootstrap, 1,000 resamples), and for the shocks of
-   2020-2026 with the distance to Red Square and the type of place.
-9. **The 2026 shortlist.** The same pipeline with the cafés and restaurants of 2026 as competitors
-   and the footfall generators of 2026, both from OpenStreetMap.
-
-## 4. Results
-
-### The market in 2019
-
-Within 6 km of Red Square the register lists 5,784 catering venues: 2,747 cafés, 1,209
-restaurants, 547 canteens, 450 bars, 448 quick-service outlets and snack bars, and 383 buffets,
-cafeterias and cookery counters. The 3,956 cafés and restaurants, with 233,000 seats, are the
-competitors. 22% of them carry the register's chain flag; the largest chains sell coffee.
-
-![Largest chains](figures/fig1_top_chains.png)
-
-![Competitors per cell](figures/fig2_competitors_map.png)
-
-### What goes together with cafés
-
-![Spearman correlations](figures/fig3_correlations.png)
-
-Competitor density rises with shops and consumer services (ρ = 0.73 for both), parking spaces
-(0.47) and metro exits (0.40), and falls with the distance to the metro (−0.53) and to Red Square
-(−0.56).
-
-### Four types of places
-
-![Typology map](figures/fig5_typology_map.png)
-
-| Type | Cells | Cafés and restaurants | Metro exits | Shops | Services | Nearest metro, m | From Red Square, km |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Transit hubs | 45 | 26 | 4 | 60 | 15 | 138 | 3.3 |
-| Central neighbourhoods | 76 | 15 | 0 | 22 | 12 | 438 | 2.5 |
-| Residential belt | 157 | 4 | 0 | 12 | 5 | 573 | 4.3 |
-| Parks, rail and industrial land | 86 | 0 | 0 | 1 | 0 | 773 | 5.1 |
-
-*Medians within 300 m of the cells of each type. The silhouette score is low for every k (0.17 for
-k = 4), as usual for gradually changing urban fabric; the selection plots are in the notebook.*
-
-### The demand model
-
-| Model | D², spatial CV |
-|---|---:|
-| Poisson GLM, log distances | 0.62 |
-| **Poisson GLM, linear distances** | **0.67** |
-| Gradient boosting, Poisson loss | 0.63 |
-| Average of the GLM and boosting | 0.67 |
-
-Distances work better linearly (an exponential decay of density, the classic urban density
-gradient) than as logarithms, which explode next to Red Square. Boosting does not beat the GLM and
-averaging the two adds nothing, so the interpretable GLM gives the expected counts. The footfall
-generators explain two thirds of the Poisson deviance of competitor counts; the rest is what the
-data does not see. An ordinary random split scores the GLM almost the same (0.66).
-
-![Model effects](figures/fig6_model_effects.png)
-
-| Change | Expected cafés and restaurants | 95% interval |
-|---|---:|---|
-| 1 km farther from Red Square | −22% | −28% … −17% |
-| 100 m farther from the nearest metro exit | −4.5% | −6.9% … −2.0% |
-| Twice as many shops | +26% | +21% … +30% |
-| Twice as many consumer services | +18% | +9% … +30% |
-| Twice as many metro exits | +8% | +0.3% … +16% |
-| Twice the parking spaces, bus stops, universities or gyms | not distinguishable from zero | |
-
-### The 2019 shortlist
-
-117 of the 364 cells are eligible. The counts are strongly overdispersed (Pearson dispersion 5.5,
-negative binomial θ = 4.0), hence the negative binomial standardisation. Counts and expectations
-are for the 300 m catchment; addresses are the nearest OpenStreetMap address points.
-
-![Actual vs expected](figures/fig7_expected_vs_actual.png)
-
-![Opportunity map 2019](figures/fig8_opportunity_map_2019.png)
-
-| # | Nearest metro | Address of the cell centre | Metro exit, m | From Red Square, km | Cafés and restaurants, 2019 | Expected | Score | In OpenStreetMap 2026 |
-|---:|---|---|---:|---:|---:|---:|---:|---:|
-| 1 | Proletarskaya | [Stroykovskaya Street, 10](https://www.openstreetmap.org/?mlat=55.733882&mlon=37.673428#map=17/55.733882/37.673428) | 366 | 3.9 | 1 | 9.8 | −1.53 | 7 |
-| 2 | Maryina Roshcha | [Sheremetyevskaya Street, 8](https://www.openstreetmap.org/?mlat=55.797583&mlon=37.618591#map=17/55.797583/37.618591) | 114 | 4.9 | 4 | 18.2 | −1.40 | 7 |
-| 3 | Taganskaya | [Goncharnaya Embankment, 3](https://www.openstreetmap.org/?mlat=55.739033&mlon=37.646976#map=17/55.739033/37.646976) | 377 | 2.3 | 2 | 14.9 | −1.27 | 7 |
-| 4 | Proletarskaya | [Krestyanskaya Square, 10](https://www.openstreetmap.org/?mlat=55.73215&mlon=37.657568#map=17/55.73215/37.657568) | 411 | 3.3 | 1 | 7.8 | −1.27 | 2 |
-| 5 | Leninsky Prospekt | [Leninsky Avenue, 39A](https://www.openstreetmap.org/?mlat=55.707955&mlon=37.583639#map=17/55.707955/37.583639) | 138 | 5.6 | 1 | 8.5 | −1.24 | 5 |
-| 6 | Rizhskaya | [Prospekt Mira, 88](https://www.openstreetmap.org/?mlat=55.794151&mlon=37.636257#map=17/55.794151/37.636257) | 171 | 4.6 | 2 | 8.2 | −1.21 | 0 |
-| 7 | Shabolovskaya | [Shukhova Street, 14](https://www.openstreetmap.org/?mlat=55.716606&mlon=37.613556#map=17/55.716606/37.613556) | 417 | 4.2 | 3 | 10.3 | −1.20 | 4 |
-| 8 | Ulitsa 1905 Goda | [Bolshaya Dekabrskaya Street, 11](https://www.openstreetmap.org/?mlat=55.766493&mlon=37.555163#map=17/55.766493/37.555163) | 326 | 4.4 | 5 | 15.8 | −1.18 | 7 |
-| 9 | Proletarskaya | [Krutitsky Val Street, 3](https://www.openstreetmap.org/?mlat=55.730433&mlon=37.666384#map=17/55.730433/37.666384) | 134 | 3.8 | 9 | 24.6 | −1.15 | 9 |
-| 10 | Komsomolskaya | [Komsomolskaya Square, 4](https://www.openstreetmap.org/?mlat=55.775217&mlon=37.659244#map=17/55.775217/37.659244) | 167 | 3.4 | 8 | 26.2 | −1.15 | 21 |
-
-### Seven years later
-
-![Change 2019 to 2026 by quintile of the 2019 score](figures/fig9_look_forward.png)
-
-The two sources count almost the same number of cafés and restaurants around the grid cells (3,659
-in the 2019 register, 3,691 in OpenStreetMap 2026), so the check compares changes across cells.
-The fifth of the cells that were most under-served in 2019 had 69% more venues in 2026; the most
-saturated fifth had 11% fewer.
-
-| 2019 opportunity score | Cells | Venues 2019 | Venues 2026 | Change |
-|---|---:|---:|---:|---:|
-| 1: most under-served | 74 | 130 | 220 | ×1.69 |
-| 2 | 73 | 337 | 431 | ×1.28 |
-| 3 | 74 | 635 | 686 | ×1.08 |
-| 4 | 70 | 1,046 | 1,004 | ×0.96 |
-| 5: most saturated | 73 | 1,511 | 1,350 | ×0.89 |
-
-Part of this is regression to the mean: a count that is unusually low in one source tends to be
-higher in another. At equal 2019 counts, twice the expected count meant about 10% more venues by
-2026 (95% interval +1% to +19%). Eight of the ten cells of the 2019 shortlist gained venues, and
-together they went from 36 to 69.
-
-### The market, or the years 2020-2026?
-
-The seven years between the sources were not ordinary ones. The pandemic and remote work, the war
-and the sanctions, the exit of foreign chains (Starbucks, McDonald's and KFC reopened under new
-names) and the collapse of foreign tourism moved demand between kinds of places on their own. Three
-checks separate them from the model:
-
-- Beyond 3 km from Red Square (268 cells) the pattern is the same: ×1.62 in the most under-served
-  fifth, ×0.83 in the most saturated. It is not only the tourist centre emptying out.
-- With the distance to Red Square in the fit, the effect of the expectation shrinks to +4% (95%
-  interval −5% to +13%) and cannot be told from zero. The model's own share is hard to separate
-  from location.
-- The change follows the type of place: transit hubs lost 12% of their venues (the streets around
-  the Kremlin, the Expocentre, big shopping malls), the residential belt gained 11%, parks and
-  former industrial land doubled from a low base. OpenStreetMap also maps venues inside malls and
-  exhibition halls less completely than the register did, which adds to the losses of the hubs.
-
-| Type of place | Cells | Venues 2019 | Venues 2026 | Change |
-|---|---:|---:|---:|---:|
-| Transit hubs | 45 | 1,284 | 1,126 | ×0.88 |
-| Central neighbourhoods | 76 | 1,430 | 1,428 | ×1.00 |
-| Residential belt | 157 | 847 | 936 | ×1.11 |
-| Parks, rail and industrial land | 86 | 98 | 201 | ×2.05 |
-
-The check agrees with the model in direction but does not prove it, because the shocks of these
-years moved the market the same way.
-
-### The 2026 shortlist
-
-With the competitors and the footfall generators of 2026 the model explains 67% of the deviance, as
-much as the 2019 model did in 2019; with the footfall layers of 2019 standing in for 2026 it was 58%.
-126 cells are eligible. The footfall generators within 6 km of Red Square:
-
-| Layer | 2019 | 2026 |
-|---|---:|---:|
-| Metro entrances (2026: metro, MCC and MCD) | 289 | 349 |
-| Bus and tram stops | 1,654 | 1,772 |
-| Shops | 12,695 | 9,686 |
-| Consumer services | 3,031 | 3,328 |
-| Gyms (2019: municipal sports centres) | 43 | 178 |
-
-The last column of the shortlist gives the count of the 2019 register for comparison.
-
-![Opportunity map 2026](figures/fig10_opportunity_map_2026.png)
-
-| # | Nearest station | Address of the cell centre | Station entrance, m | From Red Square, km | Cafés and restaurants, 2026 | Expected | Score | In the 2019 register |
-|---:|---|---|---:|---:|---:|---:|---:|---:|
-| 1 | Mitkovo | [Rusakovskaya Street, 8](https://www.openstreetmap.org/?mlat=55.782115&mlon=37.67335#map=17/55.782115/37.67335) | 347 | 4.5 | 0 | 7.2 | −1.82 | 2 |
-| 2 | Kutuzovskaya | [Kutuzovsky Avenue, 35](https://www.openstreetmap.org/?mlat=55.740622&mlon=37.539417#map=17/55.740622/37.539417) | 309 | 5.3 | 1 | 9.5 | −1.67 | 2 |
-| 3 | Maryina Roshcha | [Sushchyovsky Val Street, 56](https://www.openstreetmap.org/?mlat=55.792416&mlon=37.620372#map=17/55.792416/37.620372) | 248 | 4.3 | 1 | 7.9 | −1.58 | 3 |
-| 4 | Lefortovo | [Soldatsky Lane, 8](https://www.openstreetmap.org/?mlat=55.766623&mlon=37.703362#map=17/55.766623/37.703362) | 228 | 5.3 | 2 | 10.8 | −1.56 | 2 |
-| 5 | Savyolovskaya | [Sushchyovsky Val Street, 9](https://www.openstreetmap.org/?mlat=55.792391&mlon=37.595654#map=17/55.792391/37.595654) | 381 | 4.6 | 1 | 8.1 | −1.55 | 9 |
-| 6 | Mitkovo | [Shumkina Street, 20](https://www.openstreetmap.org/?mlat=55.787282&mlon=37.671577#map=17/55.787282/37.671577) | 282 | 4.9 | 1 | 7.5 | −1.45 | 3 |
-| 7 | Rimskaya | [Rogozhsky Val Street, 9/2](https://www.openstreetmap.org/?mlat=55.742498&mlon=37.678702#map=17/55.742498/37.678702) | 440 | 3.8 | 4 | 11.9 | −1.33 | 8 |
-| 8 | Studencheskaya | [Kiyevskaya Street, 20](https://www.openstreetmap.org/?mlat=55.738914&mlon=37.548243#map=17/55.738914/37.548243) | 6 | 4.9 | 4 | 10.2 | −1.33 | 5 |
-| 9 | Begovaya | [Khoroshyovskoye Highway, 1](https://www.openstreetmap.org/?mlat=55.773369&mlon=37.544541#map=17/55.773369/37.544541) | 4 | 5.3 | 4 | 10.4 | −1.31 | 8 |
-| 10 | Krasnopresnenskaya | [Druzhinnikovskaya Street, 11A](https://www.openstreetmap.org/?mlat=55.757906&mlon=37.574609#map=17/55.757906/37.574609) | 301 | 3.0 | 3 | 9.6 | −1.26 | 4 |
-
-All cells with their features and both years' scores: [`cell_scores.csv`](cell_scores.csv); the
-shortlists: [`shortlist_2019.csv`](shortlist_2019.csv) and [`shortlist_2026.csv`](shortlist_2026.csv).
-
-**Robustness.** #2 Kutuzovskaya, #3 Maryina Roshcha and #5 Savyolovskaya are eligible with every
-catchment, rank in the top 12 with each of them, stay in the top 10 when fast food counts as
-competition too, were under-served in the 2019 register as well, and are in the top 10 also with
-the footfall layers of 2019. Six of the ten were in the top 10 with the 2019 layers; none of the
-2019 shortlist is on the 2026 one.
-
-## 5. Discussion
-
-**Gaps tend to close, and the model is not the only reason.** The under-served cells of 2019 gained
-venues and the saturated ones lost some, also outside the historic centre. Yet the pandemic, remote
-work, the war and sanctions, the exit of foreign chains and the collapse of foreign tourism moved
-cafés away from transit hubs and towards residential streets on their own, the same direction the
-model points to. What the check does show is that gaps do not stay open for long, so the shortlist
-has to be rebuilt on fresh data and acted on quickly.
-
-**The historic core is taken.** No 2026 candidate lies inside the Garden Ring: the centre has as
-many cafés as its footfall generators suggest, or more. The only such cell on the 2019 list,
-Goncharnaya Embankment by Taganskaya, has gained five venues since. The 2026 candidates are
-3.0-5.3 km from Red Square, around the Third Ring Road, within 440 m of a metro exit.
-
-**New stations, new gaps.** #1 and #6 lie by Mitkovo, a station of the MCD, and #4 by Lefortovo, a
-station of the Big Circle Line opened in 2023; in 2019 the nearest metro exit of #4 was 1.6 km away.
-The model expects cafés there because of the new footfall, and few have opened yet. These gaps are
-the youngest on the list and the least tested: none of the three is eligible with the 400 m
-catchment.
-
-**Markets drop out.** The register counted the 1,316 stalls of the Dubrovka market as shops;
-OpenStreetMap maps 23 shops there. The Rizhskaya cell drops below the filters too, with fewer shops
-and services mapped around it. Both are gaps in the data, not in the market.
-
-**Check the counts before the visit.** OpenStreetMap misses venues, most often inside markets and
-malls. At #5 Savyolovskaya the register listed 9 venues, all in the Savyolovsky market complex
-(Sushchyovsky Val, 5), and OpenStreetMap lists 1. The cell stays a candidate because it was
-under-served in 2019 too, with 9 venues where 25 were expected.
-
-**What the model does not see.** The cells with the largest surplus of competitors in 2019 are the
-Depo food mall on Lesnaya Street near Belorusskaya (41 venues where 6 are expected; the register
-lists its counters as some thirty *Веранда* restaurants), some thirty small cafés at one address on
-Nizhnyaya Krasnoselskaya Street near Baumanskaya, the Moscow City towers, the Hotel Ukraina with the
-Trekhgornaya Manufaktura business quarter, and the World Trade Center. Food halls, offices and
-hotels draw far more cafés than shops and metro exits predict, and the same blind spot can make a
-place look under-served when its demand comes from something the data does not hold.
-
-**Limitations.**
-
-- Each year uses one vintage: the registers of 2019 for 2019 and OpenStreetMap for 2026, apart from
-  the universities (OpenStreetMap in both) and parking (the 2019 layer in both). OpenStreetMap maps
-  shops and services less completely than the registers did and hardly maps market stalls, and its
-  gyms are commercial fitness centres, while the 2019 layer held municipal sports centres.
-- The layers count shops, services and station entrances, not people. The pandemic, remote work,
-  the war and sanctions, the exit of foreign chains and the fall of foreign tourism changed how many
-  people pass them, and that the data does not show.
-- The check against 2026 compares two different sources. Their totals around the grid agree, but
-  OpenStreetMap misses venues in markets and malls and tags some coffee counters as fast food, so a
-  single cell can change for reasons that have nothing to do with the market.
-- Competitors are counted, not weighed: a ten-seat coffee counter counts as much as a 200-seat
-  restaurant, and price level and concept are ignored.
-- There is no data on rents, pedestrian counts, office floor space or incomes; the distance to Red
-  Square stands in for tourists and offices.
-
-**Next steps.** Visit the shortlisted places at peak hours, check vacant premises and asking rents,
-add office and footfall data (business centres, mobile-operator counts), and rebuild the shortlist
-every year or two.
-
-## 6. Conclusion
-
-The project looked for places in central Moscow where a new café would share the local footfall
-with fewer competitors than usual. The Moscow open data of 2019 on catering, transport, retail and
-services were combined on a grid of 364 cells, and a count model learned how many cafés and
-restaurants a place normally has given what surrounds it (67% of the deviance explained under
-spatial cross-validation). Comparing that expectation with reality shows a saturated historic core
-and, mostly 3-6 km from Red Square, places next to metro stations with markedly fewer cafés than
-expected.
-
-Seven years later the places the model found under-served in 2019 had 69% more cafés and
-restaurants, the saturated ones 11% fewer. The direction agrees with the model, but those were years
-of pandemic, war and sanctions that moved cafés from hubs to residential streets on their own, so
-the check supports the method without proving it. Run with the competitors and the footfall
-generators of 2026, the same method explains the market of 2026 as well (67% of the deviance) and
-points to Kutuzovskaya, Maryina Roshcha and Savyolovskaya as the strongest candidates today, with new
-gaps next to the stations opened since 2019.
-
-The analysis narrows the search from the whole centre to about ten places. The final choice needs
-what open data cannot give: a walk around at rush hour, the rent and the concept.
+<!-- Generated by scripts/build_markdown_reports.py; edit the builder, not this file. -->
+# Café counts and candidate areas in central Moscow
+
+This analysis predicts **recorded café and restaurant counts**, using the surroundings of 364 grid cells
+within 6 km of Red Square. A negative residual means fewer records than the model predicts. It does not
+establish unmet consumer demand, available premises or the profitability of a new café. The output is a
+fieldwork shortlist. [Русская версия](REPORT.ru.md) · [Interactive page in Russian](report_ru.html).
+
+## Data and comparability
+
+The sources are a 2019 city register and OpenStreetMap dated **2026-09-28**, containing
+3,956 and 3,933 cafés and restaurants within 6 km.
+Similar totals do not establish comparable local coverage. The two sources have different classifications
+and completeness. Differences are not verified openings, closures or market growth. Neighbourhood count
+sums differ from unique venue totals because nearby catchments can overlap.
+
+The primary target counts cafés and restaurants equally; fast food is a separate sensitivity analysis.
+Education measured in 2026 is excluded from the 2019 model, correlations and typology. The 2026 model
+uses it, but retains 2019 parking capacities for lack of a comparable newer layer. Infrastructure and shops
+are proxies, not observed pedestrian or passenger flows. See [data provenance](../data/README.md).
+
+All distances use UTM 37N and **straight-line circles**. A 300 m radius is not a five-minute walking area;
+rivers, railway tracks, private access and crossings are not routed.
+
+## Model, validation and screening
+
+The primary Poisson GLM has a log link, `log1p(min(x,c))` count features, and linear distances in km.
+The 99th-percentile caps and standardisation are fitted on training rows only. Historical predictors are
+shops, services, metro exits, stops, parking spaces, gyms and distances to metro and Red Square.
+Contemporaneous education is added in the 2026 model.
+
+Outer validation uses six folds of 2000×2000 m blocks, excluding training centres within
+800 m of test centres. This removes shared objects between circles of up to 400 m, not all
+longer-range spatial dependence. Each outer training subset tunes α from [0.1, 0.3, 1.0, 3.0, 10.0] using its
+own inner six-fold spatial validation and the same buffer. Held-out responses do not affect preprocessing
+or penalty selection for their predictions.
+
+We repeat the procedure 50 times, seeds 0–49, and average out-of-fold predictions at each radius.
+At 300 m, **Poisson-deviance D²** of the averaged prediction is **0.664** for 2019 and
+**0.668** for 2026. Individual-split ranges are 0.629–0.674 and
+0.629–0.677. D² is not ordinary R² or a business-success probability.
+For 2026 counts with historical surroundings and no future education, D² = 0.570.
+
+Diagnostic benchmarks use one outer split, seed 0, rather than the averaged predictions above:
+
+| Model | D², seed 0 |
+| --- | --- |
+| Poisson GLM, linear distances | 0.654 |
+| Poisson GLM, log1p distances | 0.643 |
+| Gradient boosting, Poisson loss | 0.568 |
+
+The primary GLM is chosen for interpretability. This table is not a further model-selection process with
+an independently evaluated winner. Each radius uses a descriptive, NB2-scaled residual:
+
+`score_r = (N_r - mu_r) / sqrt(mu_r + mu_r² / theta_r)`
+
+The moment estimate is `theta = sum(mu²) / sum((N-mu)²-mu)` when the denominator is positive;
+otherwise the Poisson limit is used. The final score averages the three radius scores after averaging
+predictions. It is not a calibrated normal z statistic, and the radii are correlated.
+
+A cell passes a repeat if at least two radii have a station entrance within 500 m, at least 10 shops plus
+services, and an expected count at or above the grid median. Final eligibility requires this rule on the
+averaged predictions and in at least 80% of repeats. We select up
+to ten negative scores using **unrounded** values. The 80% cutoff is a declared screening policy, not a
+significance level. Eligibility frequency and top-ten frequency describe different events.
+
+## Conditional feature contrasts
+
+For each count, the baseline is the rounded-up median positive count, explicitly displayed as `x → 2x`.
+The correct cap-aware contrast is
+`100 * (exp(beta * (log1p(min(2*x,c)) - log1p(min(x,c)))) - 1)`, with the unscaled coefficient beta.
+It depends on the starting count and cap; there is no universal effect of doubling a count.
+
+| Contrast | Prediction change | 95% conditional interval |
+| --- | --- | --- |
+| Red Square: +1000 m | -23.05% | -30.00% … -18.03% |
+| Metro exit: +100 m | -4.49% | -7.71% … -1.02% |
+| Gyms: 1 → 2 | -3.65% | -15.50% … +11.28% |
+| Bus and tram stops: 4 → 8 | -0.57% | -8.89% … +8.72% |
+| Parking spaces: 142 → 284 | +3.17% | -2.86% … +9.20% |
+| Metro exits: 2 → 4 | +4.15% | -1.90% … +10.91% |
+| Consumer services: 7 → 14 | +15.32% | +4.02% … +28.43% |
+| Shops: 13 → 26 | +27.73% | +22.05% … +35.63% |
+
+The 300 block-bootstrap replicates refit preprocessing, but condition on the specification, baseline
+contrasts and fixed selected α = 0.3. They do not account for model-selection uncertainty.
+A zero-covering interval does not establish absence of association. These are conditional model contrasts,
+not causal effects of adding shops, services or stations.
+
+## The 2026 fieldwork shortlist
+
+Counts, expectations and prediction ranges refer to 300 m; scores combine three radii. Eligibility and
+top-ten frequencies describe the 50 splits. The 10th–90th percentiles describe split sensitivity,
+**not confidence intervals** or future commercial outcomes.
+
+| Rank | Area / station | Recorded | Prediction | Score | Eligible | Top 10 | 10–90% prediction |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | Кутузовский проспект, 35 / Кутузовская | 1 | 9.13 | -1.625 | 100% | 100% | 8.16–10.02 |
+| 2 | улица Сущёвский Вал, 56 / Марьина Роща | 1 | 7.61 | -1.556 | 100% | 100% | 7.05–8.04 |
+| 3 | Солдатский переулок, 8 / Лефортово | 2 | 10.60 | -1.528 | 98% | 96% | 7.77–12.63 |
+| 4 | улица Сущёвский Вал, 9 с7 / Савёловская | 1 | 7.61 | -1.497 | 100% | 100% | 7.15–8.14 |
+| 5 | Хорошёвское шоссе, 1 / Беговая | 4 | 10.87 | -1.339 | 98% | 86% | 8.12–13.40 |
+| 6 | улица Крутицкий Вал, 3 с1 / Пролетарская | 9 | 27.84 | -1.306 | 100% | 92% | 25.89–29.88 |
+| 7 | улица Рогожский Вал, 9/2 с2 / Римская | 4 | 11.48 | -1.291 | 100% | 92% | 10.23–12.61 |
+| 8 | Киевская улица, 20 / Студенческая | 4 | 9.69 | -1.264 | 96% | 72% | 7.83–11.28 |
+| 9 | Веткина улица, 2А с3 / Марьина Роща | 3 | 11.72 | -1.260 | 100% | 76% | 10.33–13.21 |
+| 10 | Шереметьевская улица, 8 / Марьина Роща | 7 | 16.87 | -1.200 | 100% | 50% | 15.56–19.30 |
+
+A stricter sensitivity badge requires top-ten membership in at least 80% of repeats, rank at most 12 at
+all three radii, and top-ten membership both with fast food and with historical surrounding layers.
+Cells passing all these checks: **#2 Марьина Роща; #4 Савёловская; #5 Беговая; #6 Пролетарская**. These checks reuse data and are not independent
+confirmations of commercial potential; failing one is not proof of an unsuitable site.
+
+Strong negative residuals outside final eligibility remain visible:
+
+| Area / station | Score | Eligible |
+| --- | --- | --- |
+| Русаковская улица, 8 c3 / Митьково | -1.773 | 20% |
+| улица Мельникова, 23 / Пролетарская | -1.683 | 0% |
+| Рабочая улица, 37 / Римская | -1.625 | 0% |
+| проспект Мира, 88 с4 / Рижская | -1.591 | 2% |
+| Новоостаповская улица, 5 с2 / Волгоградский проспект | -1.540 | 0% |
+
+Lefortovo station opened on [27 March 2020](https://www.metrostroy.ru/projects/1059-lefortovo-severo-vostochnyj-uchastok-tpk/), not in 2023. Two snapshots cannot date the
+onset of a residual or show that cafés have not had time to respond to a station opening. The same
+limitation applies to proposed explanations of the Mitkovo results.
+
+![2026 residuals and eligible shortlist](figures/fig10_opportunity_map_2026.png)
+
+## Comparing the 2019 register and 2026 OSM
+
+Quintiles are defined by 2019 residuals, lowest first. The final column compares sums of source records,
+not market growth. Coverage changes, baseline selection and regression to the mean can produce apparent
+convergence, so this comparison does not validate unmet demand or business recommendations.
+
+| 2019 residual quintile | Cells | 2019 register | 2026 OSM | Ratio of sums |
+| --- | --- | --- | --- | --- |
+| 1 | 73 | 102 | 208 | 2.039 |
+| 2 | 73 | 371 | 438 | 1.181 |
+| 3 | 72 | 604 | 697 | 1.154 |
+| 4 | 73 | 1065 | 1000 | 0.939 |
+| 5 | 73 | 1517 | 1348 | 0.889 |
+
+The exploratory regression models `log((N2026+1)/(N2019+1))` using `log(N2019+1)` and `log(mu2019)`.
+At an equal baseline count, doubling the prediction is associated with a change in the conditional
+**geometric mean of `N2026+1`**. Estimate, lower and upper 95% block-bootstrap limits:
+**+10.87%, +1.76%, +19.13%**; adding distance to Red Square gives
+**+4.96%, -4.21%, +13.45%**. This is not an arithmetic mean count-growth effect. Bootstrap
+intervals condition on existing predictions and do not refit the count model or model source errors.
+
+| Type | Cells | 2019 register | 2026 OSM |
+| --- | --- | --- | --- |
+| Transit hubs | 50 | 1474 | 1275 |
+| Central neighbourhoods | 98 | 1510 | 1557 |
+| Residential belt | 141 | 603 | 694 |
+| Parks, rail and industrial land | 75 | 72 | 165 |
+
+The cluster names are descriptive, and baseline café counts enter the clustering. The k=4 silhouette is
+0.184, indicating weak separation. Cluster differences and distance adjustment do
+not separately identify the effects of the pandemic, war, sanctions, tourism or chain exits.
+
+Historical shortlist, reconstructed now using the corrected method:
+
+| Rank | Area / station | Recorded | Prediction | Score | Eligible | Top 10 | 10–90% prediction |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | Стройковская улица, 10 / Пролетарская | 1 | 11.19 | -1.565 | 100% | 100% | 10.31–11.93 |
+| 2 | Шереметьевская улица, 8 / Марьина Роща | 4 | 20.52 | -1.421 | 100% | 100% | 17.52–22.99 |
+| 3 | Ленинский проспект, 39А / Ленинский проспект | 1 | 9.44 | -1.336 | 94% | 94% | 7.95–10.95 |
+| 4 | Гончарная набережная, 3 с1 / Таганская | 2 | 14.08 | -1.255 | 100% | 98% | 13.31–15.08 |
+| 5 | Крестьянская площадь, 10 с1 / Пролетарская | 1 | 7.22 | -1.246 | 86% | 86% | 6.26–7.97 |
+| 6 | улица Крутицкий Вал, 3 с1 / Пролетарская | 9 | 27.50 | -1.218 | 100% | 94% | 24.98–30.35 |
+| 7 | Комсомольский проспект, 33/11 / Фрунзенская | 2 | 10.90 | -1.207 | 100% | 92% | 10.22–11.82 |
+| 8 | проспект Мира, 88 с4 / Рижская | 2 | 8.13 | -1.206 | 100% | 92% | 7.33–9.10 |
+| 9 | Большая Декабрьская улица, вл11 / Улица 1905 года | 5 | 15.95 | -1.185 | 100% | 86% | 14.89–16.83 |
+| 10 | улица Шухова, 14 / Шаболовская | 3 | 9.82 | -1.174 | 100% | 74% | 8.37–11.33 |
+
+This is not a forecast issued in 2019. A consistent longitudinal source and a prespecified evaluation
+would be needed to test real openings, closures and the usefulness of the screening rule.
+
+## Practical conclusion and reproduction
+
+Use the list to check records, walking access, pedestrian flows, premises, rents and the proposed concept
+on site. Positive residuals likewise do not prove oversupply: omitted offices, hotels, food halls, counting
+units and model error may explain them. These data cannot establish payback or profitability.
+
+Run `python scripts/run_analysis.py` to execute notebook 03 and rebuild both reports, README and HTML.
+Committed snapshots allow offline computation. `cv_folds_2019.csv` and `cv_folds_2026.csv` record all 900
+outer fits per year; `screening_stability_*.csv` contains all-cell diagnostics.
+Runtime: python 3.14.6, numpy 2.4.6, pandas 2.3.3, scipy 1.17.1, scikit-learn 1.8.0, pyproj 3.8.0, matplotlib 3.10.7, folium 0.20.0.
+Implementation: [model.py](../src/moscow_cafes/model.py); regression tests: [test_model.py](../tests/test_model.py).

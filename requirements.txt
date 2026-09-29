@@ -1,4 +1,4 @@
-# Analysis (tested with Python 3.11, numpy 2.4, pandas 3.0, scikit-learn 1.9, folium 0.20)
+# Analysis (tested with Python 3.14, numpy 2.4, pandas 2.3, scikit-learn 1.8, folium 0.20)
 numpy>=1.26
 pandas>=2.1
 scipy>=1.11
@@ -10,4 +10,6 @@ requests>=2.31
 
 # Running the notebooks and the tests
 jupyterlab>=4
+nbclient>=0.10
+ipykernel>=6
 pytest>=8
