@@ -4,7 +4,7 @@ import pandas as pd
 
 from .geo import RED_SQUARE, count_within, distance_from, nearest, xy_array
 
-# The catchment drawn around every candidate in notebook 01: about four minutes on foot.
+# The catchment drawn around every candidate in notebook 01: a straight-line radius, not a walking isochrone.
 RADIUS_M = 300
 
 

@@ -42,19 +42,18 @@ TYPES_RU = {
 EFFECTS_RU = {
     "center_distance_km": "На 1 км дальше от Красной площади",
     "metro_distance_km": "На 100 м дальше от выхода метро",
-    "shops": "Вдвое больше магазинов",
-    "services": "Вдвое больше бытовых услуг",
-    "parking_spaces": "Вдвое больше парковочных мест",
-    "metro_exits": "Вдвое больше выходов метро",
-    "education": "Вдвое больше вузов и колледжей",
-    "bus_stops": "Вдвое больше остановок",
-    "fitness": "Вдвое больше спортзалов",
+    "shops": "Магазины",
+    "services": "Бытовые услуги",
+    "parking_spaces": "Парковочные места",
+    "metro_exits": "Выходы метро",
+    "education": "Вузы и колледжи",
+    "bus_stops": "Остановки",
+    "fitness": "Спортзалы",
 }
 MODELS_RU = {
-    "Poisson GLM, log distances": "Пуассоновская регрессия, логарифм расстояний",
+    "Poisson GLM, log1p distances": "Пуассоновская регрессия, log1p расстояний",
     "Poisson GLM, linear distances": "Пуассоновская регрессия, линейные расстояния",
     "Gradient boosting, Poisson loss": "Градиентный бустинг с пуассоновской функцией потерь",
-    "Average of the GLM and boosting": "Среднее регрессии и бустинга",
 }
 # Station names as the metro signs spell them.
 METRO_NAMES = {
@@ -67,15 +66,6 @@ METRO_NAMES = {
 }
 MONTHS_RU = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
              "ноября", "декабря"]
-
-# The hand-written notes of report_page/template.html describe these cells. A rerun that changes them must
-# update the notes too, so the build stops instead of publishing text that no longer fits.
-NOTES = {
-    "robust": [2, 3, 5],  # ranks on the 2026 shortlist
-    "new_station": [1, 4, 6],  # ranks next to Mitkovo (MCD) and Lefortovo (Big Circle Line)
-    "check": {5: (9, 1)},  # rank: (2019 register, OpenStreetMap 2026)
-    "saturated": [254, 316, 78, 137, 96, 136],  # cell ids, most saturated in 2019 first
-}
 
 CENTER_X, CENTER_Y = to_xy(*RED_SQUARE)
 
@@ -108,6 +98,8 @@ def counted(n, one, few, many):
 def listing(items):
     """'a, b и c'."""
     items = list(items)
+    if not items:
+        return "нет"
     return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " и " + items[-1]
 
 
@@ -190,9 +182,9 @@ def basemap():
     return rivers, rings
 
 
-def stations():
+def stations(year):
     """Metro stations as the mean position of their exits."""
-    exits = data.load_metro_exits()
+    exits = data.load_metro_exits() if year == 2019 else data.load_osm_demand()["metro"]
     x, y = to_km(exits["lat"].to_numpy(), exits["lon"].to_numpy())
     grouped = exits.assign(x=x, y=y).groupby("station")[["x", "y"]].mean()
     inside = grouped[np.maximum(grouped["x"].abs(), grouped["y"].abs()) < EXTENT_KM]
@@ -243,6 +235,8 @@ def cell_records(scores):
                 "expected": float(row[f"expected_{year}"]),
                 "score": float(row[f"score_{year}"]),
                 "eligible": bool(row[f"eligible_{year}"]),
+                **{key: float(row[f"{key}_{year}"]) for key in
+                   ("eligibility_frequency", "top10_frequency", "expected_p10", "expected_p90")},
             }
             rank = row[f"rank_{year}"]
             record[f"rank{year}"] = None if pd.isna(rank) else int(rank)
@@ -251,10 +245,7 @@ def cell_records(scores):
 
 
 def shortlist_2026(summary, scores):
-    """The 2026 shortlist with its checks: stable across catchments, competitor definitions and
-    footfall layers, and under-served in the 2019 register as well (`robust`); next to a station
-    opened since 2019 (`new_station`); far fewer venues in OpenStreetMap than in the register
-    (`check`)."""
+    """Attach declared sensitivity checks and source discrepancies, not business recommendations."""
     now = summary["now"]
     kept = set(now["kept_with_fast_food"])
     old_ranks = now["ranks_with_2019_footfall"]
@@ -266,32 +257,17 @@ def shortlist_2026(summary, scores):
         old_rank = old_ranks.get(str(cell_id))
         stable = all(r is not None and r <= 12 for r in ranks) and rank in kept
         stable = stable and old_rank is not None and old_rank <= 10
+        stable = stable and cell["top10_frequency_2026"] >= 0.8
         rows.append(
             {
                 "id": int(cell_id),
                 "rank": rank,
                 "cell": cell,
-                "robust": stable and cell["score_2019"] < 0,
-                "new_station": cell["metro_m_2019"] > METRO_FILTER_M >= cell["metro_m_2026"],
+                "robust": stable,
                 "check": before >= 2 * max(after, 1) and before - after >= 5,
             }
         )
     return rows
-
-
-def check_notes(rows, summary):
-    found = {
-        "robust": [row["rank"] for row in rows if row["robust"]],
-        "new_station": [row["rank"] for row in rows if row["new_station"]],
-        "check": {
-            row["rank"]: (int(row["cell"]["competitors_2019"]), int(row["cell"]["competitors_2026"]))
-            for row in rows
-            if row["check"]
-        },
-        "saturated": [entry["cell_id"] for entry in summary["most_saturated"]],
-    }
-    if found != NOTES:
-        raise SystemExit(f"The results changed: update the notes in report_page/template.html and NOTES.\n{found}")
 
 
 # ---------------------------------------------------------------- page parts
@@ -308,8 +284,8 @@ def station(cell, year):
 
 
 def usual(cell, year):
-    """The expected number of cafés, rounded: nobody counts 17,4 cafés."""
-    return num(cell[f"expected_{year}"])
+    """Expected counts are conditional means and may be fractional."""
+    return num(cell[f"expected_{year}"], 1)
 
 
 def change_pct(ratio):
@@ -319,51 +295,62 @@ def change_pct(ratio):
 
 def shortlist_2026_table(rows):
     header = [
-        ("№", True), ("Где", False), ("Ближайшее метро", False), ("До центра", True), ("Кафе рядом сейчас", True),
-        ("Обычно для такого места", True), ("Было в 2019", True), ("", False),
+        ("№", True), ("Где", False), ("Ближайшее метро", False), ("OSM 2026", True),
+        ("Прогноз", True), ("Прогноз: 10–90%", True), ("Допуск", True), ("В десятке", True), ("", False),
     ]
     caption = (
-        "<strong>Кафе рядом сейчас:</strong> сколько кафе и ресторанов в 300&nbsp;м, около пяти минут пешком. "
-        "<strong>Обычно для такого места:</strong> сколько их бывает на участках с таким же числом метро, "
-        "магазинов и услуг. <strong>Было в 2019:</strong> сколько кафе было здесь семь лет назад."
+        "Счётчики и прогноз для радиуса 300&nbsp;м по прямой. «Допуск» и «В десятке» — частоты в 50 "
+        "разбиениях; 10–90% — перцентили прогнозов между разбиениями, не доверительный интервал."
     )
     body = []
     for row in rows:
         cell = row["cell"]
         chips = []
         if row["robust"]:
-            chips.append('<span class="chip">надёжно</span>')
-        if row["new_station"]:
-            chips.append('<span class="chip new">новая станция</span>')
+            chips.append('<span class="chip">устойчиво в проверках</span>')
         if row["check"]:
-            chips.append('<span class="chip warn">проверить на месте</span>')
+            chips.append('<span class="chip warn">сверить источник</span>')
         body.append(
-            f'<tr data-cell="{row["id"]}" tabindex="0" aria-label="Показать место № {row["rank"]} на карте">'
+            f'<tr data-cell="{row["id"]}" data-year="2026" tabindex="0" '
+            f'aria-label="Показать место № {row["rank"]} на карте">'
             + td(row["rank"], numeric=True)
             + td(escape(cell["address"]) + osm_link(cell), css_class="address")
             + td(station(cell, 2026))
-            + td(f"{num(cell['center_km'], 1)}&nbsp;км", numeric=True)
             + td(int(cell["competitors_2026"]), numeric=True, css_class="key")
             + td(usual(cell, 2026), numeric=True)
-            + td(int(cell["competitors_2019"]), numeric=True)
+            + td(f"{num(cell['expected_p10_2026'], 1)}–{num(cell['expected_p90_2026'], 1)}", numeric=True)
+            + td(pct(cell["eligibility_frequency_2026"]), numeric=True)
+            + td(pct(cell["top10_frequency_2026"]), numeric=True)
             + td(f'<span class="chips">{"".join(chips)}</span>')
             + "</tr>"
         )
     return table(header, body, "shortlist", caption)
 
 
+def excluded_table(scores):
+    excluded = scores[(~scores["eligible_2026"]) & (scores["score_2026"] < 0)]
+    excluded = excluded.sort_values("score_2026", kind="stable").head(5)
+    header = [("Участок", False), ("Метро", False), ("Отклонение", True), ("OSM 2026", True),
+              ("Прогноз", True), ("Допуск", True)]
+    body = [
+        "<tr>" + td(escape(cell["address"])) + td(station(cell, 2026))
+        + td(num(cell["score_2026"], 2), numeric=True)
+        + td(int(cell["competitors_2026"]), numeric=True) + td(usual(cell, 2026), numeric=True)
+        + td(pct(cell["eligibility_frequency_2026"]), numeric=True) + "</tr>"
+        for _, cell in excluded.iterrows()
+    ]
+    return table(header, body)
+
+
 def shortlist_2019_table(scores):
     header = [
-        ("№", True), ("Где", False), ("Ближайшее метро", False), ("Было кафе в 2019", True),
-        ("Обычно для такого места", True), ("Стало в 2026", True), ("Изменение", True),
+        ("№", True), ("Где", False), ("Ближайшее метро", False), ("Реестр 2019", True),
+        ("Прогноз 2019", True), ("OSM 2026", True), ("Разность источников", True),
     ]
     shortlist = scores[scores["rank_2019"].notna()].sort_values("rank_2019")
-    first = shortlist.iloc[0]
     caption = (
-        "В 2019 году модель выбрала эти десять участков: кафе там было заметно меньше, чем обычно бывает "
-        f"в похожих местах. Например, по адресу {escape(first['address'])} было "
-        f"{int(first['competitors_2019'])} кафе там, где обычно {usual(first, 2019)}. Последние столбцы "
-        "показывают, сколько кафе здесь сейчас и на сколько их стало больше или меньше."
+        "Ретроспективный отбор, рассчитанный сейчас по данным 2019 года. Это не прогноз, опубликованный "
+        "в 2019 году. Разность двух источников не равна числу реально открывшихся или закрывшихся заведений."
     )
     body = []
     for cell_id, cell in shortlist.iterrows():
@@ -371,7 +358,8 @@ def shortlist_2019_table(scores):
         before, after = int(cell["competitors_2019"]), int(cell["competitors_2026"])
         change = "0" if after == before else num(after - before, sign=True)
         body.append(
-            f'<tr data-cell="{cell_id}" tabindex="0" aria-label="Показать место № {rank} списка 2019 года на карте">'
+            f'<tr data-cell="{cell_id}" data-year="2019" tabindex="0" '
+            f'aria-label="Показать место № {rank} списка 2019 года на карте">'
             + td(rank, numeric=True)
             + td(escape(cell["address"]), css_class="address")
             + td(station(cell, 2019))
@@ -385,11 +373,10 @@ def shortlist_2019_table(scores):
 
 
 def saturated_table(summary, scores):
-    header = [("Где", False), ("Ближайшее метро", False), ("Было кафе", True), ("Обычно для такого места", True),
-              ("Больше обычного", True)]
+    header = [("Где", False), ("Ближайшее метро", False), ("Реестр 2019", True), ("Прогноз", True),
+              ("Факт / прогноз", True)]
     caption = (
-        "Участки, где кафе в 2019 году было больше всего сверх обычного: сколько было кафе в 300&nbsp;м, "
-        "сколько обычно бывает в похожих местах и во сколько раз больше."
+        "Наибольшие положительные отклонения в данных 2019 года. Они не доказывают избыток предложения."
     )
     body = []
     for entry in summary["most_saturated"]:
@@ -408,10 +395,10 @@ def saturated_table(summary, scores):
 
 
 def quintile_chart(look_forward):
-    labels = ["Сильнее всего не хватало", "Скорее не хватало", "Как обычно", "Скорее с избытком",
-              "Больше всего с избытком"]
+    labels = ["Минимальные отклонения", "Вторая группа", "Третья группа", "Четвёртая группа",
+              "Максимальные отклонения"]
     colors = ["var(--d0)", "var(--d1)", "var(--ring)", "var(--d5)", "var(--d6)"]
-    top = 1.8
+    top = max(1.1, 1.1 * max(row["change"] for row in look_forward["by_quintile"]))
     rows = []
     for label, color, quintile in zip(labels, colors, look_forward["by_quintile"], strict=True):
         counts = f"{num(quintile['venues_2019'])} → {num(quintile['venues_2026'])} кафе"
@@ -422,17 +409,17 @@ def quintile_chart(look_forward):
             f'<span class="bar-value">{change_pct(quintile["change"])}</span></div>'
         )
     return (
-        '<figure class="chart" id="quintiles"><figcaption><strong>Как изменилось число кафе с 2019 по 2026 год'
-        "</strong>Все участки разделены на пять равных групп по тому, насколько в 2019 году кафе не хватало. "
-        "Пунктир отмечает «без изменений».</figcaption>"
+        '<figure class="chart" id="quintiles"><figcaption><strong>Сопоставление сумм счётчиков двух источников'
+        "</strong>Пять групп по отклонению в данных 2019 года: реестр 2019 → OSM 2026. "
+        "Пунктир отмечает равенство счётчиков. Это не оценка роста рынка.</figcaption>"
         f'<div class="bars">{"".join(rows)}</div></figure>'
     )
 
 
 def by_type_table(look_forward):
-    header = [("Тип района", False), ("Участков", True), ("Было кафе в 2019", True), ("Стало в 2026", True),
-              ("Изменение", True)]
-    caption = "Сколько кафе и ресторанов было и стало на всех участках каждого типа вместе."
+    header = [("Тип района", False), ("Участков", True), ("Реестр 2019", True), ("OSM 2026", True),
+              ("Различие счётчиков", True)]
+    caption = "Суммы счётчиков по участкам каждого типа; источники различаются по полноте и классификации."
     body = []
     for i, name in enumerate(TYPES_RU):
         row = look_forward["by_type"][name]
@@ -446,9 +433,17 @@ def by_type_table(look_forward):
     return table(header, body, caption=caption)
 
 
+def effect_label(column, effect):
+    label = EFFECTS_RU[column]
+    if effect["before"] is not None:
+        label += f": {num(effect['before'])} → {num(effect['after'])}"
+    return label
+
+
 def effects_chart(summary):
     rows = sorted(summary["effects"].items(), key=lambda item: item[1]["effect, %"], reverse=True)
-    low, high = -32.0, 34.0
+    low = min(0, min(row["95% low"] for _, row in rows)) - 4
+    high = max(0, max(row["95% high"] for _, row in rows)) + 4
 
     def position(value):
         return 100 * (min(max(value, low), high) - low) / (high - low)
@@ -458,24 +453,27 @@ def effects_chart(summary):
         value, lo, hi = effect["effect, %"], effect["95% low"], effect["95% high"]
         clear = lo > 0 or hi < 0
         kind = ("pos" if value > 0 else "neg") if clear else "flat"
-        interval = f"почти наверняка от {num(lo, 1, sign=True)} до {num(hi, 1, sign=True)}%"
-        title = f"{EFFECTS_RU[column]}: {num(value, 1, sign=True)}%, {interval}"
+        interval = f"условный bootstrap-интервал: {num(lo, 1, sign=True)}…{num(hi, 1, sign=True)}%"
+        label = effect_label(column, effect)
+        title = f"{label}: {num(value, 1, sign=True)}%, {interval}"
         lines.append(
             f'<div class="dot-row" title="{escape(title)}">'
-            f'<span class="dot-label">{EFFECTS_RU[column]}</span>'
+            f'<span class="dot-label">{label}</span>'
             f'<span class="dot-track"><span class="ci {kind}" style="left:{position(lo):.2f}%;'
             f'width:{position(hi) - position(lo):.2f}%"></span>'
             f'<span class="pt {kind}" style="left:{position(value):.2f}%"></span></span>'
             f'<span class="dot-value">{num(value, 0, sign=True)}%</span></div>'
         )
     ticks = "".join(
-        f'<span class="tick" style="left:{position(t):.2f}%">{num(t, sign=t != 0)}%</span>' for t in range(-30, 31, 10)
+        f'<span class="tick" style="left:{position(t):.2f}%">{num(t, sign=t != 0)}%</span>'
+        for t in np.arange(np.ceil(low / 10) * 10, high, 10)
     )
     return (
         '<figure class="chart" id="effects">'
-        "<figcaption><strong>Как меняется обычное число кафе</strong>"
-        "Точка показывает оценку, отрезок диапазон, в котором она почти наверняка лежит. Серым отмечено то, "
-        "что на число кафе заметно не влияет.</figcaption>"
+        "<figcaption><strong>Контрасты прогноза при фиксированных остальных признаках</strong>"
+        "Учтены log1p и обученный порог ограничения счётчика. Отрезок — 95%-й блочный bootstrap-интервал "
+        "при фиксированной регуляризации. Серый означает, что интервал содержит ноль; это не доказательство "
+        "отсутствия связи. Контрасты не устанавливают причинность.</figcaption>"
         f'<div class="dots" style="--zero:{position(0):.2f}%">{"".join(lines)}'
         f'<div class="dot-row axis"><span></span><span class="dot-track">{ticks}</span><span></span></div>'
         "</div></figure>"
@@ -554,76 +552,48 @@ def data_table(osm_date):
 
 
 def fields(summary, scores, rows):
-    """Values of the ${...} placeholders of report_page/template.html."""
+    """Values of the ${...} placeholders, derived from the current run."""
     look = summary["look_forward"]
-    q1, q5 = look["by_quintile"][0]["change"], look["by_quintile"][-1]["change"]
     slope = [2 ** look[key] - 1 for key in ("slope", "slope_low", "slope_high")]
-    distance_slope = [2 ** look[key] - 1 for key in ("distance_slope", "distance_slope_low", "distance_slope_high")]
-    effects = {key: value["effect, %"] for key, value in summary["effects"].items()}
-    d2 = summary["model_d2"]
+    adjusted = [2 ** look[key] - 1 for key in ("distance_slope", "distance_slope_low", "distance_slope_high")]
     catering = summary["catering_within_6km"]
-    fast_food = catering["предприятие быстрого обслуживания"] + catering["закусочная"]
-    other = catering["буфет"] + catering["кафетерий"] + catering["магазин (отдел кулинарии)"]
-    past = scores[scores["rank_2019"].notna()]
-    stayed = past[past["rank_2026"].notna()].sort_values("rank_2019")
-    stayed = [
-        f"№&nbsp;{rank} ({escape(metro)})" for rank, metro in stayed[["rank_2019", "nearest_metro_2019"]].to_numpy()
-    ]
     robust = [row for row in rows if row["robust"]]
-    now = pd.DataFrame([row["cell"] for row in rows])
+    now = scores[scores["rank_2026"].notna()]
     year, month, day = (int(part) for part in summary["osm_date"].split("-"))
     osm_date = f"{day}&nbsp;{MONTHS_RU[month - 1]} {year}&nbsp;года"
+    validation = summary["validation"]
     return {
         "robust_count": num(len(robust)),
-        "robust_word": plural(len(robust), "лучшее место", "лучших места", "лучших мест"),
-        "robust_listing": listing(escape(row["cell"]["nearest_metro_2026"]) for row in robust),
-        "robust_ranks": "№&nbsp;" + listing(str(row["rank"]) for row in robust),
-        "q1_pct": change_pct(q1),
-        "q1_gain": num(100 * (q1 - 1)),
-        "q5_drop": num(100 * (1 - q5)),
-        "outer_q1_pct": change_pct(look["outer_change"][0]),
-        "outer_q5_pct": change_pct(look["outer_change"][-1]),
-        "hubs_drop": num(100 * (1 - look["by_type"]["Transit hubs"]["change"])),
-        "belt_gain": num(100 * (look["by_type"]["Residential belt"]["change"] - 1)),
-        "slope": num(100 * slope[0]),
-        "slope_low": num(100 * slope[1], sign=True),
-        "slope_high": num(100 * slope[2], sign=True),
-        "distance_slope": num(100 * distance_slope[0], sign=True),
-        "distance_low": num(100 * distance_slope[1], sign=True),
-        "distance_high": num(100 * distance_slope[2], sign=True),
+        "robust_listing": listing(f"№ {row['rank']} ({escape(row['cell']['nearest_metro_2026'])})" for row in robust),
+        "repeats": num(validation["repeats"]),
+        "buffer_m": num(validation["buffer_m"]),
+        "minimum_frequency": pct(validation["minimum_eligibility_frequency"]),
+        "slope": num(100 * slope[0], 1, sign=True),
+        "slope_low": num(100 * slope[1], 1, sign=True),
+        "slope_high": num(100 * slope[2], 1, sign=True),
+        "distance_slope": num(100 * adjusted[0], 1, sign=True),
+        "distance_low": num(100 * adjusted[1], 1, sign=True),
+        "distance_high": num(100 * adjusted[2], 1, sign=True),
         "venues_2019": num(look["venues_2019"]),
         "venues_2026": num(look["venues_2026"]),
-        "short2019_before": num(past["competitors_2019"].sum()),
-        "short2019_after": num(past["competitors_2026"].sum()),
-        "gained": num((past["competitors_2026"] > past["competitors_2019"]).sum()),
-        "stayed": f"В список 2026 года попали {listing(stayed)}." if stayed
-        else "В список 2026 года не вошло ни одно из них.",
         "osm_date": osm_date,
-        "distance_range": f"{num(now['center_km'].min(), 1)}–{num(now['center_km'].max(), 1)}",
-        "max_metro": num(now["metro_m_2026"].max()),
-        "theta": num(summary["theta"], 1),
+        "distance_range": (f"{num(now['center_km'].min(), 1)}–{num(now['center_km'].max(), 1)}"
+                           if len(now) else "—"),
+        "max_metro": num(now["metro_m_2026"].max()) if len(now) else "—",
+        "theta": num(summary["theta"], 1) if summary["theta"] is not None else "∞",
         "silhouette": num(summary["silhouette_k4"], 2),
-        "d2_glm": pct(d2["Poisson GLM, linear distances"]),
-        "d2_random": pct(summary["random_cv_d2"]),
-        "d2_2026": pct(summary["now"]["d2"]),
-        "d2_2026_old": pct(summary["now"]["d2_2019_footfall"]),
-        "effect_center": num(-effects["center_distance_km"]),
-        "effect_metro": num(-effects["metro_distance_km"], 1),
-        "effect_shops": num(effects["shops"]),
-        "effect_services": num(effects["services"]),
-        "effect_exits": num(effects["metro_exits"]),
+        "d2_glm": pct(validation["d2"], 1),
+        "d2_2026": pct(summary["now"]["d2"], 1),
+        "d2_2026_old": pct(summary["now"]["d2_2019_footfall"], 1),
         "catering_total": counted(sum(catering.values()), "заведение", "заведения", "заведений"),
         "cafes": f"{num(catering['кафе'])} кафе",
         "restaurants": counted(catering["ресторан"], "ресторан", "ресторана", "ресторанов"),
-        "canteens": counted(catering["столовая"], "столовая", "столовые", "столовых"),
-        "bars": counted(catering["бар"], "бар", "бара", "баров"),
-        "fast_food": counted(fast_food, "точка", "точки", "точек"),
-        "other": num(other),
         "seats": counted(summary["competitor_seats"], "посадочное место", "посадочных места", "посадочных мест"),
         "chain_share": pct(summary["chain_share"]),
         "by_type_table": by_type_table(look),
         "shortlist_2026_table": shortlist_2026_table(rows),
         "shortlist_2019_table": shortlist_2019_table(scores),
+        "excluded_table": excluded_table(scores),
         "saturated_table": saturated_table(summary, scores),
         "quintile_chart": quintile_chart(look),
         "effects_chart": effects_chart(summary),
@@ -638,26 +608,25 @@ FONTS = (
     "https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600"
     "&family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@500;600&display=swap"
 )
-HEAD = f"""<title>Где открыть кафе в центре Москвы</title>
+HEAD = f"""<title>Кафе в центре Москвы: участки для проверки</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
 """
 
 
-def build(fragment):
+def build(fragment=False):
     summary, scores = load()
     rows = shortlist_2026(summary, scores)
-    check_notes(rows, summary)
     rivers, rings = basemap()
     payload = {
         "cells": cell_records(scores),
         "types": list(TYPES_RU.values()),
         "rivers": rivers,
         "rings": rings,
-        "stations": stations(),
+        "stations": {str(year): stations(year) for year in YEARS},
         "extent": EXTENT_KM,
-        "start": rows[0]["id"],
+        "start": rows[0]["id"] if rows else int(scores.index[0]),
     }
     blob = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     page = Template((PAGE / "template.html").read_text(encoding="utf-8")).substitute(fields(summary, scores, rows))

@@ -65,7 +65,7 @@ ways and relations (buildings, campuses) are represented by their centre.
 |---|---|
 | `osm_catering.csv` | `amenity` = cafe, restaurant, fast_food, bar, pub, biergarten, food_court, ice_cream |
 | `osm_education.csv` | `amenity` = university, college |
-| `osm_demand.csv` | The footfall layers of 2026, one row per object with its `layer`: entrances of metro, MCC and MCD stations (`railway` = subway_entrance, train_station_entrance) and the stations that name them; bus and tram stops; shops (`shop` = *, except vacant, kiosk and car_repair); consumer services (hairdressers, beauty salons, tailors, repairs, dry cleaning, pawnshops, photo studios, keys, watches, saunas: the categories of the 2019 register); gyms (`leisure` = fitness_centre). The tags are listed in `src/moscow_cafes/osm.py` |
+| `osm_demand.csv` | Surrounding-object layers of 2026 (not measured pedestrian flows), one row per object with its `layer`: entrances of metro, MCC and MCD stations (`railway` = subway_entrance, train_station_entrance) and the stations that name them; bus and tram stops; shops (`shop` = *, except vacant, kiosk and car_repair); consumer services (hairdressers, beauty salons, tailors, repairs, dry cleaning, pawnshops, photo studios, keys, watches, saunas: the categories of the 2019 register); gyms (`leisure` = fitness_centre). The tags are listed in `src/moscow_cafes/osm.py` |
 | `osm_basemap.geojson` | The Moskva and Yauza rivers and the Boulevard, Garden and Third ring roads, for the report page |
 | `osm_cell_addresses_ru.csv` | The nearest address point (street and house number) to each grid cell centre, within 250 m |
 
@@ -76,3 +76,8 @@ parking, so the analysis keeps the parking layer of 2019 for 2026 as well.
 
 OpenStreetMap data © OpenStreetMap contributors, available under the
 [Open Database License](https://opendatacommons.org/licenses/odbl/).
+
+The education layer is from 2026: it is used only in the 2026 model, not in the 2019
+model or typology. Parking capacities remain a 2019 proxy even in the 2026 model.
+The two catering sources have different coverage and classification; their count differences
+do not identify real openings, closures or market growth. Catchments are straight-line circles.
